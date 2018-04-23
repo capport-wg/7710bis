@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<!DOCTYPE rfc SYSTEM "rfc2629.dtd" [
+<!ENTITY rfc2119 PUBLIC "" ".//reference.RFC.2119.xml">
+]>
+<!-- WK: Set category, IPR, docName -->
+<rfc category="std" docName="draft-ekwk-capport-rfc7710bis-00"
+     ipr="trust200902">
+  <?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
+
+  <?rfc toc="yes" ?>
+
+  <?rfc symrefs="yes" ?>
+
+  <?rfc sortrefs="yes"?>
+
+  <?rfc iprnotified="no" ?>
+
+  <?rfc strict="yes"?>
+
+  <?rfc compact="yes" ?>
+
+  <front>
+    <!--c WK: Set long title. -->
+
+    <title abbrev="DHCP Captive-Portal">Captive-Portal Identification in DHCP
+    / RA</title>
+
+    <author fullname="Warren Kumari" initials="W." surname="Kumari">
+      <organization>Google</organization>
+
+      <address>
+        <postal>
+          <street>1600 Amphitheatre Parkway</street>
+
+          <city>Mountain View, CA</city>
+
+          <code>94043</code>
+
+          <country>US</country>
+        </postal>
+
+        <email>warren@kumari.net</email>
+      </address>
+    </author>
+
+    <author fullname="Erik Kline" initials="E." surname="Kline">
+      <organization abbrev="ICANN">Google Japan</organization>
+
+      <address>
+        <postal>
+          <street>Roppongi 6-10-1, 26th Floor</street>
+
+          <country>Japan</country>
+
+          <code>106-6126</code>
+
+          <city>Minato, Tokyo</city>
+        </postal>
+
+        <phone/>
+
+        <email/>
+      </address>
+    </author>
+
+    <date day="23" month="April" year="2018"/>
+
+    <abstract>
+      <t>In many environments offering short-term or temporary Internet access
+      (such as coffee shops), it is common to start new connections in a
+      captive portal mode. This highly restricts what the customer can do
+      until the customer has authenticated.</t>
+
+      <t>This document describes a DHCP option (and a Router Advertisement
+      (RA) extension) to inform clients that they are behind some sort of
+      captive-portal device, and that they will need to authenticate to get
+      Internet access. It is not a full solution to address all of the issues
+      that clients may have with captive portals; it is designed to be used in
+      larger solutions. The method of authenticating to, and interacting with
+      the captive portal is out of scope of this document.</t>
+
+      <t> [ This document is being collaborated on in Github at:
+      https://github.com/wkumari/draft-ekwk-capport-rfc7710bis. The most
+      recent version of the document, open issues, etc should all be available
+      here. The authors (gratefully) accept pull requests. Text in square
+      brackets will be removed before publication. ]</t>
+    </abstract>
+  </front>
+
+  <middle>
+    <section title="Introduction">
+      <t>In many environments, users need to connect to a captive-portal
+      device and agree to an Acceptable Use Policy (AUP) and / or provide
+      billing information before they can access the Internet. It is
+      anticipated that the IETF will work on a more fully featured protocol at
+      some point, to ease interaction with Captive Portals. Regardless of how
+      that protocol operates, it is expected that this document will provide
+      needed functionality because the client will need to know when it is
+      behind a captive portal and how to contact it.</t>
+
+      <t>In order to present users with the payment or AUP pages, the
+      captive-portal device has to intercept the user's connections and
+      redirect the user to the captive portal, using methods that are very
+      similar to man-in-the-middle (MITM) attacks. As increasing focus is
+      placed on security, and end nodes adopt a more secure stance, these
+      interception techniques will become less effective and/or more
+      intrusive.</t>
+
+      <t>This document describes a DHCP (<xref target="RFC2131"/>) option
+      (Captive-Portal) and an IPv6 Router Advertisement (RA) (<xref
+      target="RFC4861"/>) extension that informs clients that they are behind
+      a captive-portal device and how to contact it.</t>
+
+      <section title="Requirements Ne.g:otation">
+        <t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+        "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+        document are to be interpreted as described in <xref
+        target="RFC2119"/>.</t>
+      </section>
+    </section>
+
+    <section title="The Captive-Portal Option">
+      <t>The Captive Portal DHCP / RA Option informs the client that it is
+      behind a captive portal and provides the URI to access an authentication
+      page. This is primarily intended to improve the user experience by
+      getting them to the captive portal faster; for the foreseeable future,
+      captive portals will still need to implement the interception techniques
+      to serve legacy clients, and clients will need to perform probing to
+      detect captive portals.</t>
+
+      <t>In order to support multiple "classes" of clients (e.g. IPv4 only,
+      IPv6 only with DHCPv6 (<xref target="RFC3315"/>), IPv6 only with RA) the
+      captive portal can provide the URI via multiple methods (IPv4 DHCP, IPv6
+      DHCP, IPv6 RA). The captive portal operator should ensure that the URIs
+      handed out are equivalent to reduce the chance of operational problems.
+      The maximum length of the URI that can be carried in IPv4 DHCP is 255
+      bytes, so URIs longer than 255 bytes should not be used in IPv6 DHCP or
+      IPv6 RA.</t>
+
+      <t>In order to avoid having to perform DNS interception, the URI SHOULD
+      contain an address literal. If the captive portal allows the client to
+      perform DNS requests to resolve the name, it is then acceptable for the
+      URI to contain a DNS name. The URI parameter is not null terminated.</t>
+
+      <section title="IPv4 DHCP Option">
+        <t>The format of the IPv4 Captive-Portal DHCP option is shown
+        below.<figure>
+            <artwork><![CDATA[  Code    Len          Data
+  +------+------+------+------+------+--   --+-----+
+  | code | len  |  URI                  ...        |
+  +------+------+------+------+------+--   --+-----+
+]]></artwork>
+          </figure></t>
+
+        <t><list style="symbols">
+            <t>Code: The Captive-Portal DHCPv4 Option (160) (one octet)</t>
+
+            <t>Len: The length, in octets of the URI.</t>
+
+            <t>URI: The contact URI for the captive portal that the user
+            should connect to (encoded following the rules in <xref
+            target="RFC3986"/>).</t>
+          </list></t>
+      </section>
+
+      <section title="IPv6 DHCP Option">
+        <t>The format of the IPv6 Captive-Portal DHCP option is shown below.
+        <figure>
+            <artwork><![CDATA[   0                   1                   2                   3
+   0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   |          option-code          |          option-len           |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   .                      URI (variable length)                    .
+   |                              ...                              |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+]]></artwork>
+          </figure></t>
+
+        <t><list style="symbols">
+            <t>option-code: The Captive-Portal DHCPv6Option (103) (two
+            octets)</t>
+
+            <t>option-len: The length, in octets of the URI.</t>
+
+            <t>URI: The contact URI for the captive portal that the user
+            should connect to (encoded following the rules in <xref
+            target="RFC3986"/>).</t>
+          </list>See <xref target="RFC7227"/>, Section 5.7 for more examples
+        of DHCP Options with URIs.</t>
+      </section>
+
+      <section title="The Captive-Portal IPv6 RA Option">
+        <t>This section describes the Captive-Portal Router Advertisement
+        option.</t>
+
+        <t><figure>
+            <artwork><![CDATA[ 0                   1                   2                   3
+    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   |     Type      |     Length    |              URI              .
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+                               .
+   .                                                               .
+   .                                                               .
+   .                                                               .
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+            Figure 2: Captive-Portal RA Option Format]]></artwork>
+          </figure></t>
+
+        <t><list style="hanging">
+            <t hangText="Type">37</t>
+
+            <t hangText="Length">8-bit unsigned integer. The length of the
+            option (including the Type and Length fields) in units of 8
+            bytes.</t>
+
+            <t hangText="URI">The contact URI for the captive portal that the
+            user should connect to. For the reasons described above, the
+            implementer might want to use an IP address literal instead of a
+            DNS name. This should be padded with NULL (0x0) to make the total
+            option length (including the Type and Length fields) a multiple of
+            8 bytes.</t>
+          </list></t>
+      </section>
+    </section>
+
+    <section title="IANA Considerations">
+      <t>No action required - thanks IANA.</t>
+    </section>
+
+    <section anchor="security" title="Security Considerations">
+      <t>An attacker with the ability to inject DHCP messages could include
+      this option and so force users to contact an address of his choosing. As
+      an attacker with this capability could simply list himself as the
+      default gateway (and so intercept all the victim's traffic); this does
+      not provide them with significantly more capabilities, but because this
+      document removes the need for interception, the attacker may have an
+      easier time performing the attack. As the operating systems and
+      application that make use of this information know that they are
+      connecting to a captive-portal device (as opposed to intercepted
+      connections) they can render the page in a sandboxed environment and
+      take other precautions, such as clearly labeling the page as untrusted.
+      The means of sandboxing and user interface presenting this information
+      is not covered in this document - by its nature it is implementation
+      specific and best left to the application and user interface
+      designers.</t>
+
+      <t>Devices and systems that automatically connect to an open network
+      could potentially be tracked using the techniques described in this
+      document (forcing the user to continually authenticate, or exposing
+      their browser fingerprint). However, similar tracking can already be
+      performed with the standard captive portal mechanisms, so this technique
+      does not give the attackers more capabilities.</t>
+
+      <t>Captive portals are increasingly hijacking TLS connections to force
+      browsers to talk to the portal. Providing the portal's URI via a DHCP or
+      RA option is a cleaner technique, and reduces user expectations of being
+      hijacked - this may improve security by making users more reluctant to
+      accept TLS hijacking, which can be performed from beyond the network
+      associated with the captive portal.</t>
+
+      <t>By simplifying the interaction with the captive portal systems, and
+      doing away with the need for interception, we think that users will be
+      less likely to disable useful security safeguards like DNSSEC
+      validation, VPNs, etc. In addition, because the system knows that it is
+      behind a captive portal, it can know not to send cookies, credentials,
+      etc. By handing out a URI using which is protected with TLS, the captive
+      portal operator can attempt to reassure the user that the captive portal
+      is not malicious.</t>
+    </section>
+
+    <section title="Acknowledgements">
+      <t>This document is a -bis of RFC7710. Thanks to all of the original
+      authors (Warren Kumari, Olafur Gudmundsson, Paul Ebersman, Steve Sheng),
+      and original contributors.</t>
+
+      <t>Also thanks to the CAPPORT WG for all of the discussion and
+      improvements. </t>
+    </section>
+  </middle>
+
+  <back>
+    <references title="Normative References">
+      <?rfc include='reference.RFC.2119'
+?>
+
+      <?rfc include='reference.RFC.2939'?>
+
+      <?rfc include='reference.RFC.3315'?>
+
+      <?rfc include='reference.RFC.3986'?>
+
+      <?rfc include='reference.RFC.7227'
+?>
+
+      <?rfc include='reference.RFC.2131'
+?>
+
+      <?rfc include='reference.RFC.4861'
+?>
+    </references>
+
+    <section title="Changes / Author Notes.">
+      <t>[RFC Editor: Please remove this section before publication ]</t>
+
+      <t>From initial to -00.</t>
+
+      <t><list style="symbols">
+          <t>Import of RFC7710.</t>
+        </list></t>
+    </section>
+  </back>
+</rfc>
