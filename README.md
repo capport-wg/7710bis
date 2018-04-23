@@ -7,7 +7,7 @@
 Network Working Group                                          W. Kumari
 Internet-Draft                                                    Google
 Intended status: Standards Track                                E. Kline
-Expires: October 25, 2018                                          ICANN
+Expires: October 25, 2018                                   Google Japan
                                                           April 23, 2018
 
 
