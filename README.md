@@ -6,9 +6,9 @@
 
 Network Working Group                                          W. Kumari
 Internet-Draft                                                    Google
-Intended status: Standards Track                                E. Kline
-Expires: October 25, 2018                                   Google Japan
-                                                          April 23, 2018
+Updates: 7710 (if approved)                                     E. Kline
+Intended status: Standards Track                            Google Japan
+Expires: October 25, 2018                                 April 23, 2018
 
 
                Captive-Portal Identification in DHCP / RA
@@ -231,7 +231,7 @@ Internet-Draft             DHCP Captive-Portal                April 2018
    URI  The contact URI for the captive portal that the user should
       connect to.  For the reasons described above, the implementer
       might want to use an IP address literal instead of a DNS name.
-      This should be padded with NULL (0x0) to make the total option
+      This should be padded with NULL (0x00) to make the total option
       length (including the Type and Length fields) a multiple of 8
       bytes.
 

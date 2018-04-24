@@ -4,7 +4,9 @@
 ]>
 <!-- WK: Set category, IPR, docName -->
 <rfc category="std" docName="draft-ekwk-capport-rfc7710bis-00"
-     ipr="trust200902">
+     ipr="trust200902"
+     updates="7710"
+     >
   <?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
 
   <?rfc toc="yes" ?>
@@ -217,7 +219,7 @@
             <t hangText="URI">The contact URI for the captive portal that the
             user should connect to. For the reasons described above, the
             implementer might want to use an IP address literal instead of a
-            DNS name. This should be padded with NULL (0x0) to make the total
+            DNS name. This should be padded with NULL (0x00) to make the total
             option length (including the Type and Length fields) a multiple of
             8 bytes.</t>
           </list></t>
