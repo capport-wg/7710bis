@@ -8,7 +8,7 @@ Network Working Group                                          W. Kumari
 Internet-Draft                                                    Google
 Updates: 7710 (if approved)                                     E. Kline
 Intended status: Standards Track                            Google Japan
-Expires: January 3, 2019                                   July 02, 2018
+Expires: January 16, 2019                                  July 15, 2018
 
 
                Captive-Portal Identification in DHCP / RA
@@ -50,12 +50,12 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on January 3, 2019.
+   This Internet-Draft will expire on January 16, 2019.
 
 
 
 
-Kumari & Kline           Expires January 3, 2019                [Page 1]
+Kumari & Kline          Expires January 16, 2019                [Page 1]
 
 Internet-Draft             DHCP Captive-Portal                 July 2018
 
@@ -111,7 +111,7 @@ Table of Contents
 
 
 
-Kumari & Kline           Expires January 3, 2019                [Page 2]
+Kumari & Kline          Expires January 16, 2019                [Page 2]
 
 Internet-Draft             DHCP Captive-Portal                 July 2018
 
@@ -167,7 +167,7 @@ Internet-Draft             DHCP Captive-Portal                 July 2018
 
 
 
-Kumari & Kline           Expires January 3, 2019                [Page 3]
+Kumari & Kline          Expires January 16, 2019                [Page 3]
 
 Internet-Draft             DHCP Captive-Portal                 July 2018
 
@@ -223,7 +223,7 @@ Internet-Draft             DHCP Captive-Portal                 July 2018
 
 
 
-Kumari & Kline           Expires January 3, 2019                [Page 4]
+Kumari & Kline          Expires January 16, 2019                [Page 4]
 
 Internet-Draft             DHCP Captive-Portal                 July 2018
 
@@ -279,7 +279,7 @@ Internet-Draft             DHCP Captive-Portal                 July 2018
 
 
 
-Kumari & Kline           Expires January 3, 2019                [Page 5]
+Kumari & Kline          Expires January 16, 2019                [Page 5]
 
 Internet-Draft             DHCP Captive-Portal                 July 2018
 
@@ -335,7 +335,7 @@ Internet-Draft             DHCP Captive-Portal                 July 2018
 
 
 
-Kumari & Kline           Expires January 3, 2019                [Page 6]
+Kumari & Kline          Expires January 16, 2019                [Page 6]
 
 Internet-Draft             DHCP Captive-Portal                 July 2018
 
@@ -391,7 +391,7 @@ Internet-Draft             DHCP Captive-Portal                 July 2018
 
 
 
-Kumari & Kline           Expires January 3, 2019                [Page 7]
+Kumari & Kline          Expires January 16, 2019                [Page 7]
 
 Internet-Draft             DHCP Captive-Portal                 July 2018
 
@@ -447,5 +447,5 @@ Authors' Addresses
 
 
 
-Kumari & Kline           Expires January 3, 2019                [Page 8]
+Kumari & Kline          Expires January 16, 2019                [Page 8]
 ```
