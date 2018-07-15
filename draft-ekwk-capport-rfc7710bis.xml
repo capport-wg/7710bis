@@ -50,11 +50,11 @@
 
       <address>
         <postal>
-          <street>Roppongi 6-10-1, 26th Floor</street>
+          <street>Roppongi 6-10-1, 44th Floor</street>
 
           <country>Japan</country>
 
-          <code>106-6126</code>
+          <code>106-6144</code>
 
           <city>Minato, Tokyo</city>
         </postal>
@@ -65,7 +65,7 @@
       </address>
     </author>
 
-    <date day="23" month="April" year="2018"/>
+    <date day="02" month="July" year="2018"/>
 
     <abstract>
       <t>In many environments offering short-term or temporary Internet access
@@ -113,7 +113,7 @@
       target="RFC4861"/>) extension that informs clients that they are behind
       a captive-portal device and how to contact it.</t>
 
-      <section title="Requirements Ne.g:otation">
+      <section title="Requirements Notation">
         <t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
         "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
         document are to be interpreted as described in <xref
@@ -139,18 +139,34 @@
       bytes, so URIs longer than 255 bytes should not be used in IPv6 DHCP or
       IPv6 RA.</t>
 
-      <t>In order to avoid having to perform DNS interception, the URI SHOULD
-      contain an address literal. If the captive portal allows the client to
-      perform DNS requests to resolve the name, it is then acceptable for the
-      URI to contain a DNS name. The URI parameter is not null terminated.</t>
+      <t>In all variants of this option, the URI SHOULD be that of the
+      captive portal API endpoint, conforming to the recommendations for such
+      URIs [cite:API] (i.e. the URI SHOULD contain a DNS name and SHOULD
+      reference a secure transport, e.g. https). A captive portal MAY do
+      content negotiation [citation?] and attempt to redirect clients querying
+      without an explicit indication of support for the captive portal API
+      content type (i.e. without application/capport+json listed explicitly
+      anywhere within an Accepts header [citation]). In so doing, the captive
+      portal SHOULD redirect the client to the value associated with the
+      "user-portal-url" API key.</t>
+
+      <t>The URI SHOULD NOT contain an IP address literal.</t>
+
+      <t>The URI parameter is not null terminated.</t>
+
+      <t>Networks with no captive portals MAY explicitly indicate this condition
+      by using this option with the IANA-assigned URI for this purpose
+      <eref target="iana"/>. Clients observing the URI value
+      "urn:ietf:params:capport-unrestricted" MAY forego time-consuming forms of
+      captive portal detection.</t>
 
       <section title="IPv4 DHCP Option">
         <t>The format of the IPv4 Captive-Portal DHCP option is shown
         below.<figure>
-            <artwork><![CDATA[  Code    Len          Data
-  +------+------+------+------+------+--   --+-----+
-  | code | len  |  URI                  ...        |
-  +------+------+------+------+------+--   --+-----+
+            <artwork><![CDATA[    Code   Len           Data
+   +------+------+------+------+------+--   --+-----+
+   | code | len  |  URI                  ...        |
+   +------+------+------+------+------+--   --+-----+
 ]]></artwork>
           </figure></t>
 
@@ -159,8 +175,8 @@
 
             <t>Len: The length, in octets of the URI.</t>
 
-            <t>URI: The contact URI for the captive portal that the user
-            should connect to (encoded following the rules in <xref
+            <t>URI: The URI for the captive portal API endpoint to which
+            the user should connect (encoded following the rules in <xref
             target="RFC3986"/>).</t>
           </list></t>
       </section>
@@ -185,8 +201,8 @@
 
             <t>option-len: The length, in octets of the URI.</t>
 
-            <t>URI: The contact URI for the captive portal that the user
-            should connect to (encoded following the rules in <xref
+            <t>URI: The URI for the captive portal API endpoint to which
+            the user should connect (encoded following the rules in <xref
             target="RFC3986"/>).</t>
           </list>See <xref target="RFC7227"/>, Section 5.7 for more examples
         of DHCP Options with URIs.</t>
@@ -216,18 +232,32 @@
             option (including the Type and Length fields) in units of 8
             bytes.</t>
 
-            <t hangText="URI">The contact URI for the captive portal that the
-            user should connect to. For the reasons described above, the
-            implementer might want to use an IP address literal instead of a
-            DNS name. This should be padded with NULL (0x00) to make the total
-            option length (including the Type and Length fields) a multiple of
-            8 bytes.</t>
+            <t hangText="URI">The URI for the captive portal API endpoint to
+            which the user should connect. This MUST be padded with
+            NULL (0x00) to make the total option length (including the
+            Type and Length fields) a multiple of 8 bytes.</t>
           </list></t>
       </section>
     </section>
 
-    <section title="IANA Considerations">
-      <t>No action required - thanks IANA.</t>
+    <section anchor="iana" title="IANA Considerations">
+      <t>This document requests one new IETF URN protocol parameter
+      (<xref target="RFC3553"/>) entry.</t>
+
+      <t>Thanks IANA!</t>
+
+      <section anchor="ietf_params_registration" title="IETF params Registration">
+        <t>Registry name: Captive Portal Unrestricted Identifier</t>
+
+        <t>URN: urn:ietf:params:capport-unrestricted</t>
+
+        <t>Specification: RFC TBD (this document)</t>
+
+        <t>Repository: RFC TBD (this document)</t>
+
+        <t>Index value: Only one value is defined (see URN above). No hierarchy
+        is defined and therefore no sub-namespace registrations are possible.</t>
+      </section>
     </section>
 
     <section anchor="security" title="Security Considerations">
@@ -277,29 +307,27 @@
       and original contributors.</t>
 
       <t>Also thanks to the CAPPORT WG for all of the discussion and
-      improvements. </t>
+      improvements.</t>
     </section>
   </middle>
 
   <back>
     <references title="Normative References">
-      <?rfc include='reference.RFC.2119'
-?>
+      <?rfc include='reference.RFC.2119'?>
 
       <?rfc include='reference.RFC.2939'?>
 
       <?rfc include='reference.RFC.3315'?>
 
+      <?rfc include='reference.RFC.3553'?>
+
       <?rfc include='reference.RFC.3986'?>
 
-      <?rfc include='reference.RFC.7227'
-?>
+      <?rfc include='reference.RFC.7227'?>
 
-      <?rfc include='reference.RFC.2131'
-?>
+      <?rfc include='reference.RFC.2131'?>
 
-      <?rfc include='reference.RFC.4861'
-?>
+      <?rfc include='reference.RFC.4861'?>
     </references>
 
     <section title="Changes / Author Notes.">

@@ -110,7 +110,7 @@ tag:
 
 %.txt: %.xml
 	$(xml2rfc) $< -o $@ --text
-	@echo "Making README.md - this does not commit to GitHub (you want 'make commit' for that."
+	@echo "Making README.md - this does not commit to GitHub (you want 'make commit' for that)."
 	@echo '**Important:** Read CONTRIBUTING.md before submitting feedback or contributing' > README.md
 	@echo \`\`\` >> README.md
 	@cat $(draft).txt >> README.md
