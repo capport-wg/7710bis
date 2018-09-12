@@ -61,7 +61,7 @@
 
         <phone/>
 
-        <email/>
+        <email>ek@google.com</email>
       </address>
     </author>
 
@@ -121,7 +121,7 @@
       </section>
     </section>
 
-    <section title="The Captive-Portal Option">
+    <section anchor="option" title="The Captive-Portal Option">
       <t>The Captive Portal DHCP / RA Option informs the client that it is
       behind a captive portal and provides the URI to access an authentication
       page. This is primarily intended to improve the user experience by
@@ -155,12 +155,12 @@
       <t>The URI parameter is not null terminated.</t>
 
       <t>Networks with no captive portals MAY explicitly indicate this condition
-      by using this option with the IANA-assigned URI for this purpose
-      <eref target="iana"/>. Clients observing the URI value
-      "urn:ietf:params:capport-unrestricted" MAY forego time-consuming forms of
-      captive portal detection.</t>
+      by using this option with the IANA-assigned URI for this purpose (see
+      <xref target="ietf_params_capport-unrestricted"/>). Clients observing the
+      URI value "urn:ietf:params:capport-unrestricted" MAY forego time-consuming
+      forms of captive portal detection.</t>
 
-      <section title="IPv4 DHCP Option">
+      <section anchor="dhcpv4opt" title="IPv4 DHCP Option">
         <t>The format of the IPv4 Captive-Portal DHCP option is shown
         below.<figure>
             <artwork><![CDATA[    Code   Len           Data
@@ -181,7 +181,7 @@
           </list></t>
       </section>
 
-      <section title="IPv6 DHCP Option">
+      <section anchor="dhcpv6opt" title="IPv6 DHCP Option">
         <t>The format of the IPv6 Captive-Portal DHCP option is shown below.
         <figure>
             <artwork><![CDATA[   0                   1                   2                   3
@@ -208,7 +208,7 @@
         of DHCP Options with URIs.</t>
       </section>
 
-      <section title="The Captive-Portal IPv6 RA Option">
+      <section anchor="v6ndopt" title="The Captive-Portal IPv6 RA Option">
         <t>This section describes the Captive-Portal Router Advertisement
         option.</t>
 
@@ -240,23 +240,55 @@
       </section>
     </section>
 
+    <section anchor="linkrel" title="The Captive-Portal Link Relation Type">
+      <t>Some captive portal network deployments may be unable to change, or
+      unwilling to risk changing, the network infrastructure necessary to use
+      any of the above options. In such deployments, when clear text HTTP
+      intercept and redirection are used, a Link relation header
+      (<xref target="RFC8288"/>, Section 3.3) MAY be inserted to convey to the
+      HTTP client the associated Captive Portal API URI.
+      </t>
+    </section>
+
     <section anchor="iana" title="IANA Considerations">
-      <t>This document requests one new IETF URN protocol parameter
-      (<xref target="RFC3553"/>) entry.</t>
+      <t>This document requests two new IETF URN protocol parameter
+      (<xref target="RFC3553"/>) entries.</t>
 
       <t>Thanks IANA!</t>
 
-      <section anchor="ietf_params_registration" title="IETF params Registration">
-        <t>Registry name: Captive Portal Unrestricted Identifier</t>
+      <section anchor="ietf_params_registration"
+               title="IETF params Registration">
 
-        <t>URN: urn:ietf:params:capport-unrestricted</t>
+        <section anchor="ietf_params_capport-unrestricted"
+                 title="Registry name: Captive Portal Unrestricted Identifier">
+          <t>Registry name: Captive Portal Unrestricted Identifier</t>
 
-        <t>Specification: RFC TBD (this document)</t>
+          <t>URN: urn:ietf:params:capport-unrestricted</t>
 
-        <t>Repository: RFC TBD (this document)</t>
+          <t>Specification: RFC TBD (this document)</t>
 
-        <t>Index value: Only one value is defined (see URN above). No hierarchy
-        is defined and therefore no sub-namespace registrations are possible.</t>
+          <t>Repository: RFC TBD (this document)</t>
+
+          <t>Index value: Only one value is defined (see URN above). No
+          hierarchy is defined and therefore no sub-namespace registrations are
+          possible.</t>
+        </section>
+
+        <section anchor="ietf_params_capport-api"
+                 title="Registry name: Captive Portal API Link Relation Type">
+          <t>Registry name: Captive Portal API Link Relation Type</t>
+
+          <t>URN: urn:ietf:params:capport-api</t>
+
+          <t>Specification: RFC TBD (this document)</t>
+
+          <t>Repository: RFC TBD (this document)</t>
+
+          <t>Index value: Only one value is defined (see URN above). No
+          hierarchy is defined and therefore no sub-namespace registrations are
+          possible.</t>
+        </section>
+
       </section>
     </section>
 
@@ -313,6 +345,8 @@
 
   <back>
     <references title="Normative References">
+      <?rfc include='reference.RFC.2131'?>
+
       <?rfc include='reference.RFC.2119'?>
 
       <?rfc include='reference.RFC.2939'?>
@@ -323,11 +357,11 @@
 
       <?rfc include='reference.RFC.3986'?>
 
+      <?rfc include='reference.RFC.4861'?>
+
       <?rfc include='reference.RFC.7227'?>
 
-      <?rfc include='reference.RFC.2131'?>
-
-      <?rfc include='reference.RFC.4861'?>
+      <?rfc include='reference.RFC.8288'?>
     </references>
 
     <section title="Changes / Author Notes.">

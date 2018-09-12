@@ -8,7 +8,7 @@ Network Working Group                                          W. Kumari
 Internet-Draft                                                    Google
 Updates: 7710 (if approved)                                     E. Kline
 Intended status: Standards Track                            Google Japan
-Expires: January 16, 2019                                  July 15, 2018
+Expires: January 2, 2019                                       July 2018
 
 
                Captive-Portal Identification in DHCP / RA
@@ -50,12 +50,12 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on January 16, 2019.
+   This Internet-Draft will expire on January 2, 2019.
 
 
 
 
-Kumari & Kline          Expires January 16, 2019                [Page 1]
+Kumari & Kline           Expires January 2, 2019                [Page 1]
 
 Internet-Draft             DHCP Captive-Portal                 July 2018
 
@@ -83,11 +83,14 @@ Table of Contents
      2.1.  IPv4 DHCP Option  . . . . . . . . . . . . . . . . . . . .   4
      2.2.  IPv6 DHCP Option  . . . . . . . . . . . . . . . . . . . .   4
      2.3.  The Captive-Portal IPv6 RA Option . . . . . . . . . . . .   5
-   3.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   5
-     3.1.  IETF params Registration  . . . . . . . . . . . . . . . .   5
-   4.  Security Considerations . . . . . . . . . . . . . . . . . . .   6
-   5.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .   6
-   6.  Normative References  . . . . . . . . . . . . . . . . . . . .   7
+   3.  The Captive-Portal Link Relation  . . . . . . . . . . . . . .   5
+   4.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   5
+     4.1.  IETF params Registration  . . . . . . . . . . . . . . . .   5
+       4.1.1.  Registry name: Captive Portal Unrestricted Identifier   6
+       4.1.2.  Registry name: Captive Portal API Link Relation . . .   6
+   5.  Security Considerations . . . . . . . . . . . . . . . . . . .   6
+   6.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .   7
+   7.  Normative References  . . . . . . . . . . . . . . . . . . . .   7
    Appendix A.  Changes / Author Notes.  . . . . . . . . . . . . . .   8
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .   8
 
@@ -105,17 +108,16 @@ Table of Contents
    In order to present users with the payment or AUP pages, the captive-
    portal device has to intercept the user's connections and redirect
    the user to the captive portal, using methods that are very similar
-   to man-in-the-middle (MITM) attacks.  As increasing focus is placed
-   on security, and end nodes adopt a more secure stance, these
 
 
 
-
-Kumari & Kline          Expires January 16, 2019                [Page 2]
+Kumari & Kline           Expires January 2, 2019                [Page 2]
 
 Internet-Draft             DHCP Captive-Portal                 July 2018
 
 
+   to man-in-the-middle (MITM) attacks.  As increasing focus is placed
+   on security, and end nodes adopt a more secure stance, these
    interception techniques will become less effective and/or more
    intrusive.
 
@@ -162,19 +164,19 @@ Internet-Draft             DHCP Captive-Portal                 July 2018
 
    The URI SHOULD NOT contain an IP address literal.
 
-   The URI parameter is not null terminated.
 
 
 
-
-Kumari & Kline          Expires January 16, 2019                [Page 3]
+Kumari & Kline           Expires January 2, 2019                [Page 3]
 
 Internet-Draft             DHCP Captive-Portal                 July 2018
 
 
+   The URI parameter is not null terminated.
+
    Networks with no captive portals MAY explicitly indicate this
    condition by using this option with the IANA-assigned URI for this
-   purpose <iana>.  Clients observing the URI value
+   purpose (see Section 4.1.1).  Clients observing the URI value
    "urn:ietf:params:capport-unrestricted" MAY forego time-consuming
    forms of captive portal detection.
 
@@ -221,9 +223,7 @@ Internet-Draft             DHCP Captive-Portal                 July 2018
 
 
 
-
-
-Kumari & Kline          Expires January 16, 2019                [Page 4]
+Kumari & Kline           Expires January 2, 2019                [Page 4]
 
 Internet-Draft             DHCP Captive-Portal                 July 2018
 
@@ -254,14 +254,37 @@ Internet-Draft             DHCP Captive-Portal                 July 2018
       total option length (including the Type and Length fields) a
       multiple of 8 bytes.
 
-3.  IANA Considerations
+3.  The Captive-Portal Link Relation
 
-   This document requests one new IETF URN protocol parameter
-   ([RFC3553]) entry.
+   Some captive portal network deployments may be unable to change, or
+   unwilling to risk changing, the network infrastructure necessary to
+   use any of the above options.  In such deployments, when clear text
+   HTTP intercept and redirection are used, a Link relation header
+   ([RFC8288], Section 3.3) MAY be inserted to convey to the HTTP client
+   the associated Captive Portal API URI.
+
+4.  IANA Considerations
+
+   This document requests two new IETF URN protocol parameter
+   ([RFC3553]) entries.
 
    Thanks IANA!
 
-3.1.  IETF params Registration
+4.1.  IETF params Registration
+
+
+
+
+
+
+
+
+Kumari & Kline           Expires January 2, 2019                [Page 5]
+
+Internet-Draft             DHCP Captive-Portal                 July 2018
+
+
+4.1.1.  Registry name: Captive Portal Unrestricted Identifier
 
    Registry name: Captive Portal Unrestricted Identifier
 
@@ -274,17 +297,20 @@ Internet-Draft             DHCP Captive-Portal                 July 2018
    Index value: Only one value is defined (see URN above).  No hierarchy
    is defined and therefore no sub-namespace registrations are possible.
 
+4.1.2.  Registry name: Captive Portal API Link Relation
 
+   Registry name: Captive Portal API Link Relation
 
+   URN: urn:ietf:params:capport-api
 
+   Specification: RFC TBD (this document)
 
+   Repository: RFC TBD (this document)
 
-Kumari & Kline          Expires January 16, 2019                [Page 5]
-
-Internet-Draft             DHCP Captive-Portal                 July 2018
+   Index value: Only one value is defined (see URN above).  No hierarchy
+   is defined and therefore no sub-namespace registrations are possible.
 
-
-4.  Security Considerations
+5.  Security Considerations
 
    An attacker with the ability to inject DHCP messages could include
    this option and so force users to contact an address of his choosing.
@@ -306,6 +332,14 @@ Internet-Draft             DHCP Captive-Portal                 July 2018
    could potentially be tracked using the techniques described in this
    document (forcing the user to continually authenticate, or exposing
    their browser fingerprint).  However, similar tracking can already be
+
+
+
+Kumari & Kline           Expires January 2, 2019                [Page 6]
+
+Internet-Draft             DHCP Captive-Portal                 July 2018
+
+
    performed with the standard captive portal mechanisms, so this
    technique does not give the attackers more capabilities.
 
@@ -325,25 +359,16 @@ Internet-Draft             DHCP Captive-Portal                 July 2018
    TLS, the captive portal operator can attempt to reassure the user
    that the captive portal is not malicious.
 
-5.  Acknowledgements
+6.  Acknowledgements
 
    This document is a -bis of RFC7710.  Thanks to all of the original
    authors (Warren Kumari, Olafur Gudmundsson, Paul Ebersman, Steve
    Sheng), and original contributors.
 
-
-
-
-
-Kumari & Kline          Expires January 16, 2019                [Page 6]
-
-Internet-Draft             DHCP Captive-Portal                 July 2018
-
-
    Also thanks to the CAPPORT WG for all of the discussion and
    improvements.
 
-6.  Normative References
+7.  Normative References
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -363,6 +388,13 @@ Internet-Draft             DHCP Captive-Portal                 July 2018
               C., and M. Carney, "Dynamic Host Configuration Protocol
               for IPv6 (DHCPv6)", RFC 3315, DOI 10.17487/RFC3315, July
               2003, <https://www.rfc-editor.org/info/rfc3315>.
+
+
+
+Kumari & Kline           Expires January 2, 2019                [Page 7]
+
+Internet-Draft             DHCP Captive-Portal                 July 2018
+
 
    [RFC3553]  Mealling, M., Masinter, L., Hardie, T., and G. Klyne, "An
               IETF URN Sub-namespace for Registered Protocol
@@ -384,17 +416,9 @@ Internet-Draft             DHCP Captive-Portal                 July 2018
               BCP 187, RFC 7227, DOI 10.17487/RFC7227, May 2014,
               <https://www.rfc-editor.org/info/rfc7227>.
 
-
-
-
-
-
-
-
-Kumari & Kline          Expires January 16, 2019                [Page 7]
-
-Internet-Draft             DHCP Captive-Portal                 July 2018
-
+   [RFC8288]  Nottingham, M., "Web Linking", RFC 8288,
+              DOI 10.17487/RFC8288, October 2017, <https://www.rfc-
+              editor.org/info/rfc8288>.
 
 Appendix A.  Changes / Author Notes.
 
@@ -415,12 +439,26 @@ Authors' Addresses
    Email: warren@kumari.net
 
 
+
+
+
+
+
+
+
+
+Kumari & Kline           Expires January 2, 2019                [Page 8]
+
+Internet-Draft             DHCP Captive-Portal                 July 2018
+
+
    Erik Kline
    Google Japan
    Roppongi 6-10-1, 44th Floor
    Minato, Tokyo  106-6144
    Japan
 
+   Email: ek@google.com
 
 
 
@@ -447,5 +485,23 @@ Authors' Addresses
 
 
 
-Kumari & Kline          Expires January 16, 2019                [Page 8]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Kumari & Kline           Expires January 2, 2019                [Page 9]
 ```
