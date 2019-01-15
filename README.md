@@ -7,8 +7,8 @@
 Network Working Group                                          W. Kumari
 Internet-Draft                                                    Google
 Updates: 7710 (if approved)                                     E. Kline
-Intended status: Standards Track                            Google Japan
-Expires: January 2, 2019                                       July 2018
+Intended status: Standards Track                                    Loon
+Expires: July 19, 2019                                  January 15, 2019
 
 
                Captive-Portal Identification in DHCP / RA
@@ -50,19 +50,19 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on January 2, 2019.
+   This Internet-Draft will expire on July 19, 2019.
 
 
 
 
-Kumari & Kline           Expires January 2, 2019                [Page 1]
+Kumari & Kline            Expires July 19, 2019                 [Page 1]
 
-Internet-Draft             DHCP Captive-Portal                 July 2018
+Internet-Draft             DHCP Captive-Portal              January 2019
 
 
 Copyright Notice
 
-   Copyright (c) 2018 IETF Trust and the persons identified as the
+   Copyright (c) 2019 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -111,9 +111,9 @@ Table of Contents
 
 
 
-Kumari & Kline           Expires January 2, 2019                [Page 2]
+Kumari & Kline            Expires July 19, 2019                 [Page 2]
 
-Internet-Draft             DHCP Captive-Portal                 July 2018
+Internet-Draft             DHCP Captive-Portal              January 2019
 
 
    to man-in-the-middle (MITM) attacks.  As increasing focus is placed
@@ -167,9 +167,9 @@ Internet-Draft             DHCP Captive-Portal                 July 2018
 
 
 
-Kumari & Kline           Expires January 2, 2019                [Page 3]
+Kumari & Kline            Expires July 19, 2019                 [Page 3]
 
-Internet-Draft             DHCP Captive-Portal                 July 2018
+Internet-Draft             DHCP Captive-Portal              January 2019
 
 
    The URI parameter is not null terminated.
@@ -223,9 +223,9 @@ Internet-Draft             DHCP Captive-Portal                 July 2018
 
 
 
-Kumari & Kline           Expires January 2, 2019                [Page 4]
+Kumari & Kline            Expires July 19, 2019                 [Page 4]
 
-Internet-Draft             DHCP Captive-Portal                 July 2018
+Internet-Draft             DHCP Captive-Portal              January 2019
 
 
 2.3.  The Captive-Portal IPv6 RA Option
@@ -279,9 +279,9 @@ Internet-Draft             DHCP Captive-Portal                 July 2018
 
 
 
-Kumari & Kline           Expires January 2, 2019                [Page 5]
+Kumari & Kline            Expires July 19, 2019                 [Page 5]
 
-Internet-Draft             DHCP Captive-Portal                 July 2018
+Internet-Draft             DHCP Captive-Portal              January 2019
 
 
 4.1.  IETF params Registration
@@ -335,9 +335,9 @@ Internet-Draft             DHCP Captive-Portal                 July 2018
 
 
 
-Kumari & Kline           Expires January 2, 2019                [Page 6]
+Kumari & Kline            Expires July 19, 2019                 [Page 6]
 
-Internet-Draft             DHCP Captive-Portal                 July 2018
+Internet-Draft             DHCP Captive-Portal              January 2019
 
 
    document (forcing the user to continually authenticate, or exposing
@@ -391,9 +391,9 @@ Internet-Draft             DHCP Captive-Portal                 July 2018
 
 
 
-Kumari & Kline           Expires January 2, 2019                [Page 7]
+Kumari & Kline            Expires July 19, 2019                 [Page 7]
 
-Internet-Draft             DHCP Captive-Portal                 July 2018
+Internet-Draft             DHCP Captive-Portal              January 2019
 
 
    [RFC3315]  Droms, R., Ed., Bound, J., Volz, B., Lemon, T., Perkins,
@@ -447,16 +447,16 @@ Authors' Addresses
 
 
 
-Kumari & Kline           Expires January 2, 2019                [Page 8]
+Kumari & Kline            Expires July 19, 2019                 [Page 8]
 
-Internet-Draft             DHCP Captive-Portal                 July 2018
+Internet-Draft             DHCP Captive-Portal              January 2019
 
 
    Erik Kline
-   Google Japan
-   Roppongi 6-10-1, 44th Floor
-   Minato, Tokyo  106-6144
-   Japan
+   Loon
+   1600 Amphitheatre Parkway
+   Mountain View, CA  94043
+   US
 
    Email: ek@google.com
 
@@ -503,5 +503,5 @@ Internet-Draft             DHCP Captive-Portal                 July 2018
 
 
 
-Kumari & Kline           Expires January 2, 2019                [Page 9]
+Kumari & Kline            Expires July 19, 2019                 [Page 9]
 ```

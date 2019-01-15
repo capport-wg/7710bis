@@ -33,11 +33,8 @@
       <address>
         <postal>
           <street>1600 Amphitheatre Parkway</street>
-
           <city>Mountain View, CA</city>
-
           <code>94043</code>
-
           <country>US</country>
         </postal>
 
@@ -46,17 +43,14 @@
     </author>
 
     <author fullname="Erik Kline" initials="E." surname="Kline">
-      <organization>Google Japan</organization>
+      <organization>Loon</organization>
 
       <address>
         <postal>
-          <street>Roppongi 6-10-1, 44th Floor</street>
-
-          <country>Japan</country>
-
-          <code>106-6144</code>
-
-          <city>Minato, Tokyo</city>
+          <street>1600 Amphitheatre Parkway</street>
+          <city>Mountain View, CA</city>
+          <code>94043</code>
+          <country>US</country>
         </postal>
 
         <phone/>
@@ -65,7 +59,7 @@
       </address>
     </author>
 
-    <date month="July" year="2018"/>
+    <date month="January" year="2019"/>
 
     <abstract>
       <t>In many environments offering short-term or temporary Internet access
