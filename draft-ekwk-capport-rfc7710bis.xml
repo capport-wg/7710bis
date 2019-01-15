@@ -3,7 +3,7 @@
 <!ENTITY rfc2119 PUBLIC "" ".//reference.RFC.2119.xml">
 ]>
 <!-- WK: Set category, IPR, docName -->
-<rfc category="std" docName="draft-ekwk-capport-rfc7710bis-00"
+<rfc category="std" docName="draft-ekwk-capport-rfc7710bis-01"
      ipr="trust200902"
      updates="7710"
      >
@@ -245,8 +245,14 @@
       unwilling to risk changing, the network infrastructure necessary to use
       any of the above options. In such deployments, when clear text HTTP
       intercept and redirection are used, a Link relation header
-      (<xref target="RFC8288"/>, Section 3.3) MAY be inserted to convey to the
-      HTTP client the associated Captive Portal API URI.
+      (<xref target="RFC8288"/>, Section 3.3) MAY be inserted to convey to a
+      HTTP client (user agent) the associated Captive Portal API URI.
+      </t>
+      <t>HTTP user agents MUST ignore this link relation in any context other
+      than when explicitly probing to detect the presence of a captive portal.
+      Failure to do so could allow an attacker to inject a Captive Portal API
+      URI other than the correct URI for a given network or for networks where
+      there is no captive portal present at all.
       </t>
     </section>
 

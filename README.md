@@ -12,7 +12,7 @@ Expires: January 2, 2019                                       July 2018
 
 
                Captive-Portal Identification in DHCP / RA
-                    draft-ekwk-capport-rfc7710bis-00
+                    draft-ekwk-capport-rfc7710bis-01
 
 Abstract
 
@@ -83,11 +83,11 @@ Table of Contents
      2.1.  IPv4 DHCP Option  . . . . . . . . . . . . . . . . . . . .   4
      2.2.  IPv6 DHCP Option  . . . . . . . . . . . . . . . . . . . .   4
      2.3.  The Captive-Portal IPv6 RA Option . . . . . . . . . . . .   5
-   3.  The Captive-Portal Link Relation  . . . . . . . . . . . . . .   5
+   3.  The Captive-Portal Link Relation Type . . . . . . . . . . . .   5
    4.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   5
-     4.1.  IETF params Registration  . . . . . . . . . . . . . . . .   5
+     4.1.  IETF params Registration  . . . . . . . . . . . . . . . .   6
        4.1.1.  Registry name: Captive Portal Unrestricted Identifier   6
-       4.1.2.  Registry name: Captive Portal API Link Relation . . .   6
+       4.1.2.  Registry name: Captive Portal API Link Relation Type    6
    5.  Security Considerations . . . . . . . . . . . . . . . . . . .   6
    6.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .   7
    7.  Normative References  . . . . . . . . . . . . . . . . . . . .   7
@@ -254,14 +254,20 @@ Internet-Draft             DHCP Captive-Portal                 July 2018
       total option length (including the Type and Length fields) a
       multiple of 8 bytes.
 
-3.  The Captive-Portal Link Relation
+3.  The Captive-Portal Link Relation Type
 
    Some captive portal network deployments may be unable to change, or
    unwilling to risk changing, the network infrastructure necessary to
    use any of the above options.  In such deployments, when clear text
    HTTP intercept and redirection are used, a Link relation header
-   ([RFC8288], Section 3.3) MAY be inserted to convey to the HTTP client
-   the associated Captive Portal API URI.
+   ([RFC8288], Section 3.3) MAY be inserted to convey to a HTTP client
+   (user agent) the associated Captive Portal API URI.
+
+   HTTP user agents MUST ignore this link relation in any context other
+   than when explicitly probing to detect the presence of a captive
+   portal.  Failure to do so could allow an attacker to inject a Captive
+   Portal API URI other than the correct URI for a given network or for
+   networks where there is no captive portal present at all.
 
 4.  IANA Considerations
 
@@ -270,12 +276,6 @@ Internet-Draft             DHCP Captive-Portal                 July 2018
 
    Thanks IANA!
 
-4.1.  IETF params Registration
-
-
-
-
-
 
 
 
@@ -283,6 +283,8 @@ Kumari & Kline           Expires January 2, 2019                [Page 5]
 
 Internet-Draft             DHCP Captive-Portal                 July 2018
 
+
+4.1.  IETF params Registration
 
 4.1.1.  Registry name: Captive Portal Unrestricted Identifier
 
@@ -297,9 +299,9 @@ Internet-Draft             DHCP Captive-Portal                 July 2018
    Index value: Only one value is defined (see URN above).  No hierarchy
    is defined and therefore no sub-namespace registrations are possible.
 
-4.1.2.  Registry name: Captive Portal API Link Relation
+4.1.2.  Registry name: Captive Portal API Link Relation Type
 
-   Registry name: Captive Portal API Link Relation
+   Registry name: Captive Portal API Link Relation Type
 
    URN: urn:ietf:params:capport-api
 
@@ -330,8 +332,6 @@ Internet-Draft             DHCP Captive-Portal                 July 2018
 
    Devices and systems that automatically connect to an open network
    could potentially be tracked using the techniques described in this
-   document (forcing the user to continually authenticate, or exposing
-   their browser fingerprint).  However, similar tracking can already be
 
 
 
@@ -340,6 +340,8 @@ Kumari & Kline           Expires January 2, 2019                [Page 6]
 Internet-Draft             DHCP Captive-Portal                 July 2018
 
 
+   document (forcing the user to continually authenticate, or exposing
+   their browser fingerprint).  However, similar tracking can already be
    performed with the standard captive portal mechanisms, so this
    technique does not give the attackers more capabilities.
 
@@ -384,10 +386,8 @@ Internet-Draft             DHCP Captive-Portal                 July 2018
               DOI 10.17487/RFC2939, September 2000, <https://www.rfc-
               editor.org/info/rfc2939>.
 
-   [RFC3315]  Droms, R., Ed., Bound, J., Volz, B., Lemon, T., Perkins,
-              C., and M. Carney, "Dynamic Host Configuration Protocol
-              for IPv6 (DHCPv6)", RFC 3315, DOI 10.17487/RFC3315, July
-              2003, <https://www.rfc-editor.org/info/rfc3315>.
+
+
 
 
 
@@ -395,6 +395,11 @@ Kumari & Kline           Expires January 2, 2019                [Page 7]
 
 Internet-Draft             DHCP Captive-Portal                 July 2018
 
+
+   [RFC3315]  Droms, R., Ed., Bound, J., Volz, B., Lemon, T., Perkins,
+              C., and M. Carney, "Dynamic Host Configuration Protocol
+              for IPv6 (DHCPv6)", RFC 3315, DOI 10.17487/RFC3315, July
+              2003, <https://www.rfc-editor.org/info/rfc3315>.
 
    [RFC3553]  Mealling, M., Masinter, L., Hardie, T., and G. Klyne, "An
               IETF URN Sub-namespace for Registered Protocol
@@ -437,11 +442,6 @@ Authors' Addresses
    US
 
    Email: warren@kumari.net
-
-
-
-
-
 
 
 
