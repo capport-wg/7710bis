@@ -3,7 +3,7 @@
 <!ENTITY rfc2119 PUBLIC "" ".//reference.RFC.2119.xml">
 ]>
 <!-- WK: Set category, IPR, docName -->
-<rfc category="std" docName="draft-ekwk-capport-rfc7710bis-01"
+<rfc category="std" docName="draft-ekwk-capport-rfc7710bis-02"
      ipr="trust200902"
      updates="7710"
      >
@@ -59,7 +59,7 @@
       </address>
     </author>
 
-    <date month="January" year="2019"/>
+    <date month="March" year="2019"/>
 
     <abstract>
       <t>In many environments offering short-term or temporary Internet access
@@ -137,10 +137,11 @@
       captive portal API endpoint, conforming to the recommendations for such
       URIs [cite:API] (i.e. the URI SHOULD contain a DNS name and SHOULD
       reference a secure transport, e.g. https). A captive portal MAY do
-      content negotiation [citation?] and attempt to redirect clients querying
-      without an explicit indication of support for the captive portal API
-      content type (i.e. without application/capport+json listed explicitly
-      anywhere within an Accepts header [citation]). In so doing, the captive
+      content negotiation (<xref target="RFC7231"/> section 3.4) and attempt to
+      redirect clients querying without an explicit indication of support for
+      the captive portal API content type (i.e. without application/capport+json
+      listed explicitly anywhere within an Accept header vis.
+      <xref target="RFC7231"/> section 5.3). In so doing, the captive
       portal SHOULD redirect the client to the value associated with the
       "user-portal-url" API key.</t>
 
@@ -250,6 +251,22 @@
       </t>
     </section>
 
+    <section anchor="precedence" title="Precedence of API URIs">
+      <t>A device may learn about Captive Portal API URIs through more than one
+         of (or indeed all of) the above options. It is a network configuration
+         error if the learned URIs are not all identical.</t>
+      <t>However, if the URIs learned are not in fact all identical the captive
+         device MUST prioritize URIs learned from network provisioning or
+         configuration mechanisms before all other URIs. Specifically, URIs
+         learned via any of the options in <xref target="option"/> should take
+         precedence over any URI learned via a mechanism like the one described
+         in <xref target="linkrel"/>.</t>
+      <t>If the URIs learned via more than one option described in
+         <xref target="option"/> are not all identical, this condition should
+         be logged for the device owner or administrator. URI precedence in this
+         situation is not specified by this document.</t>
+    </section>
+
     <section anchor="iana" title="IANA Considerations">
       <t>This document requests two new IETF URN protocol parameter
       (<xref target="RFC3553"/>) entries.</t>
@@ -293,14 +310,15 @@
     </section>
 
     <section anchor="security" title="Security Considerations">
-      <t>An attacker with the ability to inject DHCP messages could include
-      this option and so force users to contact an address of his choosing. As
-      an attacker with this capability could simply list himself as the
-      default gateway (and so intercept all the victim's traffic); this does
-      not provide them with significantly more capabilities, but because this
-      document removes the need for interception, the attacker may have an
-      easier time performing the attack. As the operating systems and
-      application that make use of this information know that they are
+      <t>An attacker with the ability to inject DHCP messages, RAs, or HTTP
+      headers into cleartext HTTP communications could include an option or
+      link relation from this document and so force users to contact an address
+      of his choosing. As an attacker with this capability could simply list
+      himself as the default gateway (and so intercept all the victim's
+      traffic); this does not provide them with significantly more capabilities,
+      but because this document removes the need for interception, the attacker
+      may have an easier time performing the attack. As the operating systems
+      and application that make use of this information know that they are
       connecting to a captive-portal device (as opposed to intercepted
       connections) they can render the page in a sandboxed environment and
       take other precautions, such as clearly labeling the page as untrusted.
@@ -361,6 +379,10 @@
 
       <?rfc include='reference.RFC.7227'?>
 
+      <?rfc include='reference.RFC.7231'?>
+
+      <?rfc include='reference.RFC.7710'?>
+
       <?rfc include='reference.RFC.8288'?>
     </references>
 
@@ -372,6 +394,21 @@
       <t><list style="symbols">
           <t>Import of RFC7710.</t>
         </list></t>
+    </section>
+
+    <section anchor="diff7710" title="Differences from RFC 7710">
+      <t>This document incorporates the following differences from
+         <xref target="RFC7710"/>.</t>
+      <t><list style="symbols">
+        <t>Clarify that IP string literals are NOT RECOMMENDED.</t>
+        <t>Clarify that the option URI SHOULD be that of the captive portal
+           API endpoint.</t>
+        <t>Clarify that captive portals MAY do content negotiation.</t>
+        <t>Added text about Captive Portal API URI precedence in the event
+           of a network configuration error.</t>
+        <t>Added urn:ietf:params:capport-unrestricted URN.</t>
+        <t>Added urn:ietf:params:capport-api URN.</t>
+      </list></t>
     </section>
   </back>
 </rfc>
