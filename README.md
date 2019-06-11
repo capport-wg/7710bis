@@ -137,13 +137,14 @@ Internet-Draft             DHCP Captive-Portal                 June 2019
 
 2.  The Captive-Portal Option
 
-   The Captive Portal DHCP / RA Option informs the client that it is
-   behind a captive portal and provides the URI to access an
-   authentication page.  This is primarily intended to improve the user
-   experience by getting them to the captive portal faster; for the
-   foreseeable future, captive portals will still need to implement the
-   interception techniques to serve legacy clients, and clients will
-   need to perform probing to detect captive portals.
+   The Captive Portal DHCP / RA Option informs the client that it may be
+   behind a captive portal and provides the URI to access an API as
+   defined by [draft-ietf-capport-api].  This is primarily intended to
+   improve the user experience by getting them to the captive portal
+   faster and more reliably.  Note that, for the foreseeable future,
+   captive portals will still need to implement the interception
+   techniques to serve legacy clients, and clients will need to perform
+   probing to detect captive portals.
 
    In order to support multiple "classes" of clients (e.g.  IPv4 only,
    IPv6 only with DHCPv6 ([RFC3315]), IPv6 only with RA) the captive
@@ -154,16 +155,15 @@ Internet-Draft             DHCP Captive-Portal                 June 2019
    DHCP is 255 bytes, so URIs longer than 255 bytes should not be used
    in IPv6 DHCP or IPv6 RA.
 
-   In all variants of this option, the URI SHOULD be that of the captive
+   In all variants of this option, the URI MUST be that of the captive
    portal API endpoint, conforming to the recommendations for such URIs
    [cite:API] (i.e. the URI SHOULD contain a DNS name and SHOULD
-   reference a secure transport, e.g. https).  A captive portal MAY do
-   content negotiation ([RFC7231] section 3.4) and attempt to redirect
-   clients querying without an explicit indication of support for the
-   captive portal API content type (i.e. without application/
-   capport+json listed explicitly anywhere within an Accept header vis.
-   [RFC7231] section 5.3).  In so doing, the captive portal SHOULD
+   reference a secure transport, e.g. https).
 
+   A captive portal MAY do content negotiation ([RFC7231] section 3.4)
+   and attempt to redirect clients querying without an explicit
+   indication of support for the captive portal API content type (i.e.
+   without application/capport+json listed explicitly anywhere within an
 
 
 
@@ -172,12 +172,12 @@ Kumari & Kline          Expires December 13, 2019               [Page 3]
 Internet-Draft             DHCP Captive-Portal                 June 2019
 
 
-   redirect the client to the value associated with the "user-portal-
-   url" API key.
+   Accept header vis.  [RFC7231] section 5.3).  In so doing, the captive
+   portal SHOULD redirect the client to the value associated with the
+   "user-portal-url" API key.
 
-   The URI SHOULD NOT contain an IP address literal.
-
-   The URI parameter is not null terminated.
+   The URI SHOULD NOT contain an IP address literal.  The URI parameter
+   is not null terminated.
 
    Networks with no captive portals MAY explicitly indicate this
    condition by using this option with the IANA-assigned URI for this
@@ -396,6 +396,10 @@ Kumari & Kline          Expires December 13, 2019               [Page 7]
 Internet-Draft             DHCP Captive-Portal                 June 2019
 
 
+   Operating systems should conduct all interactions with the API in a
+   sand-boxed environment and with a configuration that minimizes
+   tracking risks.
+
 7.  Acknowledgements
 
    This document is a -bis of RFC7710.  Thanks to all of the original
@@ -440,10 +444,6 @@ Internet-Draft             DHCP Captive-Portal                 June 2019
               S. Krishnan, "Guidelines for Creating New DHCPv6 Options",
               BCP 187, RFC 7227, DOI 10.17487/RFC7227, May 2014,
               <https://www.rfc-editor.org/info/rfc7227>.
-
-
-
-
 
 
 

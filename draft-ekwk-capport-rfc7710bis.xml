@@ -120,13 +120,14 @@
     </section>
 
     <section anchor="option" title="The Captive-Portal Option">
-      <t>The Captive Portal DHCP / RA Option informs the client that it is
-      behind a captive portal and provides the URI to access an authentication
-      page. This is primarily intended to improve the user experience by
-      getting them to the captive portal faster; for the foreseeable future,
-      captive portals will still need to implement the interception techniques
-      to serve legacy clients, and clients will need to perform probing to
-      detect captive portals.</t>
+      <t>The Captive Portal DHCP / RA Option informs the client that it may be
+      behind a captive portal and provides the URI to access an API as defined
+      by [draft-ietf-capport-api]. This is primarily intended to improve the
+      user experience by getting them to the captive portal faster and more
+      reliably. Note that, for the foreseeable future, captive portals will
+      still need to implement the interception techniques to serve legacy
+      clients, and clients will need to perform probing to detect captive
+      portals.</t>
 
       <t>In order to support multiple "classes" of clients (e.g. IPv4 only,
       IPv6 only with DHCPv6 (<xref target="RFC3315"/>), IPv6 only with RA) the
@@ -137,21 +138,21 @@
       bytes, so URIs longer than 255 bytes should not be used in IPv6 DHCP or
       IPv6 RA.</t>
 
-      <t>In all variants of this option, the URI SHOULD be that of the captive
+      <t>In all variants of this option, the URI MUST be that of the captive
       portal API endpoint, conforming to the recommendations for such URIs
       [cite:API] (i.e. the URI SHOULD contain a DNS name and SHOULD reference
-      a secure transport, e.g. https). A captive portal MAY do content
-      negotiation (<xref target="RFC7231"/> section 3.4) and attempt to
-      redirect clients querying without an explicit indication of support for
-      the captive portal API content type (i.e. without
-      application/capport+json listed explicitly anywhere within an Accept
-      header vis. <xref target="RFC7231"/> section 5.3). In so doing, the
-      captive portal SHOULD redirect the client to the value associated with
-      the "user-portal-url" API key.</t>
+      a secure transport, e.g. https). </t>
 
-      <t>The URI SHOULD NOT contain an IP address literal.</t>
+      <t>A captive portal MAY do content negotiation (<xref target="RFC7231"/>
+      section 3.4) and attempt to redirect clients querying without an
+      explicit indication of support for the captive portal API content type
+      (i.e. without application/capport+json listed explicitly anywhere within
+      an Accept header vis. <xref target="RFC7231"/> section 5.3). In so
+      doing, the captive portal SHOULD redirect the client to the value
+      associated with the "user-portal-url" API key.</t>
 
-      <t>The URI parameter is not null terminated.</t>
+      <t>The URI SHOULD NOT contain an IP address literal. The URI parameter
+      is not null terminated.</t>
 
       <t>Networks with no captive portals MAY explicitly indicate this
       condition by using this option with the IANA-assigned URI for this
@@ -352,6 +353,10 @@
       etc. By handing out a URI using which is protected with TLS, the captive
       portal operator can attempt to reassure the user that the captive portal
       is not malicious.</t>
+
+      <t>Operating systems should conduct all interactions with the API in a
+      sand-boxed environment and with a configuration that minimizes tracking
+      risks.</t>
     </section>
 
     <section title="Acknowledgements">
