@@ -3,10 +3,8 @@
 <!ENTITY rfc2119 PUBLIC "" ".//reference.RFC.2119.xml">
 ]>
 <!-- WK: Set category, IPR, docName -->
-<rfc category="std" docName="draft-ekwk-capport-rfc7710bis-02"
-     ipr="trust200902"
-     updates="7710"
-     >
+<rfc category="std" docName="draft-ekwk-capport-rfc7710bis-03"
+     ipr="trust200902" updates="7710">
   <?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
 
   <?rfc toc="yes" ?>
@@ -33,8 +31,11 @@
       <address>
         <postal>
           <street>1600 Amphitheatre Parkway</street>
+
           <city>Mountain View, CA</city>
+
           <code>94043</code>
+
           <country>US</country>
         </postal>
 
@@ -48,8 +49,11 @@
       <address>
         <postal>
           <street>1600 Amphitheatre Parkway</street>
+
           <city>Mountain View, CA</city>
+
           <code>94043</code>
+
           <country>US</country>
         </postal>
 
@@ -59,7 +63,7 @@
       </address>
     </author>
 
-    <date month="March" year="2019"/>
+    <date month="June" year="2019"/>
 
     <abstract>
       <t>In many environments offering short-term or temporary Internet access
@@ -75,7 +79,7 @@
       larger solutions. The method of authenticating to, and interacting with
       the captive portal is out of scope of this document.</t>
 
-      <t> [ This document is being collaborated on in Github at:
+      <t>[ This document is being collaborated on in Github at:
       https://github.com/wkumari/draft-ekwk-capport-rfc7710bis. The most
       recent version of the document, open issues, etc should all be available
       here. The authors (gratefully) accept pull requests. Text in square
@@ -133,27 +137,27 @@
       bytes, so URIs longer than 255 bytes should not be used in IPv6 DHCP or
       IPv6 RA.</t>
 
-      <t>In all variants of this option, the URI SHOULD be that of the
-      captive portal API endpoint, conforming to the recommendations for such
-      URIs [cite:API] (i.e. the URI SHOULD contain a DNS name and SHOULD
-      reference a secure transport, e.g. https). A captive portal MAY do
-      content negotiation (<xref target="RFC7231"/> section 3.4) and attempt to
+      <t>In all variants of this option, the URI SHOULD be that of the captive
+      portal API endpoint, conforming to the recommendations for such URIs
+      [cite:API] (i.e. the URI SHOULD contain a DNS name and SHOULD reference
+      a secure transport, e.g. https). A captive portal MAY do content
+      negotiation (<xref target="RFC7231"/> section 3.4) and attempt to
       redirect clients querying without an explicit indication of support for
-      the captive portal API content type (i.e. without application/capport+json
-      listed explicitly anywhere within an Accept header vis.
-      <xref target="RFC7231"/> section 5.3). In so doing, the captive
-      portal SHOULD redirect the client to the value associated with the
-      "user-portal-url" API key.</t>
+      the captive portal API content type (i.e. without
+      application/capport+json listed explicitly anywhere within an Accept
+      header vis. <xref target="RFC7231"/> section 5.3). In so doing, the
+      captive portal SHOULD redirect the client to the value associated with
+      the "user-portal-url" API key.</t>
 
       <t>The URI SHOULD NOT contain an IP address literal.</t>
 
       <t>The URI parameter is not null terminated.</t>
 
-      <t>Networks with no captive portals MAY explicitly indicate this condition
-      by using this option with the IANA-assigned URI for this purpose (see
-      <xref target="ietf_params_capport-unrestricted"/>). Clients observing the
-      URI value "urn:ietf:params:capport-unrestricted" MAY forego time-consuming
-      forms of captive portal detection.</t>
+      <t>Networks with no captive portals MAY explicitly indicate this
+      condition by using this option with the IANA-assigned URI for this
+      purpose (see <xref target="ietf_params_capport-unrestricted"/>). Clients
+      observing the URI value "urn:ietf:params:capport-unrestricted" MAY
+      forego time-consuming forms of captive portal detection.</t>
 
       <section anchor="dhcpv4opt" title="IPv4 DHCP Option">
         <t>The format of the IPv4 Captive-Portal DHCP option is shown
@@ -170,8 +174,8 @@
 
             <t>Len: The length, in octets of the URI.</t>
 
-            <t>URI: The URI for the captive portal API endpoint to which
-            the user should connect (encoded following the rules in <xref
+            <t>URI: The URI for the captive portal API endpoint to which the
+            user should connect (encoded following the rules in <xref
             target="RFC3986"/>).</t>
           </list></t>
       </section>
@@ -196,8 +200,8 @@
 
             <t>option-len: The length, in octets of the URI.</t>
 
-            <t>URI: The URI for the captive portal API endpoint to which
-            the user should connect (encoded following the rules in <xref
+            <t>URI: The URI for the captive portal API endpoint to which the
+            user should connect (encoded following the rules in <xref
             target="RFC3986"/>).</t>
           </list>See <xref target="RFC7227"/>, Section 5.7 for more examples
         of DHCP Options with URIs.</t>
@@ -228,9 +232,9 @@
             bytes.</t>
 
             <t hangText="URI">The URI for the captive portal API endpoint to
-            which the user should connect. This MUST be padded with
-            NULL (0x00) to make the total option length (including the
-            Type and Length fields) a multiple of 8 bytes.</t>
+            which the user should connect. This MUST be padded with NULL
+            (0x00) to make the total option length (including the Type and
+            Length fields) a multiple of 8 bytes.</t>
           </list></t>
       </section>
     </section>
@@ -239,43 +243,43 @@
       <t>Some captive portal network deployments may be unable to change, or
       unwilling to risk changing, the network infrastructure necessary to use
       any of the above options. In such deployments, when clear text HTTP
-      intercept and redirection are used, a Link relation header
-      (<xref target="RFC8288"/>, Section 3.3) MAY be inserted to convey to a
-      HTTP client (user agent) the associated Captive Portal API URI.
-      </t>
+      intercept and redirection are used, a Link relation header (<xref
+      target="RFC8288"/>, Section 3.3) MAY be inserted to convey to a HTTP
+      client (user agent) the associated Captive Portal API URI.</t>
+
       <t>HTTP user agents MUST ignore this link relation in any context other
       than when explicitly probing to detect the presence of a captive portal.
       Failure to do so could allow an attacker to inject a Captive Portal API
       URI other than the correct URI for a given network or for networks where
-      there is no captive portal present at all.
-      </t>
+      there is no captive portal present at all.</t>
     </section>
 
     <section anchor="precedence" title="Precedence of API URIs">
-      <t>A device may learn about Captive Portal API URIs through more than one
-         of (or indeed all of) the above options. It is a network configuration
-         error if the learned URIs are not all identical.</t>
-      <t>However, if the URIs learned are not in fact all identical the captive
-         device MUST prioritize URIs learned from network provisioning or
-         configuration mechanisms before all other URIs. Specifically, URIs
-         learned via any of the options in <xref target="option"/> should take
-         precedence over any URI learned via a mechanism like the one described
-         in <xref target="linkrel"/>.</t>
-      <t>If the URIs learned via more than one option described in
-         <xref target="option"/> are not all identical, this condition should
-         be logged for the device owner or administrator. URI precedence in this
-         situation is not specified by this document.</t>
+      <t>A device may learn about Captive Portal API URIs through more than
+      one of (or indeed all of) the above options. It is a network
+      configuration error if the learned URIs are not all identical.</t>
+
+      <t>However, if the URIs learned are not in fact all identical the
+      captive device MUST prioritize URIs learned from network provisioning or
+      configuration mechanisms before all other URIs. Specifically, URIs
+      learned via any of the options in <xref target="option"/> should take
+      precedence over any URI learned via a mechanism like the one described
+      in <xref target="linkrel"/>.</t>
+
+      <t>If the URIs learned via more than one option described in <xref
+      target="option"/> are not all identical, this condition should be logged
+      for the device owner or administrator. URI precedence in this situation
+      is not specified by this document.</t>
     </section>
 
     <section anchor="iana" title="IANA Considerations">
-      <t>This document requests two new IETF URN protocol parameter
-      (<xref target="RFC3553"/>) entries.</t>
+      <t>This document requests two new IETF URN protocol parameter (<xref
+      target="RFC3553"/>) entries.</t>
 
       <t>Thanks IANA!</t>
 
       <section anchor="ietf_params_registration"
                title="IETF params Registration">
-
         <section anchor="ietf_params_capport-unrestricted"
                  title="Registry name: Captive Portal Unrestricted Identifier">
           <t>Registry name: Captive Portal Unrestricted Identifier</t>
@@ -287,8 +291,8 @@
           <t>Repository: RFC TBD (this document)</t>
 
           <t>Index value: Only one value is defined (see URN above). No
-          hierarchy is defined and therefore no sub-namespace registrations are
-          possible.</t>
+          hierarchy is defined and therefore no sub-namespace registrations
+          are possible.</t>
         </section>
 
         <section anchor="ietf_params_capport-api"
@@ -302,30 +306,29 @@
           <t>Repository: RFC TBD (this document)</t>
 
           <t>Index value: Only one value is defined (see URN above). No
-          hierarchy is defined and therefore no sub-namespace registrations are
-          possible.</t>
+          hierarchy is defined and therefore no sub-namespace registrations
+          are possible.</t>
         </section>
-
       </section>
     </section>
 
     <section anchor="security" title="Security Considerations">
       <t>An attacker with the ability to inject DHCP messages, RAs, or HTTP
       headers into cleartext HTTP communications could include an option or
-      link relation from this document and so force users to contact an address
-      of his choosing. As an attacker with this capability could simply list
-      himself as the default gateway (and so intercept all the victim's
-      traffic); this does not provide them with significantly more capabilities,
-      but because this document removes the need for interception, the attacker
-      may have an easier time performing the attack. As the operating systems
-      and application that make use of this information know that they are
-      connecting to a captive-portal device (as opposed to intercepted
-      connections) they can render the page in a sandboxed environment and
-      take other precautions, such as clearly labeling the page as untrusted.
-      The means of sandboxing and user interface presenting this information
-      is not covered in this document - by its nature it is implementation
-      specific and best left to the application and user interface
-      designers.</t>
+      link relation from this document and so force users to contact an
+      address of his choosing. As an attacker with this capability could
+      simply list himself as the default gateway (and so intercept all the
+      victim's traffic); this does not provide them with significantly more
+      capabilities, but because this document removes the need for
+      interception, the attacker may have an easier time performing the
+      attack. As the operating systems and application that make use of this
+      information know that they are connecting to a captive-portal device (as
+      opposed to intercepted connections) they can render the page in a
+      sandboxed environment and take other precautions, such as clearly
+      labeling the page as untrusted. The means of sandboxing and user
+      interface presenting this information is not covered in this document -
+      by its nature it is implementation specific and best left to the
+      application and user interface designers.</t>
 
       <t>Devices and systems that automatically connect to an open network
       could potentially be tracked using the techniques described in this
@@ -367,8 +370,6 @@
 
       <?rfc include='reference.RFC.2119'?>
 
-      <?rfc include='reference.RFC.2939'?>
-
       <?rfc include='reference.RFC.3315'?>
 
       <?rfc include='reference.RFC.3553'?>
@@ -396,19 +397,25 @@
         </list></t>
     </section>
 
-    <section anchor="diff7710" title="Differences from RFC 7710">
-      <t>This document incorporates the following differences from
-         <xref target="RFC7710"/>.</t>
-      <t><list style="symbols">
-        <t>Clarify that IP string literals are NOT RECOMMENDED.</t>
-        <t>Clarify that the option URI SHOULD be that of the captive portal
-           API endpoint.</t>
-        <t>Clarify that captive portals MAY do content negotiation.</t>
-        <t>Added text about Captive Portal API URI precedence in the event
-           of a network configuration error.</t>
-        <t>Added urn:ietf:params:capport-unrestricted URN.</t>
-        <t>Added urn:ietf:params:capport-api URN.</t>
-      </list></t>
+    <section anchor="diff7710" title="Changes from RFC 7710">
+      <t>This document incorporates the following changes from <xref
+      target="RFC7710"/>.</t>
+
+      <t><list style="numbers">
+          <t>Clarify that IP string literals are NOT RECOMMENDED.</t>
+
+          <t>Clarify that the option URI SHOULD be that of the captive portal
+          API endpoint.</t>
+
+          <t>Clarify that captive portals MAY do content negotiation.</t>
+
+          <t>Added text about Captive Portal API URI precedence in the event
+          of a network configuration error.</t>
+
+          <t>Added urn:ietf:params:capport-unrestricted URN.</t>
+
+          <t>Added urn:ietf:params:capport-api URN.</t>
+        </list></t>
     </section>
   </back>
 </rfc>
