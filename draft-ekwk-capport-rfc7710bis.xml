@@ -141,7 +141,21 @@
       <t>In all variants of this option, the URI MUST be that of the captive
       portal API endpoint, conforming to the recommendations for such URIs
       [cite:API] (i.e. the URI SHOULD contain a DNS name and SHOULD reference
-      a secure transport, e.g. https). </t>
+      a secure transport, e.g. https).
+      </t>
+
+      <t>
+      A captive portal MAY redirect requests that do not have an Accept
+      header field (<xref target="RFC7231"/> Section 5.3) containing a field
+      item whose content-type is "application/capport+json" to the URL
+      conveyed in the "user-portal-url" API key. When performing such
+      content negotiation (<xref target="RFC7231"/> Section 3.4), captive
+      portals need to keep in mind that such responses might be cached, and
+      therefore SHOULD include an appropriate Vary header field
+      (<xref target="RFC7231"/> Section 7.1.4) or mark them explicitly
+      uncacheable (for example, using
+      Cache-Control: no-store <xref target="RFC7234"/> Section 5.2.2.3).
+      </t>
 
       <t>A captive portal MAY do content negotiation (<xref target="RFC7231"/>
       section 3.4) and attempt to redirect clients querying without an
@@ -386,6 +400,8 @@
       <?rfc include='reference.RFC.7227'?>
 
       <?rfc include='reference.RFC.7231'?>
+
+      <?rfc include='reference.RFC.7234'?>
 
       <?rfc include='reference.RFC.7710'?>
 
