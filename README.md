@@ -8,7 +8,7 @@ Network Working Group                                          W. Kumari
 Internet-Draft                                                    Google
 Updates: 7710 (if approved)                                     E. Kline
 Intended status: Standards Track                                    Loon
-Expires: December 13, 2019                                 June 11, 2019
+Expires: December 15, 2019                                 June 13, 2019
 
 
                Captive-Portal Identification in DHCP / RA
@@ -50,12 +50,12 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on December 13, 2019.
+   This Internet-Draft will expire on December 15, 2019.
 
 
 
 
-Kumari & Kline          Expires December 13, 2019               [Page 1]
+Kumari & Kline          Expires December 15, 2019               [Page 1]
 
 Internet-Draft             DHCP Captive-Portal                 June 2019
 
@@ -83,18 +83,18 @@ Table of Contents
      2.1.  IPv4 DHCP Option  . . . . . . . . . . . . . . . . . . . .   4
      2.2.  IPv6 DHCP Option  . . . . . . . . . . . . . . . . . . . .   4
      2.3.  The Captive-Portal IPv6 RA Option . . . . . . . . . . . .   5
-   3.  The Captive-Portal Link Relation Type . . . . . . . . . . . .   5
+   3.  The Captive-Portal Link Relation Type . . . . . . . . . . . .   6
    4.  Precedence of API URIs  . . . . . . . . . . . . . . . . . . .   6
    5.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   6
      5.1.  IETF params Registration  . . . . . . . . . . . . . . . .   6
        5.1.1.  Registry name: Captive Portal Unrestricted Identifier   6
-       5.1.2.  Registry name: Captive Portal API Link Relation Type    6
+       5.1.2.  Registry name: Captive Portal API Link Relation Type    7
    6.  Security Considerations . . . . . . . . . . . . . . . . . . .   7
    7.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .   8
    8.  Normative References  . . . . . . . . . . . . . . . . . . . .   8
    Appendix A.  Changes / Author Notes.  . . . . . . . . . . . . . .   9
    Appendix B.  Changes from RFC 7710  . . . . . . . . . . . . . . .   9
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .   9
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  10
 
 1.  Introduction
 
@@ -111,7 +111,7 @@ Table of Contents
 
 
 
-Kumari & Kline          Expires December 13, 2019               [Page 2]
+Kumari & Kline          Expires December 15, 2019               [Page 2]
 
 Internet-Draft             DHCP Captive-Portal                 June 2019
 
@@ -160,18 +160,28 @@ Internet-Draft             DHCP Captive-Portal                 June 2019
    [cite:API] (i.e. the URI SHOULD contain a DNS name and SHOULD
    reference a secure transport, e.g. https).
 
-   A captive portal MAY do content negotiation ([RFC7231] section 3.4)
-   and attempt to redirect clients querying without an explicit
-   indication of support for the captive portal API content type (i.e.
-   without application/capport+json listed explicitly anywhere within an
+   A captive portal MAY redirect requests that do not have an Accept
+   header field ([RFC7231] Section 5.3) containing a field item whose
+   content-type is "application/capport+json" to the URL conveyed in the
+   "user-portal-url" API key.  When performing such content negotiation
 
 
 
-Kumari & Kline          Expires December 13, 2019               [Page 3]
+Kumari & Kline          Expires December 15, 2019               [Page 3]
 
 Internet-Draft             DHCP Captive-Portal                 June 2019
 
 
+   ([RFC7231] Section 3.4), captive portals need to keep in mind that
+   such responses might be cached, and therefore SHOULD include an
+   appropriate Vary header field ([RFC7231] Section 7.1.4) or mark them
+   explicitly uncacheable (for example, using Cache-Control: no-store
+   [RFC7234] Section 5.2.2.3).
+
+   A captive portal MAY do content negotiation ([RFC7231] section 3.4)
+   and attempt to redirect clients querying without an explicit
+   indication of support for the captive portal API content type (i.e.
+   without application/capport+json listed explicitly anywhere within an
    Accept header vis.  [RFC7231] section 5.3).  In so doing, the captive
    portal SHOULD redirect the client to the value associated with the
    "user-portal-url" API key.
@@ -205,6 +215,19 @@ Internet-Draft             DHCP Captive-Portal                 June 2019
 
    The format of the IPv6 Captive-Portal DHCP option is shown below.
 
+
+
+
+
+
+
+
+
+Kumari & Kline          Expires December 15, 2019               [Page 4]
+
+Internet-Draft             DHCP Captive-Portal                 June 2019
+
+
       0                   1                   2                   3
       0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -220,13 +243,6 @@ Internet-Draft             DHCP Captive-Portal                 June 2019
 
    o  URI: The URI for the captive portal API endpoint to which the user
       should connect (encoded following the rules in [RFC3986]).
-
-
-
-Kumari & Kline          Expires December 13, 2019               [Page 4]
-
-Internet-Draft             DHCP Captive-Portal                 June 2019
-
 
    See [RFC7227], Section 5.7 for more examples of DHCP Options with
    URIs.
@@ -257,6 +273,17 @@ Internet-Draft             DHCP Captive-Portal                 June 2019
       total option length (including the Type and Length fields) a
       multiple of 8 bytes.
 
+
+
+
+
+
+
+Kumari & Kline          Expires December 15, 2019               [Page 5]
+
+Internet-Draft             DHCP Captive-Portal                 June 2019
+
+
 3.  The Captive-Portal Link Relation Type
 
    Some captive portal network deployments may be unable to change, or
@@ -271,18 +298,6 @@ Internet-Draft             DHCP Captive-Portal                 June 2019
    portal.  Failure to do so could allow an attacker to inject a Captive
    Portal API URI other than the correct URI for a given network or for
    networks where there is no captive portal present at all.
-
-
-
-
-
-
-
-
-Kumari & Kline          Expires December 13, 2019               [Page 5]
-
-Internet-Draft             DHCP Captive-Portal                 June 2019
-
 
 4.  Precedence of API URIs
 
@@ -317,6 +332,14 @@ Internet-Draft             DHCP Captive-Portal                 June 2019
 
    URN: urn:ietf:params:capport-unrestricted
 
+
+
+
+Kumari & Kline          Expires December 15, 2019               [Page 6]
+
+Internet-Draft             DHCP Captive-Portal                 June 2019
+
+
    Specification: RFC TBD (this document)
 
    Repository: RFC TBD (this document)
@@ -331,14 +354,6 @@ Internet-Draft             DHCP Captive-Portal                 June 2019
    URN: urn:ietf:params:capport-api
 
    Specification: RFC TBD (this document)
-
-
-
-
-Kumari & Kline          Expires December 13, 2019               [Page 6]
-
-Internet-Draft             DHCP Captive-Portal                 June 2019
-
 
    Repository: RFC TBD (this document)
 
@@ -373,6 +388,14 @@ Internet-Draft             DHCP Captive-Portal                 June 2019
 
    Captive portals are increasingly hijacking TLS connections to force
    browsers to talk to the portal.  Providing the portal's URI via a
+
+
+
+Kumari & Kline          Expires December 15, 2019               [Page 7]
+
+Internet-Draft             DHCP Captive-Portal                 June 2019
+
+
    DHCP or RA option is a cleaner technique, and reduces user
    expectations of being hijacked - this may improve security by making
    users more reluctant to accept TLS hijacking, which can be performed
@@ -386,15 +409,6 @@ Internet-Draft             DHCP Captive-Portal                 June 2019
    credentials, etc.  By handing out a URI using which is protected with
    TLS, the captive portal operator can attempt to reassure the user
    that the captive portal is not malicious.
-
-
-
-
-
-Kumari & Kline          Expires December 13, 2019               [Page 7]
-
-Internet-Draft             DHCP Captive-Portal                 June 2019
-
 
    Operating systems should conduct all interactions with the API in a
    sand-boxed environment and with a configuration that minimizes
@@ -430,6 +444,14 @@ Internet-Draft             DHCP Captive-Portal                 June 2019
               Parameters", BCP 73, RFC 3553, DOI 10.17487/RFC3553, June
               2003, <https://www.rfc-editor.org/info/rfc3553>.
 
+
+
+
+Kumari & Kline          Expires December 15, 2019               [Page 8]
+
+Internet-Draft             DHCP Captive-Portal                 June 2019
+
+
    [RFC3986]  Berners-Lee, T., Fielding, R., and L. Masinter, "Uniform
               Resource Identifier (URI): Generic Syntax", STD 66,
               RFC 3986, DOI 10.17487/RFC3986, January 2005,
@@ -445,17 +467,15 @@ Internet-Draft             DHCP Captive-Portal                 June 2019
               BCP 187, RFC 7227, DOI 10.17487/RFC7227, May 2014,
               <https://www.rfc-editor.org/info/rfc7227>.
 
-
-
-Kumari & Kline          Expires December 13, 2019               [Page 8]
-
-Internet-Draft             DHCP Captive-Portal                 June 2019
-
-
    [RFC7231]  Fielding, R., Ed. and J. Reschke, Ed., "Hypertext Transfer
               Protocol (HTTP/1.1): Semantics and Content", RFC 7231,
               DOI 10.17487/RFC7231, June 2014,
               <https://www.rfc-editor.org/info/rfc7231>.
+
+   [RFC7234]  Fielding, R., Ed., Nottingham, M., Ed., and J. Reschke,
+              Ed., "Hypertext Transfer Protocol (HTTP/1.1): Caching",
+              RFC 7234, DOI 10.17487/RFC7234, June 2014,
+              <https://www.rfc-editor.org/info/rfc7234>.
 
    [RFC7710]  Kumari, W., Gudmundsson, O., Ebersman, P., and S. Sheng,
               "Captive-Portal Identification Using DHCP or Router
@@ -480,6 +500,14 @@ Appendix B.  Changes from RFC 7710
 
    1.  Clarify that IP string literals are NOT RECOMMENDED.
 
+
+
+
+Kumari & Kline          Expires December 15, 2019               [Page 9]
+
+Internet-Draft             DHCP Captive-Portal                 June 2019
+
+
    2.  Clarify that the option URI SHOULD be that of the captive portal
        API endpoint.
 
@@ -493,20 +521,6 @@ Appendix B.  Changes from RFC 7710
    6.  Added urn:ietf:params:capport-api URN.
 
 Authors' Addresses
-
-
-
-
-
-
-
-
-
-
-Kumari & Kline          Expires December 13, 2019               [Page 9]
-
-Internet-Draft             DHCP Captive-Portal                 June 2019
-
 
    Warren Kumari
    Google
@@ -545,19 +559,5 @@ Internet-Draft             DHCP Captive-Portal                 June 2019
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Kumari & Kline          Expires December 13, 2019              [Page 10]
+Kumari & Kline          Expires December 15, 2019              [Page 10]
 ```
