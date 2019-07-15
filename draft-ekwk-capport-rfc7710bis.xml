@@ -4,7 +4,7 @@
 ]>
 <!-- WK: Set category, IPR, docName -->
 <rfc category="std" docName="draft-ietf-capport-rfc7710bis-00"
-     ipr="trust200902" updates="7710">
+     ipr="trust200902" obsoletes="7710">
   <?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
 
   <?rfc toc="yes" ?>
