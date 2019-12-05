@@ -162,8 +162,8 @@ Internet-Draft             DHCP Captive-Portal                 July 2019
 
    In all variants of this option, the URI MUST be that of the captive
    portal API endpoint, conforming to the recommendations for such URIs
-   [cite:API] (i.e. the URI SHOULD contain a DNS name and SHOULD
-   reference a secure transport, e.g. https).
+   [draft-ietf-capport-api] (i.e. the URI SHOULD contain a DNS name and
+   SHOULD reference a secure transport, e.g. https).
 
 
 
