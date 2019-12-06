@@ -258,21 +258,6 @@
       </section>
     </section>
 
-    <section anchor="linkrel" title="The Captive-Portal Link Relation Type">
-      <t>Some captive portal network deployments may be unable to change, or
-      unwilling to risk changing, the network infrastructure necessary to use
-      any of the above options. In such deployments, when clear text HTTP
-      intercept and redirection are used, a Link relation header (<xref
-      target="RFC8288"/>, Section 3.3) MAY be inserted to convey to a HTTP
-      client (user agent) the associated Captive Portal API URI.</t>
-
-      <t>HTTP user agents MUST ignore this link relation in any context other
-      than when explicitly probing to detect the presence of a captive portal.
-      Failure to do so could allow an attacker to inject a Captive Portal API
-      URI other than the correct URI for a given network or for networks where
-      there is no captive portal present at all.</t>
-    </section>
-
     <section anchor="precedence" title="Precedence of API URIs">
       <t>A device may learn about Captive Portal API URIs through more than
       one of (or indeed all of) the above options. It is a network
@@ -282,8 +267,8 @@
       captive device MUST prioritize URIs learned from network provisioning or
       configuration mechanisms before all other URIs. Specifically, URIs
       learned via any of the options in <xref target="option"/> should take
-      precedence over any URI learned via a mechanism like the one described
-      in <xref target="linkrel"/>.</t>
+      precedence over any URI learned via some other mechanism, such as a
+      redirect.</t>
 
       <t>If the URIs learned via more than one option described in <xref
       target="option"/> are not all identical, this condition should be logged
@@ -313,29 +298,13 @@
           hierarchy is defined and therefore no sub-namespace registrations
           are possible.</t>
         </section>
-
-        <section anchor="ietf_params_capport-api"
-                 title="Registry name: Captive Portal API Link Relation Type">
-          <t>Registry name: Captive Portal API Link Relation Type</t>
-
-          <t>URN: urn:ietf:params:capport-api</t>
-
-          <t>Specification: RFC TBD (this document)</t>
-
-          <t>Repository: RFC TBD (this document)</t>
-
-          <t>Index value: Only one value is defined (see URN above). No
-          hierarchy is defined and therefore no sub-namespace registrations
-          are possible.</t>
-        </section>
       </section>
     </section>
 
     <section anchor="security" title="Security Considerations">
-      <t>An attacker with the ability to inject DHCP messages, RAs, or HTTP
-      headers into cleartext HTTP communications could include an option or
-      link relation from this document and so force users to contact an
-      address of his choosing. As an attacker with this capability could
+      <t>An attacker with the ability to inject DHCP messages or RAs
+      could include an option from this document to force users to contact
+      an address of his choosing. As an attacker with this capability could
       simply list himself as the default gateway (and so intercept all the
       victim's traffic); this does not provide them with significantly more
       capabilities, but because this document removes the need for
@@ -438,8 +407,6 @@
           of a network configuration error.</t>
 
           <t>Added urn:ietf:params:capport-unrestricted URN.</t>
-
-          <t>Added urn:ietf:params:capport-api URN.</t>
         </list></t>
     </section>
   </back>

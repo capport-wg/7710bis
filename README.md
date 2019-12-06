@@ -83,18 +83,16 @@ Table of Contents
      2.1.  IPv4 DHCP Option  . . . . . . . . . . . . . . . . . . . .   4
      2.2.  IPv6 DHCP Option  . . . . . . . . . . . . . . . . . . . .   4
      2.3.  The Captive-Portal IPv6 RA Option . . . . . . . . . . . .   5
-   3.  The Captive-Portal Link Relation Type . . . . . . . . . . . .   6
-   4.  Precedence of API URIs  . . . . . . . . . . . . . . . . . . .   6
-   5.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   6
-     5.1.  IETF params Registration  . . . . . . . . . . . . . . . .   6
-       5.1.1.  Registry name: Captive Portal Unrestricted Identifier   6
-       5.1.2.  Registry name: Captive Portal API Link Relation Type    7
-   6.  Security Considerations . . . . . . . . . . . . . . . . . . .   7
-   7.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .   8
-   8.  Normative References  . . . . . . . . . . . . . . . . . . . .   8
+   3.  Precedence of API URIs  . . . . . . . . . . . . . . . . . . .   6
+   4.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   6
+     4.1.  IETF params Registration  . . . . . . . . . . . . . . . .   6
+       4.1.1.  Registry name: Captive Portal Unrestricted Identifier   6
+   5.  Security Considerations . . . . . . . . . . . . . . . . . . .   6
+   6.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .   7
+   7.  Normative References  . . . . . . . . . . . . . . . . . . . .   8
    Appendix A.  Changes / Author Notes.  . . . . . . . . . . . . . .   9
    Appendix B.  Changes from RFC 7710  . . . . . . . . . . . . . . .   9
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  10
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .   9
 
 1.  Introduction
 
@@ -107,7 +105,9 @@ Table of Contents
    provide needed functionality because the client will need to know
    when it is behind a captive portal and how to contact it.
 
-
+   In order to present users with the payment or AUP pages, the captive-
+   portal device has to intercept the user's connections and redirect
+   the user to the captive portal, using methods that are very similar
 
 
 
@@ -116,9 +116,6 @@ Kumari & Kline           Expires January 2, 2020                [Page 2]
 Internet-Draft             DHCP Captive-Portal                 July 2019
 
 
-   In order to present users with the payment or AUP pages, the captive-
-   portal device has to intercept the user's connections and redirect
-   the user to the captive portal, using methods that are very similar
    to man-in-the-middle (MITM) attacks.  As increasing focus is placed
    on security, and end nodes adopt a more secure stance, these
    interception techniques will become less effective and/or more
@@ -165,6 +162,9 @@ Internet-Draft             DHCP Captive-Portal                 July 2019
    [draft-ietf-capport-api] (i.e. the URI SHOULD contain a DNS name and
    SHOULD reference a secure transport, e.g. https).
 
+   A captive portal MAY redirect requests that do not have an Accept
+   header field ([RFC7231] Section 5.3) containing a field item whose
+
 
 
 Kumari & Kline           Expires January 2, 2020                [Page 3]
@@ -172,8 +172,6 @@ Kumari & Kline           Expires January 2, 2020                [Page 3]
 Internet-Draft             DHCP Captive-Portal                 July 2019
 
 
-   A captive portal MAY redirect requests that do not have an Accept
-   header field ([RFC7231] Section 5.3) containing a field item whose
    content-type is "application/capport+json" to the URL conveyed in the
    "user-portal-url" API key.  When performing such content negotiation
    ([RFC7231] Section 3.4), captive portals need to keep in mind that
@@ -195,7 +193,7 @@ Internet-Draft             DHCP Captive-Portal                 July 2019
 
    Networks with no captive portals MAY explicitly indicate this
    condition by using this option with the IANA-assigned URI for this
-   purpose (see Section 5.1.1).  Clients observing the URI value
+   purpose (see Section 4.1.1).  Clients observing the URI value
    "urn:ietf:params:capport-unrestricted" MAY forego time-consuming
    forms of captive portal detection.
 
@@ -218,6 +216,8 @@ Internet-Draft             DHCP Captive-Portal                 July 2019
 2.2.  IPv6 DHCP Option
 
    The format of the IPv6 Captive-Portal DHCP option is shown below.
+
+
 
 
 
@@ -284,22 +284,7 @@ Kumari & Kline           Expires January 2, 2020                [Page 5]
 Internet-Draft             DHCP Captive-Portal                 July 2019
 
 
-3.  The Captive-Portal Link Relation Type
-
-   Some captive portal network deployments may be unable to change, or
-   unwilling to risk changing, the network infrastructure necessary to
-   use any of the above options.  In such deployments, when clear text
-   HTTP intercept and redirection are used, a Link relation header
-   ([RFC8288], Section 3.3) MAY be inserted to convey to a HTTP client
-   (user agent) the associated Captive Portal API URI.
-
-   HTTP user agents MUST ignore this link relation in any context other
-   than when explicitly probing to detect the presence of a captive
-   portal.  Failure to do so could allow an attacker to inject a Captive
-   Portal API URI other than the correct URI for a given network or for
-   networks where there is no captive portal present at all.
-
-4.  Precedence of API URIs
+3.  Precedence of API URIs
 
    A device may learn about Captive Portal API URIs through more than
    one of (or indeed all of) the above options.  It is a network
@@ -309,29 +294,44 @@ Internet-Draft             DHCP Captive-Portal                 July 2019
    captive device MUST prioritize URIs learned from network provisioning
    or configuration mechanisms before all other URIs.  Specifically,
    URIs learned via any of the options in Section 2 should take
-   precedence over any URI learned via a mechanism like the one
-   described in Section 3.
+   precedence over any URI learned via some other mechanism, such as a
+   redirect.
 
    If the URIs learned via more than one option described in Section 2
    are not all identical, this condition should be logged for the device
    owner or administrator.  URI precedence in this situation is not
    specified by this document.
 
-5.  IANA Considerations
+4.  IANA Considerations
 
    This document requests two new IETF URN protocol parameter
    ([RFC3553]) entries.
 
    Thanks IANA!
 
-5.1.  IETF params Registration
+4.1.  IETF params Registration
 
-5.1.1.  Registry name: Captive Portal Unrestricted Identifier
+4.1.1.  Registry name: Captive Portal Unrestricted Identifier
 
    Registry name: Captive Portal Unrestricted Identifier
 
    URN: urn:ietf:params:capport-unrestricted
 
+   Specification: RFC TBD (this document)
+
+   Repository: RFC TBD (this document)
+
+   Index value: Only one value is defined (see URN above).  No hierarchy
+   is defined and therefore no sub-namespace registrations are possible.
+
+5.  Security Considerations
+
+   An attacker with the ability to inject DHCP messages or RAs could
+   include an option from this document to force users to contact an
+   address of his choosing.  As an attacker with this capability could
+   simply list himself as the default gateway (and so intercept all the
+   victim's traffic); this does not provide them with significantly more
+   capabilities, but because this document removes the need for
 
 
 
@@ -340,35 +340,6 @@ Kumari & Kline           Expires January 2, 2020                [Page 6]
 Internet-Draft             DHCP Captive-Portal                 July 2019
 
 
-   Specification: RFC TBD (this document)
-
-   Repository: RFC TBD (this document)
-
-   Index value: Only one value is defined (see URN above).  No hierarchy
-   is defined and therefore no sub-namespace registrations are possible.
-
-5.1.2.  Registry name: Captive Portal API Link Relation Type
-
-   Registry name: Captive Portal API Link Relation Type
-
-   URN: urn:ietf:params:capport-api
-
-   Specification: RFC TBD (this document)
-
-   Repository: RFC TBD (this document)
-
-   Index value: Only one value is defined (see URN above).  No hierarchy
-   is defined and therefore no sub-namespace registrations are possible.
-
-6.  Security Considerations
-
-   An attacker with the ability to inject DHCP messages, RAs, or HTTP
-   headers into cleartext HTTP communications could include an option or
-   link relation from this document and so force users to contact an
-   address of his choosing.  As an attacker with this capability could
-   simply list himself as the default gateway (and so intercept all the
-   victim's traffic); this does not provide them with significantly more
-   capabilities, but because this document removes the need for
    interception, the attacker may have an easier time performing the
    attack.  As the operating systems and application that make use of
    this information know that they are connecting to a captive-portal
@@ -388,14 +359,6 @@ Internet-Draft             DHCP Captive-Portal                 July 2019
 
    Captive portals are increasingly hijacking TLS connections to force
    browsers to talk to the portal.  Providing the portal's URI via a
-
-
-
-Kumari & Kline           Expires January 2, 2020                [Page 7]
-
-Internet-Draft             DHCP Captive-Portal                 July 2019
-
-
    DHCP or RA option is a cleaner technique, and reduces user
    expectations of being hijacked - this may improve security by making
    users more reluctant to accept TLS hijacking, which can be performed
@@ -414,7 +377,7 @@ Internet-Draft             DHCP Captive-Portal                 July 2019
    sand-boxed environment and with a configuration that minimizes
    tracking risks.
 
-7.  Acknowledgements
+6.  Acknowledgements
 
    This document is a -bis of RFC7710.  Thanks to all of the original
    authors (Warren Kumari, Olafur Gudmundsson, Paul Ebersman, Steve
@@ -423,7 +386,17 @@ Internet-Draft             DHCP Captive-Portal                 July 2019
    Also thanks to the CAPPORT WG for all of the discussion and
    improvements.
 
-8.  Normative References
+
+
+
+
+
+Kumari & Kline           Expires January 2, 2020                [Page 7]
+
+Internet-Draft             DHCP Captive-Portal                 July 2019
+
+
+7.  Normative References
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -443,14 +416,6 @@ Internet-Draft             DHCP Captive-Portal                 July 2019
               IETF URN Sub-namespace for Registered Protocol
               Parameters", BCP 73, RFC 3553, DOI 10.17487/RFC3553, June
               2003, <https://www.rfc-editor.org/info/rfc3553>.
-
-
-
-
-Kumari & Kline           Expires January 2, 2020                [Page 8]
-
-Internet-Draft             DHCP Captive-Portal                 July 2019
-
 
    [RFC3986]  Berners-Lee, T., Fielding, R., and L. Masinter, "Uniform
               Resource Identifier (URI): Generic Syntax", STD 66,
@@ -477,6 +442,16 @@ Internet-Draft             DHCP Captive-Portal                 July 2019
               RFC 7234, DOI 10.17487/RFC7234, June 2014,
               <https://www.rfc-editor.org/info/rfc7234>.
 
+
+
+
+
+
+Kumari & Kline           Expires January 2, 2020                [Page 8]
+
+Internet-Draft             DHCP Captive-Portal                 July 2019
+
+
    [RFC7710]  Kumari, W., Gudmundsson, O., Ebersman, P., and S. Sheng,
               "Captive-Portal Identification Using DHCP or Router
               Advertisements (RAs)", RFC 7710, DOI 10.17487/RFC7710,
@@ -500,14 +475,6 @@ Appendix B.  Changes from RFC 7710
 
    1.  Clarify that IP string literals are NOT RECOMMENDED.
 
-
-
-
-Kumari & Kline           Expires January 2, 2020                [Page 9]
-
-Internet-Draft             DHCP Captive-Portal                 July 2019
-
-
    2.  Clarify that the option URI SHOULD be that of the captive portal
        API endpoint.
 
@@ -517,8 +484,6 @@ Internet-Draft             DHCP Captive-Portal                 July 2019
        of a network configuration error.
 
    5.  Added urn:ietf:params:capport-unrestricted URN.
-
-   6.  Added urn:ietf:params:capport-api URN.
 
 Authors' Addresses
 
@@ -531,6 +496,18 @@ Authors' Addresses
    Email: warren@kumari.net
 
 
+
+
+
+
+
+
+
+Kumari & Kline           Expires January 2, 2020                [Page 9]
+
+Internet-Draft             DHCP Captive-Portal                 July 2019
+
+
    Erik Kline
    Loon
    1600 Amphitheatre Parkway
@@ -538,6 +515,29 @@ Authors' Addresses
    US
 
    Email: ek@google.com
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
