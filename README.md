@@ -145,8 +145,8 @@ Internet-Draft             DHCP Captive-Portal                 July 2019
 
    Clients that support the Captive Portal DHCP option SHOULD include
    the option in the Parameter Request List in DHCPREQUEST messages.
-   DHCP servers MAY still send the Captive Portal option without any
-   explicit request.
+   DHCP servers MAY send the Captive Portal option without any explicit
+   request.
 
    In order to support multiple "classes" of clients (e.g.  IPv4 only,
    IPv6 only with DHCPv6 ([RFC3315]), IPv6 only with RA) the captive
