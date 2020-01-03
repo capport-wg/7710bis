@@ -83,14 +83,14 @@ Table of Contents
      2.1.  IPv4 DHCP Option  . . . . . . . . . . . . . . . . . . . .   4
      2.2.  IPv6 DHCP Option  . . . . . . . . . . . . . . . . . . . .   4
      2.3.  The Captive-Portal IPv6 RA Option . . . . . . . . . . . .   5
-   3.  Precedence of API URIs  . . . . . . . . . . . . . . . . . . .   5
+   3.  Precedence of API URIs  . . . . . . . . . . . . . . . . . . .   6
    4.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   6
      4.1.  IETF params Registration  . . . . . . . . . . . . . . . .   6
        4.1.1.  Registry name: Captive Portal Unrestricted Identifier   6
    5.  Security Considerations . . . . . . . . . . . . . . . . . . .   6
    6.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .   7
-   7.  Normative References  . . . . . . . . . . . . . . . . . . . .   7
-   Appendix A.  Changes / Author Notes.  . . . . . . . . . . . . . .   8
+   7.  Normative References  . . . . . . . . . . . . . . . . . . . .   8
+   Appendix A.  Changes / Author Notes.  . . . . . . . . . . . . . .   9
    Appendix B.  Changes from RFC 7710  . . . . . . . . . . . . . . .   9
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .   9
 
@@ -143,6 +143,11 @@ Internet-Draft             DHCP Captive-Portal                 July 2019
    techniques to serve legacy clients, and clients will need to perform
    probing to detect captive portals.
 
+   Clients that support the Captive Portal DHCP option SHOULD include
+   the option in the Parameter Request List in DHCPREQUEST messages.
+   DHCP servers MAY send the Captive Portal option without any explicit
+   request.
+
    In order to support multiple "classes" of clients (e.g.  IPv4 only,
    IPv6 only with DHCPv6 ([RFC3315]), IPv6 only with RA) the captive
    portal can provide the URI via multiple methods (IPv4 DHCP, IPv6
@@ -159,11 +164,6 @@ Internet-Draft             DHCP Captive-Portal                 July 2019
 
    A captive portal MAY redirect requests that do not have an Accept
    header field ([RFC7231] Section 5.3) containing a field item whose
-   content-type is "application/capport+json" to the URL conveyed in the
-   "user-portal-url" API key.  When performing such content negotiation
-   ([RFC7231] Section 3.4), captive portals need to keep in mind that
-   such responses might be cached, and therefore SHOULD include an
-   appropriate Vary header field ([RFC7231] Section 7.1.4) or mark them
 
 
 
@@ -172,6 +172,11 @@ Kumari & Kline           Expires January 2, 2020                [Page 3]
 Internet-Draft             DHCP Captive-Portal                 July 2019
 
 
+   content-type is "application/capport+json" to the URL conveyed in the
+   "user-portal-url" API key.  When performing such content negotiation
+   ([RFC7231] Section 3.4), captive portals need to keep in mind that
+   such responses might be cached, and therefore SHOULD include an
+   appropriate Vary header field ([RFC7231] Section 7.1.4) or mark them
    explicitly uncacheable (for example, using Cache-Control: no-store
    [RFC7234] Section 5.2.2.3).
 
@@ -212,6 +217,17 @@ Internet-Draft             DHCP Captive-Portal                 July 2019
 
    The format of the IPv6 Captive-Portal DHCP option is shown below.
 
+
+
+
+
+
+
+Kumari & Kline           Expires January 2, 2020                [Page 4]
+
+Internet-Draft             DHCP Captive-Portal                 July 2019
+
+
       0                   1                   2                   3
       0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -220,13 +236,6 @@ Internet-Draft             DHCP Captive-Portal                 July 2019
       .                      URI (variable length)                    .
       |                              ...                              |
       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-
-
-
-Kumari & Kline           Expires January 2, 2020                [Page 4]
-
-Internet-Draft             DHCP Captive-Portal                 July 2019
-
 
    o  option-code: The Captive-Portal DHCPv6Option (103) (two octets)
 
@@ -264,6 +273,17 @@ Internet-Draft             DHCP Captive-Portal                 July 2019
       total option length (including the Type and Length fields) a
       multiple of 8 bytes.
 
+
+
+
+
+
+
+Kumari & Kline           Expires January 2, 2020                [Page 5]
+
+Internet-Draft             DHCP Captive-Portal                 July 2019
+
+
 3.  Precedence of API URIs
 
    A device may learn about Captive Portal API URIs through more than
@@ -276,13 +296,6 @@ Internet-Draft             DHCP Captive-Portal                 July 2019
    URIs learned via any of the options in Section 2 should take
    precedence over any URI learned via some other mechanism, such as a
    redirect.
-
-
-
-Kumari & Kline           Expires January 2, 2020                [Page 5]
-
-Internet-Draft             DHCP Captive-Portal                 July 2019
-
 
    If the URIs learned via more than one option described in Section 2
    are not all identical, this condition should be logged for the device
@@ -319,6 +332,14 @@ Internet-Draft             DHCP Captive-Portal                 July 2019
    simply list himself as the default gateway (and so intercept all the
    victim's traffic); this does not provide them with significantly more
    capabilities, but because this document removes the need for
+
+
+
+Kumari & Kline           Expires January 2, 2020                [Page 6]
+
+Internet-Draft             DHCP Captive-Portal                 July 2019
+
+
    interception, the attacker may have an easier time performing the
    attack.  As the operating systems and application that make use of
    this information know that they are connecting to a captive-portal
@@ -332,14 +353,6 @@ Internet-Draft             DHCP Captive-Portal                 July 2019
    Devices and systems that automatically connect to an open network
    could potentially be tracked using the techniques described in this
    document (forcing the user to continually authenticate, or exposing
-
-
-
-Kumari & Kline           Expires January 2, 2020                [Page 6]
-
-Internet-Draft             DHCP Captive-Portal                 July 2019
-
-
    their browser fingerprint).  However, similar tracking can already be
    performed with the standard captive portal mechanisms, so this
    technique does not give the attackers more capabilities.
@@ -373,6 +386,16 @@ Internet-Draft             DHCP Captive-Portal                 July 2019
    Also thanks to the CAPPORT WG for all of the discussion and
    improvements.
 
+
+
+
+
+
+Kumari & Kline           Expires January 2, 2020                [Page 7]
+
+Internet-Draft             DHCP Captive-Portal                 July 2019
+
+
 7.  Normative References
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
@@ -388,13 +411,6 @@ Internet-Draft             DHCP Captive-Portal                 July 2019
               C., and M. Carney, "Dynamic Host Configuration Protocol
               for IPv6 (DHCPv6)", RFC 3315, DOI 10.17487/RFC3315, July
               2003, <https://www.rfc-editor.org/info/rfc3315>.
-
-
-
-Kumari & Kline           Expires January 2, 2020                [Page 7]
-
-Internet-Draft             DHCP Captive-Portal                 July 2019
-
 
    [RFC3553]  Mealling, M., Masinter, L., Hardie, T., and G. Klyne, "An
               IETF URN Sub-namespace for Registered Protocol
@@ -426,6 +442,16 @@ Internet-Draft             DHCP Captive-Portal                 July 2019
               RFC 7234, DOI 10.17487/RFC7234, June 2014,
               <https://www.rfc-editor.org/info/rfc7234>.
 
+
+
+
+
+
+Kumari & Kline           Expires January 2, 2020                [Page 8]
+
+Internet-Draft             DHCP Captive-Portal                 July 2019
+
+
    [RFC7710]  Kumari, W., Gudmundsson, O., Ebersman, P., and S. Sheng,
               "Captive-Portal Identification Using DHCP or Router
               Advertisements (RAs)", RFC 7710, DOI 10.17487/RFC7710,
@@ -442,15 +468,6 @@ Appendix A.  Changes / Author Notes.
    From initial to -00.
 
    o  Import of RFC7710.
-
-
-
-
-
-Kumari & Kline           Expires January 2, 2020                [Page 8]
-
-Internet-Draft             DHCP Captive-Portal                 July 2019
-
 
 Appendix B.  Changes from RFC 7710
 
@@ -479,6 +496,18 @@ Authors' Addresses
    Email: warren@kumari.net
 
 
+
+
+
+
+
+
+
+Kumari & Kline           Expires January 2, 2020                [Page 9]
+
+Internet-Draft             DHCP Captive-Portal                 July 2019
+
+
    Erik Kline
    Loon
    1600 Amphitheatre Parkway
@@ -503,5 +532,32 @@ Authors' Addresses
 
 
 
-Kumari & Kline           Expires January 2, 2020                [Page 9]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Kumari & Kline           Expires January 2, 2020               [Page 10]
 ```
