@@ -3,7 +3,7 @@
 <!ENTITY rfc2119 PUBLIC "" ".//reference.RFC.2119.xml">
 ]>
 <!-- WK: Set category, IPR, docName -->
-<rfc category="std" docName="draft-ietf-capport-rfc7710bis-01"
+<rfc category="std" docName="draft-ietf-capport-rfc7710bis-02"
      ipr="trust200902" obsoletes="7710">
   <?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
 
@@ -63,7 +63,7 @@
       </address>
     </author>
 
-    <date month="January" year="2020"/>
+    <date month="February" year="2020"/>
 
     <abstract>
       <t>In many environments offering short-term or temporary Internet access
@@ -277,8 +277,8 @@
     </section>
 
     <section anchor="iana" title="IANA Considerations">
-      <t>This document requests two new IETF URN protocol parameter (<xref
-      target="RFC3553"/>) entries. This document also requests a reallocation
+      <t>This document requests one new IETF URN protocol parameter (<xref
+      target="RFC3553"/>) entry. This document also requests a reallocation
       of DHCPv4 option codes (see <xref target="exp106"/> for background).</t>
 
       <t>Thanks IANA!</t>
