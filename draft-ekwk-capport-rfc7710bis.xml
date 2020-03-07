@@ -73,7 +73,7 @@
 
       <t>This document describes a DHCP option (and a Router Advertisement
       (RA) extension) to inform clients that they are behind some sort of
-      captive-portal device, and that they will need to authenticate to get
+      captive-portal enforcement device, and that they will need to authenticate to get
       Internet access. It is not a full solution to address all of the issues
       that clients may have with captive portals; it is designed to be used in
       larger solutions. The method of authenticating to, and interacting with
@@ -90,7 +90,7 @@
   <middle>
     <section title="Introduction">
       <t>In many environments, users need to connect to a captive-portal
-      device and agree to an Acceptable Use Policy (AUP) and / or provide
+      server and agree to an Acceptable Use Policy (AUP) and / or provide
       billing information before they can access the Internet. It is
       anticipated that the IETF will work on a more fully featured protocol at
       some point, to ease interaction with Captive Portals. Regardless of how
@@ -98,9 +98,9 @@
       needed functionality because the client will need to know when it is
       behind a captive portal and how to contact it.</t>
 
-      <t>In order to present users with the payment or AUP pages, the
-      captive-portal device has to intercept the user's connections and
-      redirect the user to the captive portal, using methods that are very
+      <t>In order to present users with the payment or AUP pages, presently a
+      captive-portal enforcement device has to intercept the user's connections and
+      redirect the user to a captive portal server, using methods that are very
       similar to man-in-the-middle (MITM) attacks. As increasing focus is
       placed on security, and end nodes adopt a more secure stance, these
       interception techniques will become less effective and/or more
@@ -109,7 +109,7 @@
       <t>This document describes a DHCP (<xref target="RFC2131"/>) option
       (Captive-Portal) and an IPv6 Router Advertisement (RA) (<xref
       target="RFC4861"/>) extension that informs clients that they are behind
-      a captive-portal device and how to contact it.</t>
+      a captive-portal enforcement device and how to contact an API for more information.</t>
 
       <section title="Requirements Notation">
         <t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
@@ -123,7 +123,7 @@
       <t>The Captive Portal DHCP / RA Option informs the client that it may be
       behind a captive portal and provides the URI to access an API as defined
       by [draft-ietf-capport-api]. This is primarily intended to improve the
-      user experience by getting them to the captive portal faster and more
+      user experience by showing the user the captive portal information faster and more
       reliably. Note that, for the foreseeable future, captive portals will
       still need to implement the interception techniques to serve legacy
       clients, and clients will need to perform probing to detect captive
@@ -134,27 +134,26 @@
       MAY send the Captive Portal option without any explicit request.</t>
 
       <t>In order to support multiple "classes" of clients (e.g. IPv4 only,
-      IPv6 only with DHCPv6 (<xref target="RFC3315"/>), IPv6 only with RA) the
-      captive portal can provide the URI via multiple methods (IPv4 DHCP, IPv6
-      DHCP, IPv6 RA). The captive portal operator SHOULD ensure that the URIs
-      handed out are equivalent to reduce the chance of operational problems.
+      IPv6 only with DHCPv6 (<xref target="RFC3315"/>), and IPv6 only with RA) the
+      captive network can provision the client with the URI via multiple methods (IPv4 DHCP, IPv6
+      DHCP, and IPv6 RA). The captive portal operator SHOULD ensure that the URIs
+      provisioned by each method are equivalent to reduce the chance of operational problems.
       The maximum length of the URI that can be carried in IPv4 DHCP is 255
-      bytes, so URIs longer than 255 bytes should not be used in IPv6 DHCP or
-      IPv6 RA.</t>
+      bytes, so URIs longer than 255 bytes should not be provisioned via IPv6 DHCP or
+      IPv6 RA either.</t>
 
       <t>In all variants of this option, the URI MUST be that of the captive
       portal API endpoint, conforming to the recommendations for such URIs
-      [draft-ietf-capport-api] (i.e. the URI SHOULD contain a DNS name
-	    and SHOULD reference a secure transport, e.g. https).
+      [draft-ietf-capport-api].
       </t>
 
       <t>
-      A captive portal MAY redirect requests that do not have an Accept
+      A captive portal server MAY redirect requests that do not have an Accept
       header field (<xref target="RFC7231"/> Section 5.3) containing a field
       item whose content-type is "application/capport+json" to the URL
       conveyed in the "user-portal-url" API key. When performing such
       content negotiation (<xref target="RFC7231"/> Section 3.4), captive
-      portals need to keep in mind that such responses might be cached, and
+      portals implementors need to keep in mind that such responses might be cached, and
       therefore SHOULD include an appropriate Vary header field
       (<xref target="RFC7231"/> Section 7.1.4) or mark them explicitly
       uncacheable (for example, using
@@ -169,8 +168,7 @@
       doing, the captive portal SHOULD redirect the client to the value
       associated with the "user-portal-url" API key.</t>
 
-      <t>The URI SHOULD NOT contain an IP address literal. The URI parameter
-      is not null terminated.</t>
+      <t>The URI SHOULD NOT contain an IP address literal.</t>
 
       <t>Networks with no captive portals MAY explicitly indicate this
       condition by using this option with the IANA-assigned URI for this
@@ -197,6 +195,8 @@
             user should connect (encoded following the rules in <xref
             target="RFC3986"/>).</t>
           </list></t>
+
+        <t>Note that the URI parameter is not null terminated.</t>
       </section>
 
       <section anchor="dhcpv6opt" title="IPv6 DHCP Option">
@@ -224,6 +224,8 @@
             target="RFC3986"/>).</t>
           </list>See <xref target="RFC7227"/>, Section 5.7 for more examples
         of DHCP Options with URIs.</t>
+
+        <t>Note that the URI parameter is not null terminated.</t>
       </section>
 
       <section anchor="v6ndopt" title="The Captive-Portal IPv6 RA Option">
@@ -255,6 +257,8 @@
             (0x00) to make the total option length (including the Type and
             Length fields) a multiple of 8 bytes.</t>
           </list></t>
+
+        <t>Note that the URI parameter is not guaranteed to be null terminated.</t>
       </section>
     </section>
 
@@ -352,7 +356,7 @@
       could potentially be tracked using the techniques described in this
       document (forcing the user to continually authenticate, or exposing
       their browser fingerprint). However, similar tracking can already be
-      performed with the standard captive portal mechanisms, so this technique
+      performed with the presently common captive portal mechanisms, so this technique
       does not give the attackers more capabilities.</t>
 
       <t>Captive portals are increasingly hijacking TLS connections to force
@@ -367,7 +371,7 @@
       less likely to disable useful security safeguards like DNSSEC
       validation, VPNs, etc. In addition, because the system knows that it is
       behind a captive portal, it can know not to send cookies, credentials,
-      etc. By handing out a URI using which is protected with TLS, the captive
+      etc. By provisioning a URI using which is protected with TLS, the captive
       portal operator can attempt to reassure the user that the captive portal
       is not malicious.</t>
     </section>
