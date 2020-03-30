@@ -12,7 +12,7 @@ Expires: October 1, 2020                                  March 30, 2020
 
 
                Captive-Portal Identification in DHCP / RA
-                    draft-ietf-capport-rfc7710bis-02
+                    draft-ietf-capport-rfc7710bis-03
 
 Abstract
 
