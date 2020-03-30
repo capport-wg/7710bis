@@ -79,6 +79,9 @@
       larger solutions. The method of authenticating to, and interacting with
       the captive portal is out of scope of this document.</t>
 
+      <t>RFC7710 used DHCP code point 160. Due to a conflict, this document
+      specifies TBD.</t>
+
       <t>[ This document is being collaborated on in Github at:
       https://github.com/capport-wg/7710bis. The most
       recent version of the document, open issues, etc should all be available
@@ -90,12 +93,10 @@
   <middle>
     <section title="Introduction">
       <t>In many environments, users need to connect to a captive-portal
-      server and agree to an Acceptable Use Policy (AUP) and / or provide
-      billing information before they can access the Internet. It is
-      anticipated that the IETF will work on a more fully featured protocol at
-      some point, to ease interaction with Captive Portals. Regardless of how
-      that protocol operates, it is expected that this document will provide
-      needed functionality because the client will need to know when it is
+      device and agree to an Acceptable Use Policy (AUP) and / or provide
+      billing information before they can access the Internet. Regardless of
+      how that mechanism operates, this document provides functionality
+      to allow the client to know when it is
       behind a captive portal and how to contact it.</t>
 
       <t>In order to present users with the payment or AUP pages, presently a
@@ -187,7 +188,7 @@
           </figure></t>
 
         <t><list style="symbols">
-            <t>Code: The Captive-Portal DHCPv4 Option (160) (one octet)</t>
+            <t>Code: The Captive-Portal DHCPv4 Option (TBD) (one octet)</t>
 
             <t>Len: The length, in octets of the URI.</t>
 
@@ -371,7 +372,7 @@
       less likely to disable useful security safeguards like DNSSEC
       validation, VPNs, etc. In addition, because the system knows that it is
       behind a captive portal, it can know not to send cookies, credentials,
-      etc. By provisioning a URI using which is protected with TLS, the captive
+      etc. By handing out a URI which is protected with TLS, the captive
       portal operator can attempt to reassure the user that the captive portal
       is not malicious.</t>
     </section>
@@ -382,8 +383,10 @@
       and original contributors.</t>
 
       <t>Also thanks to the CAPPORT WG for all of the discussion and
-      improvements including contributions and review from Lorenzo Colitti,
-      Remi Nguyen Van, and Tommy Pauly.</t>
+      improvements including contributions and review from Joe Clarke,
+      Lorenzo Colitti, Dave Dolson, Hans Kuhn, Kyle Larose, Clemens Schimpe,
+      Martin Thompson, Michael Richardson,
+      Remi Nguyen Van, Bernie Volz, and Tommy Pauly.</t>
     </section>
   </middle>
 
@@ -444,6 +447,8 @@
           of a network configuration error.</t>
 
           <t>Added urn:ietf:params:capport-unrestricted URN.</t>
+
+          <t>Notes that the DHCP Code changed from 160 to 114.</t>
         </list></t>
     </section>
 

@@ -8,7 +8,7 @@ Network Working Group                                          W. Kumari
 Internet-Draft                                                    Google
 Obsoletes: 7710 (if approved)                                   E. Kline
 Intended status: Standards Track                                    Loon
-Expires: August 21, 2020                               February 18, 2020
+Expires: September 8, 2020                                 March 7, 2020
 
 
                Captive-Portal Identification in DHCP / RA
@@ -29,11 +29,14 @@ Abstract
    be used in larger solutions.  The method of authenticating to, and
    interacting with the captive portal is out of scope of this document.
 
+   RFC7710 used DHCP code point 160.  Due to a conflict, this document
+   specifies TBD.
+
    [ This document is being collaborated on in Github at:
-   https://github.com/wkumari/draft-ekwk-capport-rfc7710bis.  The most
-   recent version of the document, open issues, etc should all be
-   available here.  The authors (gratefully) accept pull requests.  Text
-   in square brackets will be removed before publication. ]
+   https://github.com/capport-wg/7710bis.  The most recent version of
+   the document, open issues, etc should all be available here.  The
+   authors (gratefully) accept pull requests.  Text in square brackets
+   will be removed before publication. ]
 
 Status of This Memo
 
@@ -43,22 +46,21 @@ Status of This Memo
    Internet-Drafts are working documents of the Internet Engineering
    Task Force (IETF).  Note that other groups may also distribute
    working documents as Internet-Drafts.  The list of current Internet-
-   Drafts is at http://datatracker.ietf.org/drafts/current/.
+   Drafts is at https://datatracker.ietf.org/drafts/current/.
 
    Internet-Drafts are draft documents valid for a maximum of six months
    and may be updated, replaced, or obsoleted by other documents at any
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on August 21, 2020.
 
 
-
-
-Kumari & Kline           Expires August 21, 2020                [Page 1]
+Kumari & Kline          Expires September 8, 2020               [Page 1]
 
-Internet-Draft             DHCP Captive-Portal             February 2020
+Internet-Draft             DHCP Captive-Portal                March 2020
 
+
+   This Internet-Draft will expire on September 8, 2020.
 
 Copyright Notice
 
@@ -67,7 +69,7 @@ Copyright Notice
 
    This document is subject to BCP 78 and the IETF Trust's Legal
    Provisions Relating to IETF Documents
-   (http://trustee.ietf.org/license-info) in effect on the date of
+   (https://trustee.ietf.org/license-info) in effect on the date of
    publication of this document.  Please review these documents
    carefully, as they describe your rights and restrictions with respect
    to this document.  Code Components extracted from this document must
@@ -100,20 +102,18 @@ Table of Contents
 
    In many environments, users need to connect to a captive-portal
    device and agree to an Acceptable Use Policy (AUP) and / or provide
-   billing information before they can access the Internet.  It is
-   anticipated that the IETF will work on a more fully featured protocol
-   at some point, to ease interaction with Captive Portals.  Regardless
-   of how that protocol operates, it is expected that this document will
-   provide needed functionality because the client will need to know
-   when it is behind a captive portal and how to contact it.
+   billing information before they can access the Internet.  Regardless
+   of how that mechanism operates, this document provides functionality
+   to allow the client to know when it is behind a captive portal and
+   how to contact it.
 
 
 
 
 
-Kumari & Kline           Expires August 21, 2020                [Page 2]
+Kumari & Kline          Expires September 8, 2020               [Page 2]
 
-Internet-Draft             DHCP Captive-Portal             February 2020
+Internet-Draft             DHCP Captive-Portal                March 2020
 
 
    In order to present users with the payment or AUP pages, the captive-
@@ -167,9 +167,9 @@ Internet-Draft             DHCP Captive-Portal             February 2020
 
 
 
-Kumari & Kline           Expires August 21, 2020                [Page 3]
+Kumari & Kline          Expires September 8, 2020               [Page 3]
 
-Internet-Draft             DHCP Captive-Portal             February 2020
+Internet-Draft             DHCP Captive-Portal                March 2020
 
 
    A captive portal MAY redirect requests that do not have an Accept
@@ -208,7 +208,7 @@ Internet-Draft             DHCP Captive-Portal             February 2020
       | code | len  |  URI                  ...        |
       +------+------+------+------+------+--   --+-----+
 
-   o  Code: The Captive-Portal DHCPv4 Option (160) (one octet)
+   o  Code: The Captive-Portal DHCPv4 Option (TBD) (one octet)
 
    o  Len: The length, in octets of the URI.
 
@@ -223,9 +223,9 @@ Internet-Draft             DHCP Captive-Portal             February 2020
 
 
 
-Kumari & Kline           Expires August 21, 2020                [Page 4]
+Kumari & Kline          Expires September 8, 2020               [Page 4]
 
-Internet-Draft             DHCP Captive-Portal             February 2020
+Internet-Draft             DHCP Captive-Portal                March 2020
 
 
       0                   1                   2                   3
@@ -279,9 +279,9 @@ Internet-Draft             DHCP Captive-Portal             February 2020
 
 
 
-Kumari & Kline           Expires August 21, 2020                [Page 5]
+Kumari & Kline          Expires September 8, 2020               [Page 5]
 
-Internet-Draft             DHCP Captive-Portal             February 2020
+Internet-Draft             DHCP Captive-Portal                March 2020
 
 
 3.  Precedence of API URIs
@@ -299,8 +299,8 @@ Internet-Draft             DHCP Captive-Portal             February 2020
 
    If the URIs learned via more than one option described in Section 2
    are not all identical, this condition should be logged for the device
-   owner or administrator.  URI precedence in this situation is not
-   specified by this document.
+   owner or administrator.  Implementations can select their own
+   precedence order.
 
 4.  IANA Considerations
 
@@ -335,9 +335,9 @@ Internet-Draft             DHCP Captive-Portal             February 2020
 
 
 
-Kumari & Kline           Expires August 21, 2020                [Page 6]
+Kumari & Kline          Expires September 8, 2020               [Page 6]
 
-Internet-Draft             DHCP Captive-Portal             February 2020
+Internet-Draft             DHCP Captive-Portal                March 2020
 
 
    RFC) Tommy Pauly (Apple) and Dieter Siegmund confirm that this
@@ -391,9 +391,9 @@ Internet-Draft             DHCP Captive-Portal             February 2020
 
 
 
-Kumari & Kline           Expires August 21, 2020                [Page 7]
+Kumari & Kline          Expires September 8, 2020               [Page 7]
 
-Internet-Draft             DHCP Captive-Portal             February 2020
+Internet-Draft             DHCP Captive-Portal                March 2020
 
 
    Captive portals are increasingly hijacking TLS connections to force
@@ -408,13 +408,9 @@ Internet-Draft             DHCP Captive-Portal             February 2020
    be less likely to disable useful security safeguards like DNSSEC
    validation, VPNs, etc.  In addition, because the system knows that it
    is behind a captive portal, it can know not to send cookies,
-   credentials, etc.  By handing out a URI using which is protected with
-   TLS, the captive portal operator can attempt to reassure the user
-   that the captive portal is not malicious.
-
-   Operating systems should conduct all interactions with the API in a
-   sand-boxed environment and with a configuration that minimizes
-   tracking risks.
+   credentials, etc.  By handing out a URI which is protected with TLS,
+   the captive portal operator can attempt to reassure the user that the
+   captive portal is not malicious.
 
 6.  Acknowledgements
 
@@ -423,8 +419,10 @@ Internet-Draft             DHCP Captive-Portal             February 2020
    Sheng), and original contributors.
 
    Also thanks to the CAPPORT WG for all of the discussion and
-   improvements including contributions and review from Lorenzo Colitti,
-   Remi Nguyen Van, and Tommy Pauly.
+   improvements including contributions and review from Joe Clarke,
+   Lorenzo Colitti, Dave Dolson, Hans Kuhn, Kyle Larose, Clemens
+   Schimpe, Martin Thompson, Michael Richardson, Remi Nguyen Van, Bernie
+   Volz, and Tommy Pauly.
 
 7.  References
 
@@ -432,8 +430,8 @@ Internet-Draft             DHCP Captive-Portal             February 2020
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
-              DOI 10.17487/RFC2119, March 1997, <https://www.rfc-
-              editor.org/info/rfc2119>.
+              DOI 10.17487/RFC2119, March 1997,
+              <https://www.rfc-editor.org/info/rfc2119>.
 
    [RFC2131]  Droms, R., "Dynamic Host Configuration Protocol",
               RFC 2131, DOI 10.17487/RFC2131, March 1997,
@@ -447,9 +445,11 @@ Internet-Draft             DHCP Captive-Portal             February 2020
 
 
 
-Kumari & Kline           Expires August 21, 2020                [Page 8]
+
+
+Kumari & Kline          Expires September 8, 2020               [Page 8]
 
-Internet-Draft             DHCP Captive-Portal             February 2020
+Internet-Draft             DHCP Captive-Portal                March 2020
 
 
    [RFC3553]  Mealling, M., Masinter, L., Hardie, T., and G. Klyne, "An
@@ -464,8 +464,8 @@ Internet-Draft             DHCP Captive-Portal             February 2020
 
    [RFC4861]  Narten, T., Nordmark, E., Simpson, W., and H. Soliman,
               "Neighbor Discovery for IP version 6 (IPv6)", RFC 4861,
-              DOI 10.17487/RFC4861, September 2007, <https://www.rfc-
-              editor.org/info/rfc4861>.
+              DOI 10.17487/RFC4861, September 2007,
+              <https://www.rfc-editor.org/info/rfc4861>.
 
    [RFC7227]  Hankins, D., Mrugalski, T., Siodelski, M., Jiang, S., and
               S. Krishnan, "Guidelines for Creating New DHCPv6 Options",
@@ -474,8 +474,8 @@ Internet-Draft             DHCP Captive-Portal             February 2020
 
    [RFC7231]  Fielding, R., Ed. and J. Reschke, Ed., "Hypertext Transfer
               Protocol (HTTP/1.1): Semantics and Content", RFC 7231,
-              DOI 10.17487/RFC7231, June 2014, <https://www.rfc-
-              editor.org/info/rfc7231>.
+              DOI 10.17487/RFC7231, June 2014,
+              <https://www.rfc-editor.org/info/rfc7231>.
 
    [RFC7234]  Fielding, R., Ed., Nottingham, M., Ed., and J. Reschke,
               Ed., "Hypertext Transfer Protocol (HTTP/1.1): Caching",
@@ -503,9 +503,9 @@ Internet-Draft             DHCP Captive-Portal             February 2020
 
 
 
-Kumari & Kline           Expires August 21, 2020                [Page 9]
+Kumari & Kline          Expires September 8, 2020               [Page 9]
 
-Internet-Draft             DHCP Captive-Portal             February 2020
+Internet-Draft             DHCP Captive-Portal                March 2020
 
 
 Appendix A.  Changes / Author Notes.
@@ -540,6 +540,8 @@ Appendix B.  Changes from RFC 7710
 
    5.  Added urn:ietf:params:capport-unrestricted URN.
 
+   6.  Notes that the DHCP Code changed from 160 to 114.
+
 Appendix C.  Observations From IETF 106 Network Experiment
 
    During IETF 106 in Singapore an experiment [1] enabling Captive
@@ -557,11 +559,9 @@ Appendix C.  Observations From IETF 106 Network Experiment
 
 
 
-
-
-Kumari & Kline           Expires August 21, 2020               [Page 10]
+Kumari & Kline          Expires September 8, 2020              [Page 10]
 
-Internet-Draft             DHCP Captive-Portal             February 2020
+Internet-Draft             DHCP Captive-Portal                March 2020
 
 
 Authors' Addresses
@@ -615,5 +615,5 @@ Authors' Addresses
 
 
 
-Kumari & Kline           Expires August 21, 2020               [Page 11]
+Kumari & Kline          Expires September 8, 2020              [Page 11]
 ```
