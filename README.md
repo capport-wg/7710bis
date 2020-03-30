@@ -8,11 +8,11 @@ Network Working Group                                          W. Kumari
 Internet-Draft                                                    Google
 Obsoletes: 7710 (if approved)                                   E. Kline
 Intended status: Standards Track                                    Loon
-Expires: August 21, 2020                               February 18, 2020
+Expires: October 1, 2020                                  March 30, 2020
 
 
                Captive-Portal Identification in DHCP / RA
-                    draft-ietf-capport-rfc7710bis-02
+                    draft-ietf-capport-rfc7710bis-03
 
 Abstract
 
@@ -23,17 +23,25 @@ Abstract
 
    This document describes a DHCP option (and a Router Advertisement
    (RA) extension) to inform clients that they are behind some sort of
-   captive-portal device, and that they will need to authenticate to get
-   Internet access.  It is not a full solution to address all of the
-   issues that clients may have with captive portals; it is designed to
-   be used in larger solutions.  The method of authenticating to, and
-   interacting with the captive portal is out of scope of this document.
+   captive-portal enforcement device, and that they will need to
+   authenticate to get Internet access.  It is not a full solution to
+   address all of the issues that clients may have with captive portals;
+   it is designed to be used in larger solutions.  The method of
+   authenticating to, and interacting with the captive portal is out of
+   scope of this document.
+
+   Note that this document obsoletes RFC7710, and changes the DHCP
+   codepoint from 160 to 114.
+
+   [ RFC Ed, please remove: The codepoint change is important enough
+   that it is being listed in the abstract - it's useful for someone
+   skimming abstracts. ]
 
    [ This document is being collaborated on in Github at:
-   https://github.com/wkumari/draft-ekwk-capport-rfc7710bis.  The most
-   recent version of the document, open issues, etc should all be
-   available here.  The authors (gratefully) accept pull requests.  Text
-   in square brackets will be removed before publication. ]
+   https://github.com/capport-wg/7710bis.  The most recent version of
+   the document, open issues, etc should all be available here.  The
+   authors (gratefully) accept pull requests.  Text in square brackets
+   will be removed before publication. ]
 
 Status of This Memo
 
@@ -43,22 +51,21 @@ Status of This Memo
    Internet-Drafts are working documents of the Internet Engineering
    Task Force (IETF).  Note that other groups may also distribute
    working documents as Internet-Drafts.  The list of current Internet-
-   Drafts is at http://datatracker.ietf.org/drafts/current/.
+   Drafts is at https://datatracker.ietf.org/drafts/current/.
+
+
+
+Kumari & Kline           Expires October 1, 2020                [Page 1]
+
+Internet-Draft             DHCP Captive-Portal                March 2020
+
 
    Internet-Drafts are draft documents valid for a maximum of six months
    and may be updated, replaced, or obsoleted by other documents at any
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on August 21, 2020.
-
-
-
-
-Kumari & Kline           Expires August 21, 2020                [Page 1]
-
-Internet-Draft             DHCP Captive-Portal             February 2020
-
+   This Internet-Draft will expire on October 1, 2020.
 
 Copyright Notice
 
@@ -67,7 +74,7 @@ Copyright Notice
 
    This document is subject to BCP 78 and the IETF Trust's Legal
    Provisions Relating to IETF Documents
-   (http://trustee.ietf.org/license-info) in effect on the date of
+   (https://trustee.ietf.org/license-info) in effect on the date of
    publication of this document.  Please review these documents
    carefully, as they describe your rights and restrictions with respect
    to this document.  Code Components extracted from this document must
@@ -81,13 +88,13 @@ Table of Contents
      1.1.  Requirements Notation . . . . . . . . . . . . . . . . . .   3
    2.  The Captive-Portal Option . . . . . . . . . . . . . . . . . .   3
      2.1.  IPv4 DHCP Option  . . . . . . . . . . . . . . . . . . . .   4
-     2.2.  IPv6 DHCP Option  . . . . . . . . . . . . . . . . . . . .   4
+     2.2.  IPv6 DHCP Option  . . . . . . . . . . . . . . . . . . . .   5
      2.3.  The Captive-Portal IPv6 RA Option . . . . . . . . . . . .   5
    3.  Precedence of API URIs  . . . . . . . . . . . . . . . . . . .   6
    4.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   6
      4.1.  IETF params Registration  . . . . . . . . . . . . . . . .   6
        4.1.1.  Registry name: Captive Portal Unrestricted Identifier   6
-     4.2.  BOOTP Vendor Extensions and DHCP Options Code Change  . .   6
+     4.2.  BOOTP Vendor Extensions and DHCP Options Code Change  . .   7
    5.  Security Considerations . . . . . . . . . . . . . . . . . . .   7
    6.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .   8
    7.  Normative References  . . . . . . . . . . . . . . . . . . . .   8
@@ -99,35 +106,34 @@ Table of Contents
 1.  Introduction
 
    In many environments, users need to connect to a captive-portal
-   device and agree to an Acceptable Use Policy (AUP) and / or provide
+   server and agree to an Acceptable Use Policy (AUP) and / or provide
    billing information before they can access the Internet.  It is
+
+
+
+Kumari & Kline           Expires October 1, 2020                [Page 2]
+
+Internet-Draft             DHCP Captive-Portal                March 2020
+
+
    anticipated that the IETF will work on a more fully featured protocol
    at some point, to ease interaction with Captive Portals.  Regardless
    of how that protocol operates, it is expected that this document will
    provide needed functionality because the client will need to know
    when it is behind a captive portal and how to contact it.
 
-
-
-
-
-Kumari & Kline           Expires August 21, 2020                [Page 2]
-
-Internet-Draft             DHCP Captive-Portal             February 2020
-
-
-   In order to present users with the payment or AUP pages, the captive-
-   portal device has to intercept the user's connections and redirect
-   the user to the captive portal, using methods that are very similar
-   to man-in-the-middle (MITM) attacks.  As increasing focus is placed
-   on security, and end nodes adopt a more secure stance, these
-   interception techniques will become less effective and/or more
-   intrusive.
+   In order to present users with the payment or AUP pages, presently a
+   captive-portal enforcement device has to intercept the user's
+   connections and redirect the user to a captive portal server, using
+   methods that are very similar to man-in-the-middle (MITM) attacks.
+   As increasing focus is placed on security, and end nodes adopt a more
+   secure stance, these interception techniques will become less
+   effective and/or more intrusive.
 
    This document describes a DHCP ([RFC2131]) option (Captive-Portal)
    and an IPv6 Router Advertisement (RA) ([RFC4861]) extension that
-   informs clients that they are behind a captive-portal device and how
-   to contact it.
+   informs clients that they are behind a captive-portal enforcement
+   device and how to contact an API for more information.
 
 1.1.  Requirements Notation
 
@@ -140,9 +146,9 @@ Internet-Draft             DHCP Captive-Portal             February 2020
    The Captive Portal DHCP / RA Option informs the client that it may be
    behind a captive portal and provides the URI to access an API as
    defined by [draft-ietf-capport-api].  This is primarily intended to
-   improve the user experience by getting them to the captive portal
-   faster and more reliably.  Note that, for the foreseeable future,
-   captive portals will still need to implement the interception
+   improve the user experience by showing the user the captive portal
+   information faster and more reliably.  Note that, for the foreseeable
+   future, captive portals will still need to implement the interception
    techniques to serve legacy clients, and clients will need to perform
    probing to detect captive portals.
 
@@ -152,35 +158,36 @@ Internet-Draft             DHCP Captive-Portal             February 2020
    request.
 
    In order to support multiple "classes" of clients (e.g.  IPv4 only,
-   IPv6 only with DHCPv6 ([RFC3315]), IPv6 only with RA) the captive
-   portal can provide the URI via multiple methods (IPv4 DHCP, IPv6
-   DHCP, IPv6 RA).  The captive portal operator SHOULD ensure that the
-   URIs handed out are equivalent to reduce the chance of operational
-   problems.  The maximum length of the URI that can be carried in IPv4
-   DHCP is 255 bytes, so URIs longer than 255 bytes should not be used
-   in IPv6 DHCP or IPv6 RA.
+   IPv6 only with DHCPv6 ([RFC3315]), and IPv6 only with RA) the captive
+   network can provision the client with the URI via multiple methods
+   (IPv4 DHCP, IPv6 DHCP, and IPv6 RA).  The captive portal operator
+   SHOULD ensure that the URIs provisioned by each method are equivalent
+   to reduce the chance of operational problems.  The maximum length of
+   the URI that can be carried in IPv4 DHCP is 255 bytes, so URIs longer
+
+
+
+Kumari & Kline           Expires October 1, 2020                [Page 3]
+
+Internet-Draft             DHCP Captive-Portal                March 2020
+
+
+   than 255 bytes should not be provisioned via IPv6 DHCP or IPv6 RA
+   either.
 
    In all variants of this option, the URI MUST be that of the captive
    portal API endpoint, conforming to the recommendations for such URIs
-   [draft-ietf-capport-api] (i.e. the URI SHOULD contain a DNS name and
-   SHOULD reference a secure transport, e.g. https).
+   [draft-ietf-capport-api].
 
-
-
-Kumari & Kline           Expires August 21, 2020                [Page 3]
-
-Internet-Draft             DHCP Captive-Portal             February 2020
-
-
-   A captive portal MAY redirect requests that do not have an Accept
-   header field ([RFC7231] Section 5.3) containing a field item whose
-   content-type is "application/capport+json" to the URL conveyed in the
-   "user-portal-url" API key.  When performing such content negotiation
-   ([RFC7231] Section 3.4), captive portals need to keep in mind that
-   such responses might be cached, and therefore SHOULD include an
-   appropriate Vary header field ([RFC7231] Section 7.1.4) or mark them
-   explicitly uncacheable (for example, using Cache-Control: no-store
-   [RFC7234] Section 5.2.2.3).
+   A captive portal server MAY redirect requests that do not have an
+   Accept header field ([RFC7231] Section 5.3) containing a field item
+   whose content-type is "application/capport+json" to the URL conveyed
+   in the "user-portal-url" API key.  When performing such content
+   negotiation ([RFC7231] Section 3.4), captive portals implementors
+   need to keep in mind that such responses might be cached, and
+   therefore SHOULD include an appropriate Vary header field ([RFC7231]
+   Section 7.1.4) or mark them explicitly uncacheable (for example,
+   using Cache-Control: no-store [RFC7234] Section 5.2.2.3).
 
    A captive portal MAY do content negotiation ([RFC7231] section 3.4)
    and attempt to redirect clients querying without an explicit
@@ -190,8 +197,7 @@ Internet-Draft             DHCP Captive-Portal             February 2020
    portal SHOULD redirect the client to the value associated with the
    "user-portal-url" API key.
 
-   The URI SHOULD NOT contain an IP address literal.  The URI parameter
-   is not null terminated.
+   The URI SHOULD NOT contain an IP address literal.
 
    Networks with no captive portals MAY explicitly indicate this
    condition by using this option with the IANA-assigned URI for this
@@ -208,25 +214,25 @@ Internet-Draft             DHCP Captive-Portal             February 2020
       | code | len  |  URI                  ...        |
       +------+------+------+------+------+--   --+-----+
 
-   o  Code: The Captive-Portal DHCPv4 Option (160) (one octet)
+   o  Code: The Captive-Portal DHCPv4 Option (114) (one octet)
 
    o  Len: The length, in octets of the URI.
 
    o  URI: The URI for the captive portal API endpoint to which the user
       should connect (encoded following the rules in [RFC3986]).
 
+
+
+Kumari & Kline           Expires October 1, 2020                [Page 4]
+
+Internet-Draft             DHCP Captive-Portal                March 2020
+
+
+   Note that the URI parameter is not null terminated.
+
 2.2.  IPv6 DHCP Option
 
    The format of the IPv6 Captive-Portal DHCP option is shown below.
-
-
-
-
-
-Kumari & Kline           Expires August 21, 2020                [Page 4]
-
-Internet-Draft             DHCP Captive-Portal             February 2020
-
 
       0                   1                   2                   3
       0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -246,6 +252,8 @@ Internet-Draft             DHCP Captive-Portal             February 2020
 
    See [RFC7227], Section 5.7 for more examples of DHCP Options with
    URIs.
+
+   Note that the URI parameter is not null terminated.
 
 2.3.  The Captive-Portal IPv6 RA Option
 
@@ -268,21 +276,20 @@ Internet-Draft             DHCP Captive-Portal             February 2020
    Length  8-bit unsigned integer.  The length of the option (including
       the Type and Length fields) in units of 8 bytes.
 
+
+
+
+Kumari & Kline           Expires October 1, 2020                [Page 5]
+
+Internet-Draft             DHCP Captive-Portal                March 2020
+
+
    URI  The URI for the captive portal API endpoint to which the user
       should connect.  This MUST be padded with NULL (0x00) to make the
       total option length (including the Type and Length fields) a
       multiple of 8 bytes.
 
-
-
-
-
-
-
-Kumari & Kline           Expires August 21, 2020                [Page 5]
-
-Internet-Draft             DHCP Captive-Portal             February 2020
-
+   Note that the URI parameter is not guaranteed to be null terminated.
 
 3.  Precedence of API URIs
 
@@ -299,8 +306,8 @@ Internet-Draft             DHCP Captive-Portal             February 2020
 
    If the URIs learned via more than one option described in Section 2
    are not all identical, this condition should be logged for the device
-   owner or administrator.  URI precedence in this situation is not
-   specified by this document.
+   owner or administrator.  Implementations can select their own
+   precedence order.
 
 4.  IANA Considerations
 
@@ -325,6 +332,14 @@ Internet-Draft             DHCP Captive-Portal             February 2020
    Index value: Only one value is defined (see URN above).  No hierarchy
    is defined and therefore no sub-namespace registrations are possible.
 
+
+
+
+Kumari & Kline           Expires October 1, 2020                [Page 6]
+
+Internet-Draft             DHCP Captive-Portal                March 2020
+
+
 4.2.  BOOTP Vendor Extensions and DHCP Options Code Change
 
    [ RFC Ed: Please remove before publication: RFC7710 uses DHCP Code
@@ -332,14 +347,6 @@ Internet-Draft             DHCP Captive-Portal             February 2020
    already widely used by Polycom (see appendix).  Option 114 (URL) is
    currently assigned to Apple (RFC3679, Section 3.2.3 - Contact: Dieter
    Siegmund, dieter@apple.com - Reason to recover: Never published in an
-
-
-
-Kumari & Kline           Expires August 21, 2020                [Page 6]
-
-Internet-Draft             DHCP Captive-Portal             February 2020
-
-
    RFC) Tommy Pauly (Apple) and Dieter Siegmund confirm that this
    codepoint hasn't been used, and Apple is willing to relinquish it for
    use in CAPPORT.  Please see thread:
@@ -380,21 +387,21 @@ Internet-Draft             DHCP Captive-Portal             February 2020
    document - by its nature it is implementation specific and best left
    to the application and user interface designers.
 
+
+
+
+
+Kumari & Kline           Expires October 1, 2020                [Page 7]
+
+Internet-Draft             DHCP Captive-Portal                March 2020
+
+
    Devices and systems that automatically connect to an open network
    could potentially be tracked using the techniques described in this
    document (forcing the user to continually authenticate, or exposing
    their browser fingerprint).  However, similar tracking can already be
-   performed with the standard captive portal mechanisms, so this
-   technique does not give the attackers more capabilities.
-
-
-
-
-
-Kumari & Kline           Expires August 21, 2020                [Page 7]
-
-Internet-Draft             DHCP Captive-Portal             February 2020
-
+   performed with the presently common captive portal mechanisms, so
+   this technique does not give the attackers more capabilities.
 
    Captive portals are increasingly hijacking TLS connections to force
    browsers to talk to the portal.  Providing the portal's URI via a
@@ -408,13 +415,9 @@ Internet-Draft             DHCP Captive-Portal             February 2020
    be less likely to disable useful security safeguards like DNSSEC
    validation, VPNs, etc.  In addition, because the system knows that it
    is behind a captive portal, it can know not to send cookies,
-   credentials, etc.  By handing out a URI using which is protected with
-   TLS, the captive portal operator can attempt to reassure the user
-   that the captive portal is not malicious.
-
-   Operating systems should conduct all interactions with the API in a
-   sand-boxed environment and with a configuration that minimizes
-   tracking risks.
+   credentials, etc.  By provisioning a URI using which is protected
+   with TLS, the captive portal operator can attempt to reassure the
+   user that the captive portal is not malicious.
 
 6.  Acknowledgements
 
@@ -432,25 +435,27 @@ Internet-Draft             DHCP Captive-Portal             February 2020
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
-              DOI 10.17487/RFC2119, March 1997, <https://www.rfc-
-              editor.org/info/rfc2119>.
+              DOI 10.17487/RFC2119, March 1997,
+              <https://www.rfc-editor.org/info/rfc2119>.
 
    [RFC2131]  Droms, R., "Dynamic Host Configuration Protocol",
               RFC 2131, DOI 10.17487/RFC2131, March 1997,
               <https://www.rfc-editor.org/info/rfc2131>.
 
+
+
+
+
+
+Kumari & Kline           Expires October 1, 2020                [Page 8]
+
+Internet-Draft             DHCP Captive-Portal                March 2020
+
+
    [RFC3315]  Droms, R., Ed., Bound, J., Volz, B., Lemon, T., Perkins,
               C., and M. Carney, "Dynamic Host Configuration Protocol
               for IPv6 (DHCPv6)", RFC 3315, DOI 10.17487/RFC3315, July
               2003, <https://www.rfc-editor.org/info/rfc3315>.
-
-
-
-
-Kumari & Kline           Expires August 21, 2020                [Page 8]
-
-Internet-Draft             DHCP Captive-Portal             February 2020
-
 
    [RFC3553]  Mealling, M., Masinter, L., Hardie, T., and G. Klyne, "An
               IETF URN Sub-namespace for Registered Protocol
@@ -464,8 +469,8 @@ Internet-Draft             DHCP Captive-Portal             February 2020
 
    [RFC4861]  Narten, T., Nordmark, E., Simpson, W., and H. Soliman,
               "Neighbor Discovery for IP version 6 (IPv6)", RFC 4861,
-              DOI 10.17487/RFC4861, September 2007, <https://www.rfc-
-              editor.org/info/rfc4861>.
+              DOI 10.17487/RFC4861, September 2007,
+              <https://www.rfc-editor.org/info/rfc4861>.
 
    [RFC7227]  Hankins, D., Mrugalski, T., Siodelski, M., Jiang, S., and
               S. Krishnan, "Guidelines for Creating New DHCPv6 Options",
@@ -474,8 +479,8 @@ Internet-Draft             DHCP Captive-Portal             February 2020
 
    [RFC7231]  Fielding, R., Ed. and J. Reschke, Ed., "Hypertext Transfer
               Protocol (HTTP/1.1): Semantics and Content", RFC 7231,
-              DOI 10.17487/RFC7231, June 2014, <https://www.rfc-
-              editor.org/info/rfc7231>.
+              DOI 10.17487/RFC7231, June 2014,
+              <https://www.rfc-editor.org/info/rfc7231>.
 
    [RFC7234]  Fielding, R., Ed., Nottingham, M., Ed., and J. Reschke,
               Ed., "Hypertext Transfer Protocol (HTTP/1.1): Caching",
@@ -498,14 +503,9 @@ Internet-Draft             DHCP Captive-Portal             February 2020
 
 
 
-
-
-
-
-
-Kumari & Kline           Expires August 21, 2020                [Page 9]
+Kumari & Kline           Expires October 1, 2020                [Page 9]
 
-Internet-Draft             DHCP Captive-Portal             February 2020
+Internet-Draft             DHCP Captive-Portal                March 2020
 
 
 Appendix A.  Changes / Author Notes.
@@ -559,9 +559,9 @@ Appendix C.  Observations From IETF 106 Network Experiment
 
 
 
-Kumari & Kline           Expires August 21, 2020               [Page 10]
+Kumari & Kline           Expires October 1, 2020               [Page 10]
 
-Internet-Draft             DHCP Captive-Portal             February 2020
+Internet-Draft             DHCP Captive-Portal                March 2020
 
 
 Authors' Addresses
@@ -615,5 +615,5 @@ Authors' Addresses
 
 
 
-Kumari & Kline           Expires August 21, 2020               [Page 11]
+Kumari & Kline           Expires October 1, 2020               [Page 11]
 ```
