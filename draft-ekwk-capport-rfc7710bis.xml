@@ -175,7 +175,7 @@
 
       <t>Networks with no captive portals MAY explicitly indicate this
       condition by using this option with the IANA-assigned URI for this
-      purpose (see <xref target="ietf_params_capport-unrestricted"/>). Clients
+      purpose (see <xref target="iana-urn"/>). Clients
       observing the URI value "urn:ietf:params:capport-unrestricted" MAY
       forego time-consuming forms of captive portal detection.</t>
 
@@ -290,22 +290,19 @@
 
       <t>Thanks IANA!</t>
 
-      <section anchor="ietf_params_registration"
-               title="IETF params Registration">
-        <section anchor="ietf_params_capport-unrestricted"
-                 title="Registry name: Captive Portal Unrestricted Identifier">
-          <t>Registry name: Captive Portal Unrestricted Identifier</t>
-
-          <t>URN: urn:ietf:params:capport-unrestricted</t>
-
-          <t>Specification: RFC TBD (this document)</t>
-
-          <t>Repository: RFC TBD (this document)</t>
-
-          <t>Index value: Only one value is defined (see URN above). No
-          hierarchy is defined and therefore no sub-namespace registrations
-          are possible.</t>
-        </section>
+      <section anchor="iana-urn"
+               title="Captive Portal Unrestricted Identifier">
+       <t>This document registers a new entry under the IETF URN
+       Sub-namespace defined in <xref target="RFC3553"/>:
+       <list style="hanging">
+         <t hangText="Registry name:">Captive Portal Unrestricted Identifier</t>
+         <t hangText="URN:">urn:ietf:params:capport-unrestricted</t>
+         <t hangText="Specification:">RFC TBD (this document)</t>
+         <t hangText="Repository:">RFC TBD (this document)</t>
+         <t hangText="Index value:">Only one value is defined (see URN above). No
+         hierarchy is defined and therefore no sub-namespace registrations
+         are possible.</t>
+      </list></t>
       </section>
 
       <section anchor="ietf_dhcpv4_option_code_change"
