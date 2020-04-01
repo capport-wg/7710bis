@@ -79,8 +79,8 @@
       larger solutions. The method of authenticating to, and interacting with
       the captive portal is out of scope of this document.</t>
 
-      <t>RFC7710 used DHCP code point 160. Due to a conflict, this document
-      specifies TBD.</t>
+      <t>This document replaces RFC 7710.  RFC 7710 used DHCP code point 160.
+      Due to a conflict, this document specifies TBD.</t>
 
       <t>[ This document is being collaborated on in Github at:
       https://github.com/capport-wg/7710bis. The most
@@ -111,6 +111,8 @@
       (Captive-Portal) and an IPv6 Router Advertisement (RA) (<xref
       target="RFC4861"/>) extension that informs clients that they are behind
       a captive-portal enforcement device and how to contact an API for more information.</t>
+
+      <t>This document replaces RFC 7710 <xref target="RFC7710"/>.</t>
 
       <section title="Requirements Notation">
         <t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
@@ -173,7 +175,7 @@
 
       <t>Networks with no captive portals MAY explicitly indicate this
       condition by using this option with the IANA-assigned URI for this
-      purpose (see <xref target="ietf_params_capport-unrestricted"/>). Clients
+      purpose (see <xref target="iana-urn"/>). Clients
       observing the URI value "urn:ietf:params:capport-unrestricted" MAY
       forego time-consuming forms of captive portal detection.</t>
 
@@ -288,22 +290,19 @@
 
       <t>Thanks IANA!</t>
 
-      <section anchor="ietf_params_registration"
-               title="IETF params Registration">
-        <section anchor="ietf_params_capport-unrestricted"
-                 title="Registry name: Captive Portal Unrestricted Identifier">
-          <t>Registry name: Captive Portal Unrestricted Identifier</t>
-
-          <t>URN: urn:ietf:params:capport-unrestricted</t>
-
-          <t>Specification: RFC TBD (this document)</t>
-
-          <t>Repository: RFC TBD (this document)</t>
-
-          <t>Index value: Only one value is defined (see URN above). No
-          hierarchy is defined and therefore no sub-namespace registrations
-          are possible.</t>
-        </section>
+      <section anchor="iana-urn"
+               title="Captive Portal Unrestricted Identifier">
+       <t>This document registers a new entry under the IETF URN
+       Sub-namespace defined in <xref target="RFC3553"/>:
+       <list style="hanging">
+         <t hangText="Registry name:">Captive Portal Unrestricted Identifier</t>
+         <t hangText="URN:">urn:ietf:params:capport-unrestricted</t>
+         <t hangText="Specification:">RFC TBD (this document)</t>
+         <t hangText="Repository:">RFC TBD (this document)</t>
+         <t hangText="Index value:">Only one value is defined (see URN above). No
+         hierarchy is defined and therefore no sub-namespace registrations
+         are possible.</t>
+      </list></t>
       </section>
 
       <section anchor="ietf_dhcpv4_option_code_change"
@@ -331,7 +330,7 @@
    Name: REMOVED/Unassigned
    Data Length:
    Meaning:
-   Reference: [RFC7710][Deprecated]]]></artwork></figure></t>
+   Reference: [THIS-RFC][RFC7710]]]></artwork></figure></t>
 
       </section>
     </section>
@@ -409,7 +408,9 @@
       <?rfc include='reference.RFC.7231'?>
 
       <?rfc include='reference.RFC.7234'?>
+    </references>
 
+    <references title="Informative References">
       <?rfc include='reference.RFC.7710'?>
     </references>
 
