@@ -408,7 +408,9 @@
       <?rfc include='reference.RFC.7231'?>
 
       <?rfc include='reference.RFC.7234'?>
+    </references>
 
+    <references title="Informative References">
       <?rfc include='reference.RFC.7710'?>
     </references>
 
