@@ -157,9 +157,9 @@
       header field (<xref target="RFC7231"/> Section 5.3) containing a field
       item whose content-type is "application/capport+json" to the URL
       conveyed in the "user-portal-url" API key. When performing such
-      content negotiation (<xref target="RFC7231"/> Section 3.4), captive
-      portals implementors need to keep in mind that such responses might be cached, and
-      therefore SHOULD include an appropriate Vary header field
+      content negotiation (<xref target="RFC7231"/> Section 3.4), implementors
+      of captive portals need to keep in mind that such responses might be
+      cached, and therefore SHOULD include an appropriate Vary header field
       (<xref target="RFC7231"/> Section 7.1.4) or mark them explicitly
       uncacheable (for example, using
       Cache-Control: no-store <xref target="RFC7234"/> Section 5.2.2.3).
