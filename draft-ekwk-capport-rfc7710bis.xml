@@ -272,20 +272,14 @@
 
     <section anchor="precedence" title="Precedence of API URIs">
       <t>A device may learn about Captive Portal API URIs through more than
-      one of (or indeed all of) the above options. It is a network
-      configuration error if the learned URIs are not all identical.</t>
-
-      <t>However, if the URIs learned are not in fact all identical the
-      captive device MUST prioritize URIs learned from network provisioning or
-      configuration mechanisms before all other URIs. Specifically, URIs
-      learned via any of the options in <xref target="option"/> should take
-      precedence over any URI learned via some other mechanism, such as a
-      redirect.</t>
+      one of (or indeed all of) the above options. Implementations can select
+      their own precedence order (e.g., prefer one of the IPv6 options before
+      the DHCPv4 option, or vice versa, et cetera).</t>
 
       <t>If the URIs learned via more than one option described in <xref
       target="option"/> are not all identical, this condition should be logged
-      for the device owner or administrator. Implementations can select their
-      own precedence order.</t>
+      for the device owner or administrator; it is a network configuration error
+      if the learned URIs are not all identical.</t>
     </section>
 
     <section anchor="iana" title="IANA Considerations">
