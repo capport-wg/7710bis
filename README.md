@@ -398,6 +398,16 @@ Internet-Draft             DHCP Captive-Portal                March 2020
 
 5.  Security Considerations
 
+   By removing or reducing the need for captive portals to perform MITM
+   hijacking, this mechanism improves security by making the portal and
+   its actions visible, rather than hidden, and reduces the likelihood
+   that users will disable useful security safeguards like DNSSEC
+   validation, VPNs, etc.  In addition, because the system knows that it
+   is behind a captive portal, it can know not to send cookies,
+   credentials, etc.  By handing out a URI which is protected with TLS,
+   the captive portal operator can attempt to reassure the user that the
+   captive portal is not malicious.
+
    An attacker with the ability to inject DHCP messages or RAs could
    include an option from this document to force users to contact an
    address of his choosing.  As an attacker with this capability could
@@ -428,21 +438,11 @@ Internet-Draft             DHCP Captive-Portal                March 2020
    users more reluctant to accept TLS hijacking, which can be performed
    from beyond the network associated with the captive portal.
 
-   By simplifying the interaction with the captive portal systems, and
-   doing away with the need for interception, we think that users will
-   be less likely to disable useful security safeguards like DNSSEC
-   validation, VPNs, etc.  In addition, because the system knows that it
-   is behind a captive portal, it can know not to send cookies,
-   credentials, etc.  By handing out a URI which is protected with TLS,
-   the captive portal operator can attempt to reassure the user that the
-   captive portal is not malicious.
-
 6.  Acknowledgements
 
    This document is a -bis of RFC7710.  Thanks to all of the original
    authors (Warren Kumari, Olafur Gudmundsson, Paul Ebersman, Steve
    Sheng), and original contributors.
-
 
 
 
