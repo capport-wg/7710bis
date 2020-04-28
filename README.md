@@ -31,7 +31,7 @@ Abstract
    scope of this document.
 
    This document replaces RFC 7710.  RFC 7710 used DHCP code point 160.
-   Due to a conflict, this document specifies TBD.
+   Due to a conflict, this document specifies 114.
 
    [ This document is being collaborated on in Github at:
    https://github.com/capport-wg/7710bis.  The most recent version of
@@ -217,7 +217,7 @@ Internet-Draft             DHCP Captive-Portal                March 2020
       |                              ...                              |
       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-   o  Code: The Captive-Portal DHCPv4 Option (TBD) (one octet)
+   o  Code: The Captive-Portal DHCPv4 Option (114) (one octet)
 
    o  Len: The length (one octet), in octets of the URI.
 
