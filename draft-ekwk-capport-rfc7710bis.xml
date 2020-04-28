@@ -167,7 +167,10 @@
       Cache-Control: no-store <xref target="RFC7234"/> Section 5.2.2.3).
       </t>
 
-      <t>The URI SHOULD NOT contain an IP address literal.</t>
+      <t>The URI SHOULD NOT contain an IP address literal. Exceptions to this
+      might include networks with only one operational IP address family where
+      DNS is either not available or not fully functional until the captive
+      portal has been satisfied.</t>
 
       <t>Networks with no captive portals MAY explicitly indicate this
       condition by using this option with the IANA-assigned URI for this
