@@ -4,7 +4,7 @@
 <!ENTITY rfc8174 PUBLIC "" ".//reference.RFC.8174.xml">
 ]>
 <!-- WK: Set category, IPR, docName -->
-<rfc category="std" docName="draft-ietf-capport-rfc7710bis-03"
+<rfc category="std" docName="draft-ietf-capport-rfc7710bis-04"
      ipr="trust200902" obsoletes="7710">
   <?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
 
