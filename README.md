@@ -455,8 +455,8 @@ Internet-Draft             DHCP Captive-Portal                March 2020
    Also thanks to the CAPPORT WG for all of the discussion and
    improvements including contributions and review from Joe Clarke,
    Lorenzo Colitti, Dave Dolson, Hans Kuhn, Kyle Larose, Clemens
-   Schimpe, Martin Thomson, Michael Richardson, Remi Nguyen Van, Bernie
-   Volz, and Tommy Pauly.
+   Schimpe, Martin Thomson, Michael Richardson, Remi Nguyen Van, Subash
+   Tirupachur Comerica, Bernie Volz, and Tommy Pauly.
 
 7.  References
 
