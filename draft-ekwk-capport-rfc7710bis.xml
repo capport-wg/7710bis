@@ -139,13 +139,13 @@
       MAY send the Captive Portal option without any explicit request.</t>
 
       <t>In order to support multiple "classes" of clients (e.g. IPv4 only,
-      IPv6 only with DHCPv6 (<xref target="RFC3315"/>), and IPv6 only with RA) the
+      IPv6 only with DHCPv6 (<xref target="RFC8415"/>), and IPv6 only with RA) the
       captive network can provision the client with the URI via multiple methods (IPv4 DHCP, IPv6
       DHCP, and IPv6 RA). The captive portal operator SHOULD ensure that the URIs
       provisioned by each method are equivalent to reduce the chance of operational problems.
       The maximum length of the URI that can be carried in IPv4 DHCP is 255
-      bytes, so URIs longer than 255 bytes should not be provisioned via IPv6 DHCP or
-      IPv6 RA either.</t>
+      bytes, so URIs longer than 255 bytes should not be provisioned via IPv6 DHCP nor
+      IPv6 RA options.</t>
 
       <t>In all variants of this option, the URI MUST be that of the captive
       portal API endpoint, conforming to the recommendations for such URIs
@@ -194,12 +194,13 @@
         <t><list style="symbols">
             <t>Code: The Captive-Portal DHCPv4 Option (TBD) (one octet)</t>
 
-            <t>Len: The length, in octets of the URI.</t>
+            <t>Len: The length (one octet), in octets of the URI.</t>
 
             <t>URI: The URI for the captive portal API endpoint to which the
             user should connect (encoded following the rules in <xref
             target="RFC3986"/>).</t>
-          </list></t>
+          </list>See <xref target="RFC2132"/>, Section 2 for more on the format
+          of IPv4 DHCP options.</t>
 
         <t>Note that the URI parameter is not null terminated.</t>
       </section>
@@ -222,13 +223,15 @@
             <t>option-code: The Captive-Portal DHCPv6Option (103) (two
             octets)</t>
 
-            <t>option-len: The length, in octets of the URI.</t>
+            <t>option-len: The unsigned 16-bit length, in octets, of the URI.
+            </t>
 
             <t>URI: The URI for the captive portal API endpoint to which the
             user should connect (encoded following the rules in <xref
             target="RFC3986"/>).</t>
           </list>See <xref target="RFC7227"/>, Section 5.7 for more examples
-        of DHCP Options with URIs.</t>
+        of DHCP Options with URIs. See <xref target="RFC8415"/>, Section 21.1
+        for more on the format of IPv6 DHCP options.</t>
 
         <t>Note that the URI parameter is not null terminated.</t>
       </section>
@@ -395,9 +398,9 @@
     <references title="Normative References">
       <?rfc include='reference.RFC.2131'?>
 
-      <?rfc include='reference.RFC.2119'?>
+      <?rfc include='reference.RFC.2132'?>
 
-      <?rfc include='reference.RFC.3315'?>
+      <?rfc include='reference.RFC.2119'?>
 
       <?rfc include='reference.RFC.3553'?>
 
@@ -412,6 +415,8 @@
       <?rfc include='reference.RFC.7234'?>
 
       <?rfc include='reference.RFC.8174'?>
+
+      <?rfc include='reference.RFC.8415'?>
     </references>
 
     <references title="Informative References">
