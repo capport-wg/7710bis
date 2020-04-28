@@ -174,9 +174,9 @@
 
       <t>Networks with no captive portals MAY explicitly indicate this
       condition by using this option with the IANA-assigned URI for this
-      purpose (see <xref target="iana-urn"/>). Clients
-      observing the URI value "urn:ietf:params:capport-unrestricted" MAY
-      forego time-consuming forms of captive portal detection.</t>
+      purpose. Clients observing the URI value
+      "urn:ietf:params:capport:unrestricted" MAY forego time-consuming forms of
+      captive portal detection.</t>
 
       <section anchor="dhcpv4opt" title="IPv4 DHCP Option">
         <t>The format of the IPv4 Captive-Portal DHCP option is shown
@@ -292,7 +292,7 @@
        Sub-namespace defined in <xref target="RFC3553"/>:
        <list style="hanging">
          <t hangText="Registry name:">Captive Portal Unrestricted Identifier</t>
-         <t hangText="URN:">urn:ietf:params:capport-unrestricted</t>
+         <t hangText="URN:">urn:ietf:params:capport:unrestricted</t>
          <t hangText="Specification:">RFC TBD (this document)</t>
          <t hangText="Repository:">RFC TBD (this document)</t>
          <t hangText="Index value:">Only one value is defined (see URN above). No
@@ -447,7 +447,7 @@
           <t>Added text about Captive Portal API URI precedence in the event
           of a network configuration error.</t>
 
-          <t>Added urn:ietf:params:capport-unrestricted URN.</t>
+          <t>Added urn:ietf:params:capport:unrestricted URN.</t>
 
           <t>Notes that the DHCP Code changed from 160 to 114.</t>
         </list></t>
