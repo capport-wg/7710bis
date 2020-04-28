@@ -90,15 +90,15 @@ Table of Contents
      2.3.  The Captive-Portal IPv6 RA Option . . . . . . . . . . . .   5
    3.  Precedence of API URIs  . . . . . . . . . . . . . . . . . . .   6
    4.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   6
-     4.1.  Captive Portal Unrestricted Identifier  . . . . . . . . .   6
+     4.1.  Captive Portal Unrestricted Identifier  . . . . . . . . .   7
      4.2.  BOOTP Vendor Extensions and DHCP Options Code Change  . .   7
-   5.  Security Considerations . . . . . . . . . . . . . . . . . . .   7
+   5.  Security Considerations . . . . . . . . . . . . . . . . . . .   8
    6.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .   8
-   7.  References  . . . . . . . . . . . . . . . . . . . . . . . . .   8
-     7.1.  Normative References  . . . . . . . . . . . . . . . . . .   8
+   7.  References  . . . . . . . . . . . . . . . . . . . . . . . . .   9
+     7.1.  Normative References  . . . . . . . . . . . . . . . . . .   9
      7.2.  Informative References  . . . . . . . . . . . . . . . . .  10
    Appendix A.  Changes / Author Notes.  . . . . . . . . . . . . . .  10
-   Appendix B.  Changes from RFC 7710  . . . . . . . . . . . . . . .  10
+   Appendix B.  Changes from RFC 7710  . . . . . . . . . . . . . . .  11
    Appendix C.  Observations From IETF 106 Network Experiment  . . .  11
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  11
 
@@ -208,18 +208,18 @@ Internet-Draft             DHCP Captive-Portal                March 2020
 
    The format of the IPv4 Captive-Portal DHCP option is shown below.
 
-       Code   Len           Data
-      +------+------+------+------+------+--   --+-----+
-      | code | len  |  URI                  ...        |
-      +------+------+------+------+------+--   --+-----+
+      0                   1                   2                   3
+      0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+      | Code          | Len           | URI (variable length) ...     |
+      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+      .                   ...URI continued...                         .
+      |                              ...                              |
+      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
    o  Code: The Captive-Portal DHCPv4 Option (TBD) (one octet)
 
    o  Len: The length (one octet), in octets of the URI.
-
-   o  URI: The URI for the captive portal API endpoint to which the user
-      should connect (encoded following the rules in [RFC3986]).
-
 
 
 
@@ -227,6 +227,9 @@ Kumari & Kline          Expires September 2, 2020               [Page 4]
 
 Internet-Draft             DHCP Captive-Portal                March 2020
 
+
+   o  URI: The URI for the captive portal API endpoint to which the user
+      should connect (encoded following the rules in [RFC3986]).
 
    See [RFC2132], Section 2 for more on the format of IPv4 DHCP options.
 
@@ -258,10 +261,28 @@ Internet-Draft             DHCP Captive-Portal                March 2020
 
    Note that the URI parameter is not null terminated.
 
+   The maximum length of the URI that can be carried in IPv4 DHCP is 255
+   bytes, so URIs longer than 255 bytes should not be provisioned via
+   IPv6 DHCP options.
+
 2.3.  The Captive-Portal IPv6 RA Option
 
    This section describes the Captive-Portal Router Advertisement
    option.
+
+
+
+
+
+
+
+
+
+
+Kumari & Kline          Expires September 2, 2020               [Page 5]
+
+Internet-Draft             DHCP Captive-Portal                March 2020
+
 
     0                   1                   2                   3
        0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -276,14 +297,6 @@ Internet-Draft             DHCP Captive-Portal                March 2020
 
    Type  37
 
-
-
-
-Kumari & Kline          Expires September 2, 2020               [Page 5]
-
-Internet-Draft             DHCP Captive-Portal                March 2020
-
-
    Length  8-bit unsigned integer.  The length of the option (including
       the Type and Length fields) in units of 8 bytes.
 
@@ -293,6 +306,10 @@ Internet-Draft             DHCP Captive-Portal                March 2020
       multiple of 8 bytes.
 
    Note that the URI parameter is not guaranteed to be null terminated.
+
+   The maximum length of the URI that can be carried in IPv4 DHCP is 255
+   bytes, so URIs longer than 255 bytes should not be provisioned via
+   IPv6 RA options.
 
 3.  Precedence of API URIs
 
@@ -314,6 +331,15 @@ Internet-Draft             DHCP Captive-Portal                March 2020
 
    Thanks IANA!
 
+
+
+
+
+Kumari & Kline          Expires September 2, 2020               [Page 6]
+
+Internet-Draft             DHCP Captive-Portal                March 2020
+
+
 4.1.  Captive Portal Unrestricted Identifier
 
    This document registers a new entry under the IETF URN Sub-namespace
@@ -330,15 +356,6 @@ Internet-Draft             DHCP Captive-Portal                March 2020
    Index value:  Only one value is defined (see URN above).  No
       hierarchy is defined and therefore no sub-namespace registrations
       are possible.
-
-
-
-
-
-Kumari & Kline          Expires September 2, 2020               [Page 6]
-
-Internet-Draft             DHCP Captive-Portal                March 2020
-
 
 4.2.  BOOTP Vendor Extensions and DHCP Options Code Change
 
@@ -369,6 +386,16 @@ Internet-Draft             DHCP Captive-Portal                March 2020
       Meaning:
       Reference: [THIS-RFC][RFC7710]
 
+
+
+
+
+
+Kumari & Kline          Expires September 2, 2020               [Page 7]
+
+Internet-Draft             DHCP Captive-Portal                March 2020
+
+
 5.  Security Considerations
 
    An attacker with the ability to inject DHCP messages or RAs could
@@ -386,15 +413,6 @@ Internet-Draft             DHCP Captive-Portal                March 2020
    user interface presenting this information is not covered in this
    document - by its nature it is implementation specific and best left
    to the application and user interface designers.
-
-
-
-
-
-Kumari & Kline          Expires September 2, 2020               [Page 7]
-
-Internet-Draft             DHCP Captive-Portal                March 2020
-
 
    Devices and systems that automatically connect to an open network
    could potentially be tracked using the techniques described in this
@@ -425,6 +443,15 @@ Internet-Draft             DHCP Captive-Portal                March 2020
    authors (Warren Kumari, Olafur Gudmundsson, Paul Ebersman, Steve
    Sheng), and original contributors.
 
+
+
+
+
+Kumari & Kline          Expires September 2, 2020               [Page 8]
+
+Internet-Draft             DHCP Captive-Portal                March 2020
+
+
    Also thanks to the CAPPORT WG for all of the discussion and
    improvements including contributions and review from Joe Clarke,
    Lorenzo Colitti, Dave Dolson, Hans Kuhn, Kyle Larose, Clemens
@@ -443,14 +470,6 @@ Internet-Draft             DHCP Captive-Portal                March 2020
    [RFC2131]  Droms, R., "Dynamic Host Configuration Protocol",
               RFC 2131, DOI 10.17487/RFC2131, March 1997,
               <https://www.rfc-editor.org/info/rfc2131>.
-
-
-
-
-Kumari & Kline          Expires September 2, 2020               [Page 8]
-
-Internet-Draft             DHCP Captive-Portal                March 2020
-
 
    [RFC2132]  Alexander, S. and R. Droms, "DHCP Options and BOOTP Vendor
               Extensions", RFC 2132, DOI 10.17487/RFC2132, March 1997,
@@ -481,6 +500,14 @@ Internet-Draft             DHCP Captive-Portal                March 2020
               DOI 10.17487/RFC7231, June 2014,
               <https://www.rfc-editor.org/info/rfc7231>.
 
+
+
+
+Kumari & Kline          Expires September 2, 2020               [Page 9]
+
+Internet-Draft             DHCP Captive-Portal                March 2020
+
+
    [RFC7234]  Fielding, R., Ed., Nottingham, M., Ed., and J. Reschke,
               Ed., "Hypertext Transfer Protocol (HTTP/1.1): Caching",
               RFC 7234, DOI 10.17487/RFC7234, June 2014,
@@ -495,18 +522,6 @@ Internet-Draft             DHCP Captive-Portal                March 2020
               "Dynamic Host Configuration Protocol for IPv6 (DHCPv6)",
               RFC 8415, DOI 10.17487/RFC8415, November 2018,
               <https://www.rfc-editor.org/info/rfc8415>.
-
-
-
-
-
-
-
-
-Kumari & Kline          Expires September 2, 2020               [Page 9]
-
-Internet-Draft             DHCP Captive-Portal                March 2020
-
 
 7.2.  Informative References
 
@@ -540,6 +555,15 @@ Appendix A.  Changes / Author Notes.
 
    o  Uppercase some SHOULDs.
 
+
+
+
+
+Kumari & Kline          Expires September 2, 2020              [Page 10]
+
+Internet-Draft             DHCP Captive-Portal                March 2020
+
+
 Appendix B.  Changes from RFC 7710
 
    This document incorporates the following changes from [RFC7710].
@@ -555,14 +579,6 @@ Appendix B.  Changes from RFC 7710
        of a network configuration error.
 
    5.  Added urn:ietf:params:capport:unrestricted URN.
-
-
-
-
-Kumari & Kline          Expires September 2, 2020              [Page 10]
-
-Internet-Draft             DHCP Captive-Portal                March 2020
-
 
    6.  Notes that the DHCP Code changed from 160 to 114.
 
@@ -591,6 +607,19 @@ Authors' Addresses
    Email: warren@kumari.net
 
 
+
+
+
+
+
+
+
+
+Kumari & Kline          Expires September 2, 2020              [Page 11]
+
+Internet-Draft             DHCP Captive-Portal                March 2020
+
+
    Erik Kline
    Loon
    1600 Amphitheatre Parkway
@@ -615,5 +644,32 @@ Authors' Addresses
 
 
 
-Kumari & Kline          Expires September 2, 2020              [Page 11]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Kumari & Kline          Expires September 2, 2020              [Page 12]
 ```
