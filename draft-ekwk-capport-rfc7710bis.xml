@@ -181,10 +181,15 @@
       <section anchor="dhcpv4opt" title="IPv4 DHCP Option">
         <t>The format of the IPv4 Captive-Portal DHCP option is shown
         below.<figure>
-            <artwork><![CDATA[    Code   Len           Data
-   +------+------+------+------+------+--   --+-----+
-   | code | len  |  URI                  ...        |
-   +------+------+------+------+------+--   --+-----+
+            <artwork><![CDATA[
+   0                   1                   2                   3
+   0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   | Code          | Len           | URI (variable length) ...     |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   .                   ...URI continued...                         .
+   |                              ...                              |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 ]]></artwork>
           </figure></t>
 
@@ -205,7 +210,8 @@
       <section anchor="dhcpv6opt" title="IPv6 DHCP Option">
         <t>The format of the IPv6 Captive-Portal DHCP option is shown below.
         <figure>
-            <artwork><![CDATA[   0                   1                   2                   3
+            <artwork><![CDATA[
+   0                   1                   2                   3
    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
    |          option-code          |          option-len           |
@@ -231,6 +237,10 @@
         for more on the format of IPv6 DHCP options.</t>
 
         <t>Note that the URI parameter is not null terminated.</t>
+
+        <t>The maximum length of the URI that can be carried in IPv4 DHCP is 255
+        bytes, so URIs longer than 255 bytes should not be provisioned via
+        IPv6 DHCP options.</t>
       </section>
 
       <section anchor="v6ndopt" title="The Captive-Portal IPv6 RA Option">
@@ -264,6 +274,10 @@
           </list></t>
 
         <t>Note that the URI parameter is not guaranteed to be null terminated.</t>
+
+        <t>The maximum length of the URI that can be carried in IPv4 DHCP is 255
+        bytes, so URIs longer than 255 bytes should not be provisioned via
+        IPv6 RA options.</t>
       </section>
     </section>
 
