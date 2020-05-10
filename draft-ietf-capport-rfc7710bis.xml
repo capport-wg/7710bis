@@ -356,14 +356,26 @@
       which is protected with TLS, the captive portal operator can attempt to
       reassure the user that the captive portal is not malicious.</t>
 
+      <t>Each of the options described in this document is presented to a node
+      using the same protocols used to provision other information critical
+      to the node's successful configuration on a network.  The security
+      considerations applicable to each of these provisioning mechanisms also
+      apply when the node is attempting to learn the information conveyed in
+      these options. In the absence of security measures like RA Guard
+      (<xref target="RFC6105"/>, <xref target="RFC7113"/>) or DHCP Shield
+      <xref target="RFC7610"/>, an attacker could inject, modify, or block DHCP
+      messages or RAs.</t>
+
       <t>An attacker with the ability to inject DHCP messages or RAs
       could include an option from this document to force users to contact
       an address of his choosing. As an attacker with this capability could
-      simply list himself as the default gateway (and so intercept all the
+      simply list themselves as the default gateway (and so intercept all the
       victim's traffic); this does not provide them with significantly more
       capabilities, but because this document removes the need for
       interception, the attacker may have an easier time performing the
-      attack. As the operating systems and application that make use of this
+      attack.</t>
+
+      <t>However, as the operating systems and application that make use of this
       information know that they are connecting to a captive-portal device (as
       opposed to intercepted connections) they can render the page in a
       sandboxed environment and take other precautions, such as clearly
@@ -376,8 +388,8 @@
       could potentially be tracked using the techniques described in this
       document (forcing the user to continually authenticate, or exposing
       their browser fingerprint). However, similar tracking can already be
-      performed with the presently common captive portal mechanisms, so this technique
-      does not give the attackers more capabilities.</t>
+      performed with the presently common captive portal mechanisms, so this
+      technique does not give the attackers more capabilities.</t>
 
       <t>Captive portals are increasingly hijacking TLS connections to force
       browsers to talk to the portal. Providing the portal's URI via a DHCP or
@@ -427,6 +439,9 @@
     </references>
 
     <references title="Informative References">
+      <?rfc include='reference.RFC.6105'?>
+      <?rfc include='reference.RFC.7113'?>
+      <?rfc include='reference.RFC.7610'?>
       <?rfc include='reference.RFC.7710'?>
     </references>
 
