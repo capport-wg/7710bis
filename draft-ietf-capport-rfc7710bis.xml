@@ -299,26 +299,61 @@
     </section>
 
     <section anchor="iana" title="IANA Considerations">
-      <t>This document requests one new IETF URN protocol parameter (<xref
-      target="RFC3553"/>) entry. This document also requests a reallocation
+      <t>This document requests one new IETF URN parameter registry (<xref
+      target="RFC3553"/>) and populates this registry with one entry.
+      This document also requests a reallocation
       of DHCPv4 option codes (see <xref target="exp106"/> for background).</t>
 
       <t>Thanks IANA!</t>
 
       <section anchor="iana-urn"
-               title="Captive Portal Unrestricted Identifier">
+               title="Captive Portal URN Labels Registry">
        <t>This document registers a new entry under the IETF URN
        Sub-namespace for Registered Protocol Parameter Identifiers
-       defined in <xref target="RFC3553"/>:
+       defined in <xref target="RFC3553"/>.</t>
+       <t>Registrations in this registry follow the "Specification Needed"
+        policy <xref target="RFC8126"/>.</t>
+        <t>
        <list style="hanging">
-         <t hangText="Registered Parameter Identifier:">capport:unrestricted</t>
-         <t hangText="Reference:">RFC TBD (this document)</t>
-         <t hangText="IANA Registry Reference:">
-          https://www.iana.org/assignments/params/params.xml#params-1</t>
+         <t hangText="Registry Name:">Captive Portal URN Labels</t>
+         <t hangText="URN Prefix:">urn:ietf:params:capport</t>
+         <t hangText="Specification:">RFC TBD (this document)</t>
+         <t hangText="Repository:">IANA URL TBD</t>
+         <t hangText="Index Value:">Values in this registry are URNs or URN
+          prefixes that start with the prefix "urn:ietf:params:capport:".
+          Each is registered independently.</t>
       </list></t>
 
-      <t>Only one value is defined (see URN above). No hierarchy is defined and
-      therefore no sub-namespace registrations are possible.</t>
+      <t>Each registration in the "Captive Portal URN Labels" registry requires
+      the following information:
+      <list style="hanging">
+        <t hangText="URN:">The complete URN that is used or the prefix for that
+          URN.</t>
+        <t hangText="Description:">A summary description for the URN or URN
+          prefix.</t>
+        <t hangText="Specification:">A reference to a specification describing
+          the URN or URN prefix.</t>
+        <t hangText="Index Value:">As described in <xref target="RFC3553"/>,
+        URN prefixes that are registered include a description of how the URN
+        is constructed. This is not applicable for specific URNs.</t>
+      </list>
+      </t>
+
+      <t>The "Captive Portal URN Labels" registry has the initial registration
+      included in the following sub-section.</t>
+
+        <section anchor="iana-urn-capport"
+               title="Registration of unrestricted URN">
+       <t>This document registers the following URN in the "Captive Portal
+        URN Labels" registry.
+       <list style="hanging">
+         <t hangText="URN:">urn:ietf:params:capport:unrestricted</t>
+         <t hangText="Description:">Explicitly indicates that no captive
+          portal interaction is required for network access.</t>
+         <t hangText="Specification:">RFC TBD (this document), <xref target="option"/></t>
+         <t hangText="Index Value:">N/A</t>
+        </list></t>
+        </section>
       </section>
 
       <section anchor="ietf_dhcpv4_option_code_change"
@@ -437,6 +472,8 @@
       <?rfc include='reference.RFC.7231'?>
 
       <?rfc include='reference.RFC.7234'?>
+
+      <?rfc include='reference.RFC.8126'?>
 
       <?rfc include='reference.RFC.8174'?>
 

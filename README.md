@@ -92,18 +92,18 @@ Table of Contents
      2.3.  The Captive-Portal IPv6 RA Option . . . . . . . . . . . .   6
    3.  Precedence of API URIs  . . . . . . . . . . . . . . . . . . .   6
    4.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   7
-     4.1.  Captive Portal Unrestricted Identifier  . . . . . . . . .   7
-     4.2.  BOOTP Vendor Extensions and DHCP Options Code Change  . .   7
+     4.1.  Captive Portal URN Labels Registry  . . . . . . . . . . .   7
+       4.1.1.  Registration of unrestricted URN  . . . . . . . . . .   8
+     4.2.  BOOTP Vendor Extensions and DHCP Options Code Change  . .   8
    5.  Security Considerations . . . . . . . . . . . . . . . . . . .   8
-   6.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .   9
-   7.  References  . . . . . . . . . . . . . . . . . . . . . . . . .   9
-     7.1.  Normative References  . . . . . . . . . . . . . . . . . .   9
-     7.2.  Informative References  . . . . . . . . . . . . . . . . .  10
-   Appendix A.  Changes / Author Notes.  . . . . . . . . . . . . . .  11
-   Appendix B.  Changes from RFC 7710  . . . . . . . . . . . . . . .  11
+   6.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  10
+   7.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  10
+     7.1.  Normative References  . . . . . . . . . . . . . . . . . .  10
+     7.2.  Informative References  . . . . . . . . . . . . . . . . .  11
+   Appendix A.  Changes / Author Notes.  . . . . . . . . . . . . . .  12
+   Appendix B.  Changes from RFC 7710  . . . . . . . . . . . . . . .  12
    Appendix C.  Observations From IETF 106 Network Experiment  . . .  12
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  12
-
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  13
 
 
 
@@ -342,26 +342,73 @@ Internet-Draft             DHCP Captive-Portal                  May 2020
 
 4.  IANA Considerations
 
-   This document requests one new IETF URN protocol parameter
-   ([RFC3553]) entry.  This document also requests a reallocation of
-   DHCPv4 option codes (see Appendix C for background).
+   This document requests one new IETF URN parameter registry
+   ([RFC3553]) and populates this registry with one entry.  This
+   document also requests a reallocation of DHCPv4 option codes (see
+   Appendix C for background).
 
    Thanks IANA!
 
-4.1.  Captive Portal Unrestricted Identifier
+4.1.  Captive Portal URN Labels Registry
 
    This document registers a new entry under the IETF URN Sub-namespace
-   for Registered Protocol Parameter Identifiers defined in [RFC3553]:
+   for Registered Protocol Parameter Identifiers defined in [RFC3553].
 
-   Registered Parameter Identifier:  capport:unrestricted
+   Registrations in this registry follow the "Specification Needed"
+   policy [RFC8126].
 
-   Reference:  RFC TBD (this document)
+   Registry Name:  Captive Portal URN Labels
 
-   IANA Registry Reference:  https://www.iana.org/assignments/params/
-      params.xml#params-1
+   URN Prefix:  urn:ietf:params:capport
 
-   Only one value is defined (see URN above).  No hierarchy is defined
-   and therefore no sub-namespace registrations are possible.
+   Specification:  RFC TBD (this document)
+
+   Repository:  IANA URL TBD
+
+   Index Value:  Values in this registry are URNs or URN prefixes that
+      start with the prefix "urn:ietf:params:capport:".  Each is
+      registered independently.
+
+   Each registration in the "Captive Portal URN Labels" registry
+   requires the following information:
+
+   URN:  The complete URN that is used or the prefix for that URN.
+
+   Description:  A summary description for the URN or URN prefix.
+
+   Specification:  A reference to a specification describing the URN or
+      URN prefix.
+
+   Index Value:  As described in [RFC3553], URN prefixes that are
+      registered include a description of how the URN is constructed.
+      This is not applicable for specific URNs.
+
+   The "Captive Portal URN Labels" registry has the initial registration
+   included in the following sub-section.
+
+
+
+
+
+
+Kumari & Kline          Expires November 15, 2020               [Page 7]
+
+Internet-Draft             DHCP Captive-Portal                  May 2020
+
+
+4.1.1.  Registration of unrestricted URN
+
+   This document registers the following URN in the "Captive Portal URN
+   Labels" registry.
+
+   URN:  urn:ietf:params:capport:unrestricted
+
+   Description:  Explicitly indicates that no captive portal interaction
+      is required for network access.
+
+   Specification:  RFC TBD (this document), Section 2
+
+   Index Value:  N/A
 
 4.2.  BOOTP Vendor Extensions and DHCP Options Code Change
 
@@ -386,16 +433,6 @@ Internet-Draft             DHCP Captive-Portal                  May 2020
       Meaning: DHCP Captive-Portal
       Reference: [THIS-RFC]
 
-
-
-
-
-
-Kumari & Kline          Expires November 15, 2020               [Page 7]
-
-Internet-Draft             DHCP Captive-Portal                  May 2020
-
-
       Tag: 160
       Name: REMOVED/Unassigned
       Data Length:
@@ -407,6 +444,14 @@ Internet-Draft             DHCP Captive-Portal                  May 2020
    By removing or reducing the need for captive portals to perform MITM
    hijacking, this mechanism improves security by making the portal and
    its actions visible, rather than hidden, and reduces the likelihood
+
+
+
+Kumari & Kline          Expires November 15, 2020               [Page 8]
+
+Internet-Draft             DHCP Captive-Portal                  May 2020
+
+
    that users will disable useful security safeguards like DNSSEC
    validation, VPNs, etc.  In addition, because the system knows that it
    is behind a captive portal, it can know not to send cookies,
@@ -444,14 +489,6 @@ Internet-Draft             DHCP Captive-Portal                  May 2020
    Devices and systems that automatically connect to an open network
    could potentially be tracked using the techniques described in this
    document (forcing the user to continually authenticate, or exposing
-
-
-
-Kumari & Kline          Expires November 15, 2020               [Page 8]
-
-Internet-Draft             DHCP Captive-Portal                  May 2020
-
-
    their browser fingerprint).  However, similar tracking can already be
    performed with the presently common captive portal mechanisms, so
    this technique does not give the attackers more capabilities.
@@ -462,6 +499,14 @@ Internet-Draft             DHCP Captive-Portal                  May 2020
    expectations of being hijacked - this may improve security by making
    users more reluctant to accept TLS hijacking, which can be performed
    from beyond the network associated with the captive portal.
+
+
+
+
+Kumari & Kline          Expires November 15, 2020               [Page 9]
+
+Internet-Draft             DHCP Captive-Portal                  May 2020
+
 
 6.  Acknowledgements
 
@@ -497,17 +542,6 @@ Internet-Draft             DHCP Captive-Portal                  May 2020
               Parameters", BCP 73, RFC 3553, DOI 10.17487/RFC3553, June
               2003, <https://www.rfc-editor.org/info/rfc3553>.
 
-
-
-
-
-
-
-Kumari & Kline          Expires November 15, 2020               [Page 9]
-
-Internet-Draft             DHCP Captive-Portal                  May 2020
-
-
    [RFC3986]  Berners-Lee, T., Fielding, R., and L. Masinter, "Uniform
               Resource Identifier (URI): Generic Syntax", STD 66,
               RFC 3986, DOI 10.17487/RFC3986, January 2005,
@@ -523,6 +557,13 @@ Internet-Draft             DHCP Captive-Portal                  May 2020
               BCP 187, RFC 7227, DOI 10.17487/RFC7227, May 2014,
               <https://www.rfc-editor.org/info/rfc7227>.
 
+
+
+Kumari & Kline          Expires November 15, 2020              [Page 10]
+
+Internet-Draft             DHCP Captive-Portal                  May 2020
+
+
    [RFC7231]  Fielding, R., Ed. and J. Reschke, Ed., "Hypertext Transfer
               Protocol (HTTP/1.1): Semantics and Content", RFC 7231,
               DOI 10.17487/RFC7231, June 2014,
@@ -532,6 +573,11 @@ Internet-Draft             DHCP Captive-Portal                  May 2020
               Ed., "Hypertext Transfer Protocol (HTTP/1.1): Caching",
               RFC 7234, DOI 10.17487/RFC7234, June 2014,
               <https://www.rfc-editor.org/info/rfc7234>.
+
+   [RFC8126]  Cotton, M., Leiba, B., and T. Narten, "Guidelines for
+              Writing an IANA Considerations Section in RFCs", BCP 26,
+              RFC 8126, DOI 10.17487/RFC8126, June 2017,
+              <https://www.rfc-editor.org/info/rfc8126>.
 
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
@@ -555,15 +601,6 @@ Internet-Draft             DHCP Captive-Portal                  May 2020
               DOI 10.17487/RFC7113, February 2014,
               <https://www.rfc-editor.org/info/rfc7113>.
 
-
-
-
-
-Kumari & Kline          Expires November 15, 2020              [Page 10]
-
-Internet-Draft             DHCP Captive-Portal                  May 2020
-
-
    [RFC7610]  Gont, F., Liu, W., and G. Van de Velde, "DHCPv6-Shield:
               Protecting against Rogue DHCPv6 Servers", BCP 199,
               RFC 7610, DOI 10.17487/RFC7610, August 2015,
@@ -573,6 +610,15 @@ Internet-Draft             DHCP Captive-Portal                  May 2020
               "Captive-Portal Identification Using DHCP or Router
               Advertisements (RAs)", RFC 7710, DOI 10.17487/RFC7710,
               December 2015, <https://www.rfc-editor.org/info/rfc7710>.
+
+
+
+
+
+Kumari & Kline          Expires November 15, 2020              [Page 11]
+
+Internet-Draft             DHCP Captive-Portal                  May 2020
+
 
 7.3.  URIs
 
@@ -613,13 +659,6 @@ Appendix B.  Changes from RFC 7710
    4.  Added text about Captive Portal API URI precedence in the event
        of a network configuration error.
 
-
-
-Kumari & Kline          Expires November 15, 2020              [Page 11]
-
-Internet-Draft             DHCP Captive-Portal                  May 2020
-
-
    5.  Added urn:ietf:params:capport:unrestricted URN.
 
    6.  Notes that the DHCP Code changed from 160 to 114.
@@ -629,6 +668,14 @@ Appendix C.  Observations From IETF 106 Network Experiment
    During IETF 106 in Singapore an experiment [1] enabling Captive
    Portal API compatible clients to discover a venue-info-url (see
    experiment description [2] for more detail) revealed that some
+
+
+
+Kumari & Kline          Expires November 15, 2020              [Page 12]
+
+Internet-Draft             DHCP Captive-Portal                  May 2020
+
+
    Polycom devices on the same network made use of DHCPv4 option code
    160 for other purposes [3].
 
@@ -671,5 +718,14 @@ Authors' Addresses
 
 
 
-Kumari & Kline          Expires November 15, 2020              [Page 12]
+
+
+
+
+
+
+
+
+
+Kumari & Kline          Expires November 15, 2020              [Page 13]
 ```
