@@ -72,13 +72,16 @@
       captive portal mode. This highly restricts what the customer can do
       until the customer has authenticated.</t>
 
-      <t>This document describes a DHCP option (and a Router Advertisement
-      (RA) extension) to inform clients that they are behind some sort of
+      <t>This document describes a DHCPv4 and DHCPv6 option and a Router Advertisement
+      (RA) option to inform clients that they are behind some sort of
       captive-portal enforcement device, and that they will need to authenticate to get
       Internet access. It is not a full solution to address all of the issues
-      that clients may have with captive portals; it is designed to be used in
-      larger solutions. The method of authenticating to, and interacting with
-      the captive portal is out of scope of this document.</t>
+      that clients may have with captive portals; it is designed to be one
+      component of a standardized approach for hosts to interact with such
+      portals. While this document defines how the network operator may convey
+      the captive portal API endpoint to hosts, the specific methods of
+      authenticating to, and interacting with the captive portal are out of
+      scope of this document.</t>
 
       <t>This document replaces RFC 7710.  RFC 7710 used DHCP code point 160.
       Due to a conflict, this document specifies 114.</t>
@@ -108,10 +111,11 @@
       interception techniques will become less effective and/or more
       intrusive.</t>
 
-      <t>This document describes a DHCP (<xref target="RFC2131"/>) option
-      (Captive-Portal) and an IPv6 Router Advertisement (RA) (<xref
-      target="RFC4861"/>) extension that informs clients that they are behind
-      a captive-portal enforcement device and how to contact an API for more information.</t>
+      <t>This document describes a DHCPv4 <xref target="RFC2131"/> and DHCPv6
+      <xref target="RFC8415"/> option (Captive-Portal) and an IPv6
+      Router Advertisement (RA) <xref target="RFC4861"/> option that informs
+      clients that they are behind a captive-portal enforcement device and
+      the API endpoint that the host can contact for more information.</t>
 
       <t>This document replaces RFC 7710 <xref target="RFC7710"/>.</t>
 
@@ -130,7 +134,7 @@
       by [draft-ietf-capport-api]. This is primarily intended to improve the
       user experience by showing the user the captive portal information faster and more
       reliably. Note that, for the foreseeable future, captive portals will
-      still need to implement the interception techniques to serve legacy
+      still need to implement interception techniques to serve legacy
       clients, and clients will need to perform probing to detect captive
       portals.</t>
 
@@ -289,7 +293,7 @@
       the DHCPv4 option, or vice versa, et cetera).</t>
 
       <t>If the URIs learned via more than one option described in <xref
-      target="option"/> are not all identical, this condition should be logged
+      target="option"/> are not all identical, this condition SHOULD be logged
       for the device owner or administrator; it is a network configuration error
       if the learned URIs are not all identical.</t>
     </section>
