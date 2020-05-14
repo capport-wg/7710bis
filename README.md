@@ -343,19 +343,17 @@ Internet-Draft             DHCP Captive-Portal                  May 2020
 4.1.  Captive Portal Unrestricted Identifier
 
    This document registers a new entry under the IETF URN Sub-namespace
-   defined in [RFC3553]:
+   for Registered Protocol Parameter Identifiers defined in [RFC3553]:
 
-   Registry name:  Captive Portal Unrestricted Identifier
+   Registered Parameter Identifier:  capport:unrestricted
 
-   URN:  urn:ietf:params:capport:unrestricted
+   Reference:  RFC TBD (this document)
 
-   Specification:  RFC TBD (this document)
+   IANA Registry Reference:  https://www.iana.org/assignments/params/
+      params.xml#params-1
 
-   Repository:  RFC TBD (this document)
-
-   Index value:  Only one value is defined (see URN above).  No
-      hierarchy is defined and therefore no sub-namespace registrations
-      are possible.
+   Only one value is defined (see URN above).  No hierarchy is defined
+   and therefore no sub-namespace registrations are possible.
 
 4.2.  BOOTP Vendor Extensions and DHCP Options Code Change
 
@@ -385,6 +383,8 @@ Internet-Draft             DHCP Captive-Portal                  May 2020
       Data Length:
       Meaning:
       Reference: [THIS-RFC][RFC7710]
+
+
 
 
 
