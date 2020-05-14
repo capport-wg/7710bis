@@ -8,11 +8,11 @@ Network Working Group                                          W. Kumari
 Internet-Draft                                                    Google
 Obsoletes: 7710 (if approved)                                   E. Kline
 Intended status: Standards Track                                    Loon
-Expires: October 3, 2020                                   April 1, 2020
+Expires: November 14, 2020                                  May 13, 2020
 
 
                Captive-Portal Identification in DHCP / RA
-                    draft-ietf-capport-rfc7710bis-04
+                    draft-ietf-capport-rfc7710bis-05
 
 Abstract
 
@@ -55,15 +55,15 @@ Status of This Memo
 
 
 
-Kumari & Kline           Expires October 3, 2020                [Page 1]
+Kumari & Kline          Expires November 14, 2020               [Page 1]
 
-Internet-Draft             DHCP Captive-Portal                April 2020
+Internet-Draft             DHCP Captive-Portal                  May 2020
 
 
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on October 3, 2020.
+   This Internet-Draft will expire on November 14, 2020.
 
 Copyright Notice
 
@@ -111,9 +111,9 @@ Table of Contents
 
 
 
-Kumari & Kline           Expires October 3, 2020                [Page 2]
+Kumari & Kline          Expires November 14, 2020               [Page 2]
 
-Internet-Draft             DHCP Captive-Portal                April 2020
+Internet-Draft             DHCP Captive-Portal                  May 2020
 
 
    to allow the client to know when it is behind a captive portal and
@@ -167,9 +167,9 @@ Internet-Draft             DHCP Captive-Portal                April 2020
 
 
 
-Kumari & Kline           Expires October 3, 2020                [Page 3]
+Kumari & Kline          Expires November 14, 2020               [Page 3]
 
-Internet-Draft             DHCP Captive-Portal                April 2020
+Internet-Draft             DHCP Captive-Portal                  May 2020
 
 
    the URI that can be carried in IPv4 DHCP is 255 bytes, so URIs longer
@@ -223,9 +223,9 @@ Internet-Draft             DHCP Captive-Portal                April 2020
 
 
 
-Kumari & Kline           Expires October 3, 2020                [Page 4]
+Kumari & Kline          Expires November 14, 2020               [Page 4]
 
-Internet-Draft             DHCP Captive-Portal                April 2020
+Internet-Draft             DHCP Captive-Portal                  May 2020
 
 
    o  URI: The URI for the captive portal API endpoint to which the user
@@ -279,9 +279,9 @@ Internet-Draft             DHCP Captive-Portal                April 2020
 
 
 
-Kumari & Kline           Expires October 3, 2020                [Page 5]
+Kumari & Kline          Expires November 14, 2020               [Page 5]
 
-Internet-Draft             DHCP Captive-Portal                April 2020
+Internet-Draft             DHCP Captive-Portal                  May 2020
 
 
        0                   1                   2                   3
@@ -335,9 +335,9 @@ Internet-Draft             DHCP Captive-Portal                April 2020
 
 
 
-Kumari & Kline           Expires October 3, 2020                [Page 6]
+Kumari & Kline          Expires November 14, 2020               [Page 6]
 
-Internet-Draft             DHCP Captive-Portal                April 2020
+Internet-Draft             DHCP Captive-Portal                  May 2020
 
 
 4.1.  Captive Portal Unrestricted Identifier
@@ -391,9 +391,9 @@ Internet-Draft             DHCP Captive-Portal                April 2020
 
 
 
-Kumari & Kline           Expires October 3, 2020                [Page 7]
+Kumari & Kline          Expires November 14, 2020               [Page 7]
 
-Internet-Draft             DHCP Captive-Portal                April 2020
+Internet-Draft             DHCP Captive-Portal                  May 2020
 
 
 5.  Security Considerations
@@ -447,9 +447,9 @@ Internet-Draft             DHCP Captive-Portal                April 2020
 
 
 
-Kumari & Kline           Expires October 3, 2020                [Page 8]
+Kumari & Kline          Expires November 14, 2020               [Page 8]
 
-Internet-Draft             DHCP Captive-Portal                April 2020
+Internet-Draft             DHCP Captive-Portal                  May 2020
 
 
    DHCP or RA option is a cleaner technique, and reduces user
@@ -503,9 +503,9 @@ Internet-Draft             DHCP Captive-Portal                April 2020
 
 
 
-Kumari & Kline           Expires October 3, 2020                [Page 9]
+Kumari & Kline          Expires November 14, 2020               [Page 9]
 
-Internet-Draft             DHCP Captive-Portal                April 2020
+Internet-Draft             DHCP Captive-Portal                  May 2020
 
 
    [RFC7227]  Hankins, D., Mrugalski, T., Siodelski, M., Jiang, S., and
@@ -559,9 +559,9 @@ Internet-Draft             DHCP Captive-Portal                April 2020
 
 
 
-Kumari & Kline           Expires October 3, 2020               [Page 10]
+Kumari & Kline          Expires November 14, 2020              [Page 10]
 
-Internet-Draft             DHCP Captive-Portal                April 2020
+Internet-Draft             DHCP Captive-Portal                  May 2020
 
 
 7.3.  URIs
@@ -615,9 +615,9 @@ Appendix C.  Observations From IETF 106 Network Experiment
 
 
 
-Kumari & Kline           Expires October 3, 2020               [Page 11]
+Kumari & Kline          Expires November 14, 2020              [Page 11]
 
-Internet-Draft             DHCP Captive-Portal                April 2020
+Internet-Draft             DHCP Captive-Portal                  May 2020
 
 
    Polycom devices on the same network made use of DHCPv4 option code
@@ -671,5 +671,5 @@ Authors' Addresses
 
 
 
-Kumari & Kline           Expires October 3, 2020               [Page 12]
+Kumari & Kline          Expires November 14, 2020              [Page 12]
 ```
