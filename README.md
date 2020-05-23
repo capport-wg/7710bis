@@ -8,11 +8,11 @@ Network Working Group                                          W. Kumari
 Internet-Draft                                                    Google
 Obsoletes: 7710 (if approved)                                   E. Kline
 Intended status: Standards Track                                    Loon
-Expires: November 16, 2020                                  May 15, 2020
+Expires: November 24, 2020                                  May 23, 2020
 
 
                Captive-Portal Identification in DHCP / RA
-                    draft-ietf-capport-rfc7710bis-06
+                    draft-ietf-capport-rfc7710bis-07
 
 Abstract
 
@@ -55,7 +55,7 @@ Status of This Memo
 
 
 
-Kumari & Kline          Expires November 16, 2020               [Page 1]
+Kumari & Kline          Expires November 24, 2020               [Page 1]
 
 Internet-Draft             DHCP Captive-Portal                  May 2020
 
@@ -65,7 +65,7 @@ Internet-Draft             DHCP Captive-Portal                  May 2020
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on November 16, 2020.
+   This Internet-Draft will expire on November 24, 2020.
 
 Copyright Notice
 
@@ -111,7 +111,7 @@ Table of Contents
 
 
 
-Kumari & Kline          Expires November 16, 2020               [Page 2]
+Kumari & Kline          Expires November 24, 2020               [Page 2]
 
 Internet-Draft             DHCP Captive-Portal                  May 2020
 
@@ -167,7 +167,7 @@ Internet-Draft             DHCP Captive-Portal                  May 2020
 
 
 
-Kumari & Kline          Expires November 16, 2020               [Page 3]
+Kumari & Kline          Expires November 24, 2020               [Page 3]
 
 Internet-Draft             DHCP Captive-Portal                  May 2020
 
@@ -223,7 +223,7 @@ Internet-Draft             DHCP Captive-Portal                  May 2020
 
 
 
-Kumari & Kline          Expires November 16, 2020               [Page 4]
+Kumari & Kline          Expires November 24, 2020               [Page 4]
 
 Internet-Draft             DHCP Captive-Portal                  May 2020
 
@@ -279,7 +279,7 @@ Internet-Draft             DHCP Captive-Portal                  May 2020
 
 
 
-Kumari & Kline          Expires November 16, 2020               [Page 5]
+Kumari & Kline          Expires November 24, 2020               [Page 5]
 
 Internet-Draft             DHCP Captive-Portal                  May 2020
 
@@ -335,7 +335,7 @@ Internet-Draft             DHCP Captive-Portal                  May 2020
 
 
 
-Kumari & Kline          Expires November 16, 2020               [Page 6]
+Kumari & Kline          Expires November 24, 2020               [Page 6]
 
 Internet-Draft             DHCP Captive-Portal                  May 2020
 
@@ -357,8 +357,7 @@ Internet-Draft             DHCP Captive-Portal                  May 2020
 
    Reference:  RFC TBD (this document)
 
-   IANA Registry Reference:  https://www.iana.org/assignments/params/
-      params.xml#params-1
+   IANA Registry Reference:  [RFC3553]
 
    Only one value is defined (see URN above).  No hierarchy is defined
    and therefore no sub-namespace registrations are possible.
@@ -391,7 +390,8 @@ Internet-Draft             DHCP Captive-Portal                  May 2020
 
 
 
-Kumari & Kline          Expires November 16, 2020               [Page 7]
+
+Kumari & Kline          Expires November 24, 2020               [Page 7]
 
 Internet-Draft             DHCP Captive-Portal                  May 2020
 
@@ -447,7 +447,7 @@ Internet-Draft             DHCP Captive-Portal                  May 2020
 
 
 
-Kumari & Kline          Expires November 16, 2020               [Page 8]
+Kumari & Kline          Expires November 24, 2020               [Page 8]
 
 Internet-Draft             DHCP Captive-Portal                  May 2020
 
@@ -503,7 +503,7 @@ Internet-Draft             DHCP Captive-Portal                  May 2020
 
 
 
-Kumari & Kline          Expires November 16, 2020               [Page 9]
+Kumari & Kline          Expires November 24, 2020               [Page 9]
 
 Internet-Draft             DHCP Captive-Portal                  May 2020
 
@@ -559,7 +559,7 @@ Internet-Draft             DHCP Captive-Portal                  May 2020
 
 
 
-Kumari & Kline          Expires November 16, 2020              [Page 10]
+Kumari & Kline          Expires November 24, 2020              [Page 10]
 
 Internet-Draft             DHCP Captive-Portal                  May 2020
 
@@ -615,7 +615,7 @@ Appendix B.  Changes from RFC 7710
 
 
 
-Kumari & Kline          Expires November 16, 2020              [Page 11]
+Kumari & Kline          Expires November 24, 2020              [Page 11]
 
 Internet-Draft             DHCP Captive-Portal                  May 2020
 
@@ -671,5 +671,5 @@ Authors' Addresses
 
 
 
-Kumari & Kline          Expires November 16, 2020              [Page 12]
+Kumari & Kline          Expires November 24, 2020              [Page 12]
 ```

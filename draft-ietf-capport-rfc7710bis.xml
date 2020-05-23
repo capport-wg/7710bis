@@ -4,7 +4,7 @@
 <!ENTITY rfc8174 PUBLIC "" ".//reference.RFC.8174.xml">
 ]>
 <!-- WK: Set category, IPR, docName -->
-<rfc category="std" docName="draft-ietf-capport-rfc7710bis-06"
+<rfc category="std" docName="draft-ietf-capport-rfc7710bis-07"
      ipr="trust200902" obsoletes="7710">
   <?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
 
@@ -313,8 +313,7 @@
        <list style="hanging">
          <t hangText="Registered Parameter Identifier:">capport:unrestricted</t>
          <t hangText="Reference:">RFC TBD (this document)</t>
-         <t hangText="IANA Registry Reference:">
-          https://www.iana.org/assignments/params/params.xml#params-1</t>
+         <t hangText="IANA Registry Reference:"><xref target="RFC3553"/></t>
       </list></t>
 
       <t>Only one value is defined (see URN above). No hierarchy is defined and
