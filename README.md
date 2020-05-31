@@ -18,8 +18,8 @@ Abstract
 
    In many environments offering short-term or temporary Internet access
    (such as coffee shops), it is common to start new connections in a
-   captive portal mode.  This highly restricts what the customer can do
-   until the customer has authenticated.
+   captive portal mode.  This highly restricts what the user can do
+   until the user has authenticated.
 
    This document describes a DHCPv4 and DHCPv6 option and a Router
    Advertisement (RA) option to inform clients that they are behind some
@@ -179,8 +179,8 @@ Internet-Draft             DHCP Captive-Portal                  May 2020
    SHOULD ensure that the URIs provisioned by each method are equivalent
    to reduce the chance of operational problems.  The maximum length of
    the URI that can be carried in IPv4 DHCP is 255 bytes, so URIs longer
-   than 255 bytes should not be provisioned via IPv6 DHCP nor IPv6 RA
-   options.
+   than 255 bytes SHOULD NOT be provisioned by any of the IPv6 options
+   described in this document.
 
    In all variants of this option, the URI MUST be that of the captive
    portal API endpoint, conforming to the recommendations for such URIs
@@ -285,7 +285,7 @@ Internet-Draft             DHCP Captive-Portal                  May 2020
 
 
    The maximum length of the URI that can be carried in IPv4 DHCP is 255
-   bytes, so URIs longer than 255 bytes should not be provisioned via
+   bytes, so URIs longer than 255 bytes SHOULD NOT be provisioned via
    IPv6 DHCP options.
 
 2.3.  The Captive-Portal IPv6 RA Option
@@ -317,7 +317,7 @@ Internet-Draft             DHCP Captive-Portal                  May 2020
    Note that the URI parameter is not guaranteed to be null terminated.
 
    The maximum length of the URI that can be carried in IPv4 DHCP is 255
-   bytes, so URIs longer than 255 bytes should not be provisioned via
+   bytes, so URIs longer than 255 bytes SHOULD NOT be provisioned via
    IPv6 RA options.
 
 3.  Precedence of API URIs
