@@ -313,7 +313,7 @@
        <list style="hanging">
          <t hangText="Registered Parameter Identifier:">capport:unrestricted</t>
          <t hangText="Reference:">RFC TBD (this document)</t>
-         <t hangText="IANA Registry Reference:"><xref target="RFC3553"/></t>
+         <t hangText="IANA Registry Reference:">RFC TBD (this document)</t>
       </list></t>
 
       <t>Only one value is defined (see URN above). No hierarchy is defined and
