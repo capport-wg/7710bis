@@ -4,8 +4,8 @@
 <!ENTITY rfc8174 PUBLIC "" ".//reference.RFC.8174.xml">
 ]>
 <!-- WK: Set category, IPR, docName -->
-<rfc category="std" docName="draft-ietf-capport-rfc7710bis-07"
-     ipr="trust200902" obsoletes="7710">
+<rfc category="std" docName="draft-ietf-capport-rfc7710bis-08"
+     ipr="trust200902" obsoletes="7710" updates="3679">
   <?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
 
   <?rfc toc="yes" ?>
@@ -70,11 +70,12 @@
       <t>In many environments offering short-term or temporary Internet access
       (such as coffee shops), it is common to start new connections in a
       captive portal mode. This highly restricts what the user can do
-      until the user has authenticated.</t>
+      until the user has satified the Captive Portal conditions.</t>
 
       <t>This document describes a DHCPv4 and DHCPv6 option and a Router Advertisement
       (RA) option to inform clients that they are behind some sort of
-      captive-portal enforcement device, and that they will need to authenticate to get
+      captive-portal enforcement device, and that they will need to satify the
+      Captive Portal conditions to get
       Internet access. It is not a full solution to address all of the issues
       that clients may have with captive portals; it is designed to be one
       component of a standardized approach for hosts to interact with such
@@ -83,8 +84,9 @@
       authenticating to, and interacting with the captive portal are out of
       scope of this document.</t>
 
-      <t>This document replaces RFC 7710.  RFC 7710 used DHCP code point 160.
-      Due to a conflict, this document specifies 114.</t>
+      <t>This document replaces <xref target="RFC7710"/>.  <xref target="RFC7710"/>
+      used DHCP code point 160.  Due to a conflict, this document specifies 114.
+      Consequently, this document also updates <xref target="RFC3679"/>.</t>
 
       <t>[ This document is being collaborated on in Github at:
       https://github.com/capport-wg/7710bis. The most
@@ -146,10 +148,11 @@
       IPv6 only with DHCPv6 (<xref target="RFC8415"/>), and IPv6 only with RA) the
       captive network can provision the client with the URI via multiple methods (IPv4 DHCP, IPv6
       DHCP, and IPv6 RA). The captive portal operator SHOULD ensure that the URIs
-      provisioned by each method are equivalent to reduce the chance of operational problems.
+      provisioned by each method are identical to reduce the chance of operational problems.
       The maximum length of the URI that can be carried in IPv4 DHCP is 255
       bytes, so URIs longer than 255 bytes SHOULD NOT be provisioned by any of
-      the IPv6 options described in this document.</t>
+      the IPv6 options described in this document.  In IPv6-only environments
+      this restriction can be relaxed.</t>
 
       <t>In all variants of this option, the URI MUST be that of the captive
       portal API endpoint, conforming to the recommendations for such URIs
@@ -342,12 +345,19 @@
    Reference: [THIS-RFC]]]></artwork></figure></t>
 
         <t><figure><artwork><![CDATA[   Tag: 160
-   Name: REMOVED/Unassigned
+   Name: Unassigned
    Data Length:
-   Meaning:
+   Meaning: Previously assigned by RFC7710; known to also be used by Polycom.
    Reference: [THIS-RFC][RFC7710]]]></artwork></figure></t>
-
       </section>
+
+      <section anchor="iana_update_dhcv6_and_icmpv6"
+               title="Update DHCPv6 and IPv6 ND Options Registries">
+        <t>This document requests that the DHCPv6 and IPv6 ND options previously
+        registered in <xref target="RFC7710"/> be updated to reference this
+        document.</t>
+      </section>
+
     </section>
 
     <section anchor="security" title="Security Considerations">
@@ -390,10 +400,11 @@
 
       <t>Devices and systems that automatically connect to an open network
       could potentially be tracked using the techniques described in this
-      document (forcing the user to continually authenticate, or exposing
-      their browser fingerprint). However, similar tracking can already be
-      performed with the presently common captive portal mechanisms, so this
-      technique does not give the attackers more capabilities.</t>
+      document (forcing the user to continually re-satisfy the Captive Portal
+      conditions, or exposing their browser fingerprint). However,
+      similar tracking can already be performed with the presently common
+      captive portal mechanisms, so this technique does not give the attackers
+      more capabilities.</t>
 
       <t>Captive portals are increasingly hijacking TLS connections to force
       browsers to talk to the portal. Providing the portal's URI via a DHCP or
@@ -443,6 +454,7 @@
     </references>
 
     <references title="Informative References">
+      <?rfc include='reference.RFC.3679'?>
       <?rfc include='reference.RFC.6105'?>
       <?rfc include='reference.RFC.7113'?>
       <?rfc include='reference.RFC.7610'?>
