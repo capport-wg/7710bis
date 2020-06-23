@@ -176,12 +176,13 @@
       <t>The URI SHOULD NOT contain an IP address literal. Exceptions to this
       might include networks with only one operational IP address family where
       DNS is either not available or not fully functional until the captive
-      portal has been satisfied.</t>
+      portal has been satisfied. Use of iPAddress certificates (<xref target="RFC3779"/>)
+      adds considerations that are out of scope for this document.</t>
 
-      <t>Networks with no captive portals MAY explicitly indicate this
+      <t>Networks with no captive portals may explicitly indicate this
       condition by using this option with the IANA-assigned URI for this
       purpose. Clients observing the URI value
-      "urn:ietf:params:capport:unrestricted" MAY forego time-consuming forms of
+      "urn:ietf:params:capport:unrestricted" may forego time-consuming forms of
       captive portal detection.</t>
 
       <section anchor="dhcpv4opt" title="IPv4 DHCP Option">
@@ -202,7 +203,7 @@
         <t><list style="symbols">
             <t>Code: The Captive-Portal DHCPv4 Option (114) (one octet)</t>
 
-            <t>Len: The length (one octet), in octets of the URI.</t>
+            <t>Len: The length (one octet), in octets, of the URI.</t>
 
             <t>URI: The URI for the captive portal API endpoint to which the
             user should connect (encoded following the rules in <xref
@@ -244,8 +245,8 @@
 
         <t>Note that the URI parameter is not null terminated.</t>
 
-        <t>The maximum length of the URI that can be carried in IPv4 DHCP is 255
-        bytes, so URIs longer than 255 bytes SHOULD NOT be provisioned via
+        <t>As the maximum length of the URI that can be carried in IPv4 DHCP is
+        255 bytes, URIs longer than this SHOULD NOT be provisioned via
         IPv6 DHCP options.</t>
       </section>
 
@@ -275,15 +276,15 @@
             bytes.</t>
 
             <t hangText="URI">The URI for the captive portal API endpoint to
-            which the user should connect. This MUST be padded with NULL
+            which the user should connect. This MUST be padded with NUL
             (0x00) to make the total option length (including the Type and
             Length fields) a multiple of 8 bytes.</t>
           </list></t>
 
         <t>Note that the URI parameter is not guaranteed to be null terminated.</t>
 
-        <t>The maximum length of the URI that can be carried in IPv4 DHCP is 255
-        bytes, so URIs longer than 255 bytes SHOULD NOT be provisioned via
+        <t>As the maximum length of the URI that can be carried in IPv4 DHCP is
+        255 bytes, URIs longer than this SHOULD NOT be provisioned via
         IPv6 RA options.</t>
       </section>
     </section>
@@ -363,11 +364,16 @@
       <t>By removing or reducing the need for captive portals to perform MITM
       hijacking, this mechanism improves security by making the portal and its
       actions visible, rather than hidden, and reduces the likelihood that users
-      will disable useful security safeguards like DNSSEC validation, VPNs, etc.
+      will disable useful security safeguards like DNSSEC validation, VPNs, etc
+      in order to interact with the captive portal.
       In addition, because the system knows that it is behind a captive portal,
       it can know not to send cookies, credentials, etc.  By handing out a URI
       which is protected with TLS, the captive portal operator can attempt to
       reassure the user that the captive portal is not malicious.</t>
+
+      <t>Clients processing these options SHOULD validate that the option's
+      contents conform to the validation requirements for URIs, including
+      <xref target="RFC3986"/>.</t>
 
       <t>Each of the options described in this document is presented to a node
       using the same protocols used to provision other information critical
@@ -388,9 +394,11 @@
       interception, the attacker may have an easier time performing the
       attack.</t>
 
-      <t>However, as the operating systems and application that make use of this
-      information know that they are connecting to a captive-portal device (as
-      opposed to intercepted connections) they can render the page in a
+      <t>However, as the operating systems and application(s) that make use of
+      this information know that they are connecting to a captive-portal device
+      (as opposed to intercepted connections where the OS/application may not
+      know that they are connecting to a captive portal or hostile device)
+      they can render the page in a
       sandboxed environment and take other precautions, such as clearly
       labeling the page as untrusted. The means of sandboxing and user
       interface presenting this information is not covered in this document -
@@ -454,6 +462,7 @@
 
     <references title="Informative References">
       <?rfc include='reference.RFC.3679'?>
+      <?rfc include='reference.RFC.3779'?>
       <?rfc include='reference.RFC.6105'?>
       <?rfc include='reference.RFC.7113'?>
       <?rfc include='reference.RFC.7610'?>
@@ -485,7 +494,7 @@
       <t><list style="numbers">
           <t>Clarify that IP string literals are NOT RECOMMENDED.</t>
 
-          <t>Clarify that the option URI SHOULD be that of the captive portal
+          <t>Clarify that the option URI MUST be that of the captive portal
           API endpoint.</t>
 
           <t>Clarify that captive portals MAY do content negotiation.</t>
@@ -495,7 +504,7 @@
 
           <t>Added urn:ietf:params:capport:unrestricted URN.</t>
 
-          <t>Notes that the DHCP Code changed from 160 to 114.</t>
+          <t>Notes that the DHCPv4 Option Code changed from 160 to 114.</t>
         </list></t>
     </section>
 

@@ -102,7 +102,7 @@ Table of Contents
    6.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .   9
    7.  References  . . . . . . . . . . . . . . . . . . . . . . . . .   9
      7.1.  Normative References  . . . . . . . . . . . . . . . . . .   9
-     7.2.  Informative References  . . . . . . . . . . . . . . . . .  10
+     7.2.  Informative References  . . . . . . . . . . . . . . . . .  11
    Appendix A.  Changes / Author Notes.  . . . . . . . . . . . . . .  11
    Appendix B.  Changes from RFC 7710  . . . . . . . . . . . . . . .  12
    Appendix C.  Observations From IETF 106 Network Experiment  . . .  12
@@ -203,19 +203,19 @@ Internet-Draft             DHCP Captive-Portal                 June 2020
    The URI SHOULD NOT contain an IP address literal.  Exceptions to this
    might include networks with only one operational IP address family
    where DNS is either not available or not fully functional until the
-   captive portal has been satisfied.
+   captive portal has been satisfied.  Use of iPAddress certificates
+   ([RFC3779]) adds considerations that are out of scope for this
+   document.
 
-   Networks with no captive portals MAY explicitly indicate this
+   Networks with no captive portals may explicitly indicate this
    condition by using this option with the IANA-assigned URI for this
    purpose.  Clients observing the URI value
-   "urn:ietf:params:capport:unrestricted" MAY forego time-consuming
+   "urn:ietf:params:capport:unrestricted" may forego time-consuming
    forms of captive portal detection.
 
 2.1.  IPv4 DHCP Option
 
    The format of the IPv4 Captive-Portal DHCP option is shown below.
-
-
 
 
 
@@ -239,7 +239,7 @@ Internet-Draft             DHCP Captive-Portal                 June 2020
 
    o  Code: The Captive-Portal DHCPv4 Option (114) (one octet)
 
-   o  Len: The length (one octet), in octets of the URI.
+   o  Len: The length (one octet), in octets, of the URI.
 
    o  URI: The URI for the captive portal API endpoint to which the user
       should connect (encoded following the rules in [RFC3986]).
@@ -284,9 +284,9 @@ Kumari & Kline          Expires December 25, 2020               [Page 5]
 Internet-Draft             DHCP Captive-Portal                 June 2020
 
 
-   The maximum length of the URI that can be carried in IPv4 DHCP is 255
-   bytes, so URIs longer than 255 bytes SHOULD NOT be provisioned via
-   IPv6 DHCP options.
+   As the maximum length of the URI that can be carried in IPv4 DHCP is
+   255 bytes, URIs longer than this SHOULD NOT be provisioned via IPv6
+   DHCP options.
 
 2.3.  The Captive-Portal IPv6 RA Option
 
@@ -310,15 +310,15 @@ Internet-Draft             DHCP Captive-Portal                 June 2020
       the Type and Length fields) in units of 8 bytes.
 
    URI  The URI for the captive portal API endpoint to which the user
-      should connect.  This MUST be padded with NULL (0x00) to make the
+      should connect.  This MUST be padded with NUL (0x00) to make the
       total option length (including the Type and Length fields) a
       multiple of 8 bytes.
 
    Note that the URI parameter is not guaranteed to be null terminated.
 
-   The maximum length of the URI that can be carried in IPv4 DHCP is 255
-   bytes, so URIs longer than 255 bytes SHOULD NOT be provisioned via
-   IPv6 RA options.
+   As the maximum length of the URI that can be carried in IPv4 DHCP is
+   255 bytes, URIs longer than this SHOULD NOT be provisioned via IPv6
+   RA options.
 
 3.  Precedence of API URIs
 
@@ -413,11 +413,16 @@ Internet-Draft             DHCP Captive-Portal                 June 2020
    hijacking, this mechanism improves security by making the portal and
    its actions visible, rather than hidden, and reduces the likelihood
    that users will disable useful security safeguards like DNSSEC
-   validation, VPNs, etc.  In addition, because the system knows that it
-   is behind a captive portal, it can know not to send cookies,
-   credentials, etc.  By handing out a URI which is protected with TLS,
-   the captive portal operator can attempt to reassure the user that the
-   captive portal is not malicious.
+   validation, VPNs, etc in order to interact with the captive portal.
+   In addition, because the system knows that it is behind a captive
+   portal, it can know not to send cookies, credentials, etc.  By
+   handing out a URI which is protected with TLS, the captive portal
+   operator can attempt to reassure the user that the captive portal is
+   not malicious.
+
+   Clients processing these options SHOULD validate that the option's
+   contents conform to the validation requirements for URIs, including
+   [RFC3986].
 
    Each of the options described in this document is presented to a node
    using the same protocols used to provision other information critical
@@ -437,13 +442,8 @@ Internet-Draft             DHCP Captive-Portal                 June 2020
    interception, the attacker may have an easier time performing the
    attack.
 
-   However, as the operating systems and application that make use of
+   However, as the operating systems and application(s) that make use of
    this information know that they are connecting to a captive-portal
-   device (as opposed to intercepted connections) they can render the
-   page in a sandboxed environment and take other precautions, such as
-   clearly labeling the page as untrusted.  The means of sandboxing and
-   user interface presenting this information is not covered in this
-
 
 
 
@@ -452,8 +452,14 @@ Kumari & Kline          Expires December 25, 2020               [Page 8]
 Internet-Draft             DHCP Captive-Portal                 June 2020
 
 
-   document - by its nature it is implementation specific and best left
-   to the application and user interface designers.
+   device (as opposed to intercepted connections where the OS/
+   application may not know that they are connecting to a captive portal
+   or hostile device) they can render the page in a sandboxed
+   environment and take other precautions, such as clearly labeling the
+   page as untrusted.  The means of sandboxing and user interface
+   presenting this information is not covered in this document - by its
+   nature it is implementation specific and best left to the application
+   and user interface designers.
 
    Devices and systems that automatically connect to an open network
    could potentially be tracked using the techniques described in this
@@ -495,18 +501,16 @@ Internet-Draft             DHCP Captive-Portal                 June 2020
               RFC 2131, DOI 10.17487/RFC2131, March 1997,
               <https://www.rfc-editor.org/info/rfc2131>.
 
-   [RFC2132]  Alexander, S. and R. Droms, "DHCP Options and BOOTP Vendor
-              Extensions", RFC 2132, DOI 10.17487/RFC2132, March 1997,
-              <https://www.rfc-editor.org/info/rfc2132>.
-
-
-
 
 
 Kumari & Kline          Expires December 25, 2020               [Page 9]
 
 Internet-Draft             DHCP Captive-Portal                 June 2020
 
+
+   [RFC2132]  Alexander, S. and R. Droms, "DHCP Options and BOOTP Vendor
+              Extensions", RFC 2132, DOI 10.17487/RFC2132, March 1997,
+              <https://www.rfc-editor.org/info/rfc2132>.
 
    [RFC3553]  Mealling, M., Masinter, L., Hardie, T., and G. Klyne, "An
               IETF URN Sub-namespace for Registered Protocol
@@ -548,11 +552,7 @@ Internet-Draft             DHCP Captive-Portal                 June 2020
               RFC 8415, DOI 10.17487/RFC8415, November 2018,
               <https://www.rfc-editor.org/info/rfc8415>.
 
-7.2.  Informative References
 
-   [RFC3679]  Droms, R., "Unused Dynamic Host Configuration Protocol
-              (DHCP) Option Codes", RFC 3679, DOI 10.17487/RFC3679,
-              January 2004, <https://www.rfc-editor.org/info/rfc3679>.
 
 
 
@@ -563,6 +563,17 @@ Kumari & Kline          Expires December 25, 2020              [Page 10]
 
 Internet-Draft             DHCP Captive-Portal                 June 2020
 
+
+7.2.  Informative References
+
+   [RFC3679]  Droms, R., "Unused Dynamic Host Configuration Protocol
+              (DHCP) Option Codes", RFC 3679, DOI 10.17487/RFC3679,
+              January 2004, <https://www.rfc-editor.org/info/rfc3679>.
+
+   [RFC3779]  Lynn, C., Kent, S., and K. Seo, "X.509 Extensions for IP
+              Addresses and AS Identifiers", RFC 3779,
+              DOI 10.17487/RFC3779, June 2004,
+              <https://www.rfc-editor.org/info/rfc3779>.
 
    [RFC6105]  Levy-Abegnoli, E., Van de Velde, G., Popoviciu, C., and J.
               Mohacsi, "IPv6 Router Advertisement Guard", RFC 6105,
@@ -601,17 +612,6 @@ Appendix A.  Changes / Author Notes.
 
    o  Import of RFC7710.
 
-   From -00 to -01.
-
-   o  Remove link-relation text.
-
-   o  Clarify option should be in DHCPREQUEST parameter list.
-
-   o  Uppercase some SHOULDs.
-
-
-
-
 
 
 
@@ -620,13 +620,21 @@ Kumari & Kline          Expires December 25, 2020              [Page 11]
 Internet-Draft             DHCP Captive-Portal                 June 2020
 
 
+   From -00 to -01.
+
+   o  Remove link-relation text.
+
+   o  Clarify option should be in DHCPREQUEST parameter list.
+
+   o  Uppercase some SHOULDs.
+
 Appendix B.  Changes from RFC 7710
 
    This document incorporates the following changes from [RFC7710].
 
    1.  Clarify that IP string literals are NOT RECOMMENDED.
 
-   2.  Clarify that the option URI SHOULD be that of the captive portal
+   2.  Clarify that the option URI MUST be that of the captive portal
        API endpoint.
 
    3.  Clarify that captive portals MAY do content negotiation.
@@ -636,7 +644,7 @@ Appendix B.  Changes from RFC 7710
 
    5.  Added urn:ietf:params:capport:unrestricted URN.
 
-   6.  Notes that the DHCP Code changed from 160 to 114.
+   6.  Notes that the DHCPv4 Option Code changed from 160 to 114.
 
 Appendix C.  Observations From IETF 106 Network Experiment
 
@@ -654,14 +662,6 @@ Appendix C.  Observations From IETF 106 Network Experiment
 
 Authors' Addresses
 
-   Warren Kumari
-   Google
-   1600 Amphitheatre Parkway
-   Mountain View, CA  94043
-   US
-
-   Email: warren@kumari.net
-
 
 
 
@@ -676,6 +676,15 @@ Kumari & Kline          Expires December 25, 2020              [Page 12]
 Internet-Draft             DHCP Captive-Portal                 June 2020
 
 
+   Warren Kumari
+   Google
+   1600 Amphitheatre Parkway
+   Mountain View, CA  94043
+   US
+
+   Email: warren@kumari.net
+
+
    Erik Kline
    Loon
    1600 Amphitheatre Parkway
@@ -683,15 +692,6 @@ Internet-Draft             DHCP Captive-Portal                 June 2020
    US
 
    Email: ek@loon.com
-
-
-
-
-
-
-
-
-
 
 
 
