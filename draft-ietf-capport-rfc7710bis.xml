@@ -64,7 +64,7 @@
       </address>
     </author>
 
-    <date month="May" year="2020"/>
+    <date month="June" year="2020"/>
 
     <abstract>
       <t>In many environments offering short-term or temporary Internet access
@@ -81,7 +81,7 @@
       component of a standardized approach for hosts to interact with such
       portals. While this document defines how the network operator may convey
       the captive portal API endpoint to hosts, the specific methods of
-      authenticating to, and interacting with the captive portal are out of
+      satisfying and interacting with the captive portal are out of
       scope of this document.</t>
 
       <t>This document replaces <xref target="RFC7710"/>.  <xref target="RFC7710"/>
@@ -149,14 +149,13 @@
       captive network can provision the client with the URI via multiple methods (IPv4 DHCP, IPv6
       DHCP, and IPv6 RA). The captive portal operator SHOULD ensure that the URIs
       provisioned by each method are identical to reduce the chance of operational problems.
-      The maximum length of the URI that can be carried in IPv4 DHCP is 255
-      bytes, so URIs longer than 255 bytes SHOULD NOT be provisioned by any of
-      the IPv6 options described in this document.  In IPv6-only environments
+      As the maximum length of the URI that can be carried in IPv4 DHCP is 255
+      bytes, URIs longer than this SHOULD NOT be provisioned by any of the IPv6
+      options described in this document.  In IPv6-only environments
       this restriction can be relaxed.</t>
 
       <t>In all variants of this option, the URI MUST be that of the captive
-      portal API endpoint, conforming to the recommendations for such URIs
-      [draft-ietf-capport-api].
+      portal API endpoint [draft-ietf-capport-api].
       </t>
 
       <t>A captive portal MAY do content negotiation (<xref target="RFC7231"/>
@@ -169,9 +168,9 @@
       content negotiation (<xref target="RFC7231"/> Section 3.4), implementors
       of captive portals need to keep in mind that such responses might be
       cached, and therefore SHOULD include an appropriate Vary header field
-      (<xref target="RFC7231"/> Section 7.1.4) or mark them explicitly
-      uncacheable (for example, using
-      Cache-Control: no-store <xref target="RFC7234"/> Section 5.2.2.3).
+      (<xref target="RFC7231"/> Section 7.1.4) or set the Cache-Control header
+      field in any responses to "private", or a more restrictive value such as
+      "no-store" <xref target="RFC7234"/> Section 5.2.2.3).
       </t>
 
       <t>The URI SHOULD NOT contain an IP address literal. Exceptions to this
@@ -296,7 +295,7 @@
       the DHCPv4 option, or vice versa, et cetera).</t>
 
       <t>If the URIs learned via more than one option described in <xref
-      target="option"/> are not all identical, this condition SHOULD be logged
+      target="option"/> are not all identical, this condition should be logged
       for the device owner or administrator; it is a network configuration error
       if the learned URIs are not all identical.</t>
     </section>
