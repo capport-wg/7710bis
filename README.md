@@ -20,11 +20,11 @@ Abstract
    In many environments offering short-term or temporary Internet access
    (such as coffee shops), it is common to start new connections in a
    captive portal mode.  This highly restricts what the user can do
-   until the user has satified the Captive Portal conditions.
+   until the user has satisfied the captive portal conditions.
 
    This document describes a DHCPv4 and DHCPv6 option and a Router
    Advertisement (RA) option to inform clients that they are behind some
-   sort of captive-portal enforcement device, and that they will need to
+   sort of captive portal enforcement device, and that they will need to
    satify the Captive Portal conditions to get Internet access.  It is
    not a full solution to address all of the issues that clients may
    have with captive portals; it is designed to be one component of a
@@ -102,7 +102,7 @@ Table of Contents
 
 1.  Introduction
 
-   In many environments, users need to connect to a captive-portal
+   In many environments, users need to connect to a captive portal
    device and agree to an Acceptable Use Policy (AUP) and / or provide
    billing information before they can access the Internet.  Regardless
    of how that mechanism operates, this document provides functionality
@@ -117,7 +117,7 @@ Internet-Draft             DHCP Captive-Portal                 July 2020
 
 
    In order to present users with the payment or AUP pages, presently a
-   captive-portal enforcement device has to intercept the user's
+   captive portal enforcement device has to intercept the user's
    connections and redirect the user to a captive portal server, using
    methods that are very similar to man-in-the-middle (MITM) attacks.
    As increasing focus is placed on security, and end nodes adopt a more
@@ -126,7 +126,7 @@ Internet-Draft             DHCP Captive-Portal                 July 2020
 
    This document describes a DHCPv4 [RFC2131] and DHCPv6 [RFC8415]
    option (Captive-Portal) and an IPv6 Router Advertisement (RA)
-   [RFC4861] option that informs clients that they are behind a captive-
+   [RFC4861] option that informs clients that they are behind a captive
    portal enforcement device and the API endpoint that the host can
    contact for more information.
 
@@ -142,7 +142,7 @@ Internet-Draft             DHCP Captive-Portal                 July 2020
 
 2.  The Captive-Portal Option
 
-   The Captive Portal DHCP / RA Option informs the client that it may be
+   The Captive-Portal DHCP / RA Option informs the client that it may be
    behind a captive portal and provides the URI to access an API as
    defined by [draft-ietf-capport-api].  This is primarily intended to
    improve the user experience by showing the user the captive portal
@@ -432,7 +432,7 @@ Internet-Draft             DHCP Captive-Portal                 July 2020
    attack.
 
    However, as the operating systems and application(s) that make use of
-   this information know that they are connecting to a captive-portal
+   this information know that they are connecting to a captive portal
    device (as opposed to intercepted connections where the OS/
    application may not know that they are connecting to a captive portal
    or hostile device) they can render the page in a sandboxed
