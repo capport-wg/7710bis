@@ -87,12 +87,6 @@
       <t>This document replaces <xref target="RFC7710"/>.  <xref target="RFC7710"/>
       used DHCP code point 160.  Due to a conflict, this document specifies 114.
       Consequently, this document also updates <xref target="RFC3679"/>.</t>
-
-      <t>[ This document is being collaborated on in Github at:
-      https://github.com/capport-wg/7710bis. The most
-      recent version of the document, open issues, etc should all be available
-      here. The authors (gratefully) accept pull requests. Text in square
-      brackets will be removed before publication. ]</t>
     </abstract>
   </front>
 
@@ -140,7 +134,7 @@
       clients, and clients will need to perform probing to detect captive
       portals"; nonetheless, the mechanism provided by this document provides
       a more reliable and performant way to do so, and is therefore the preferred
-      mechanism for captive-portal detection.</t>
+      mechanism for captive portal detection.</t>
 
       <t>Clients that support the Captive Portal DHCP option SHOULD include the
       option in the Parameter Request List in DHCPREQUEST messages. DHCP servers
