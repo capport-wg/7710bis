@@ -4,7 +4,7 @@
 <!ENTITY rfc8174 PUBLIC "" ".//reference.RFC.8174.xml">
 ]>
 <!-- WK: Set category, IPR, docName -->
-<rfc category="std" docName="draft-ietf-capport-rfc7710bis-09"
+<rfc category="std" docName="draft-ietf-capport-rfc7710bis-10"
      ipr="trust200902" obsoletes="7710" updates="3679">
   <?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
 
@@ -64,7 +64,7 @@
       </address>
     </author>
 
-    <date month="June" year="2020"/>
+    <date month="July" year="2020"/>
 
     <abstract>
       <t>In many environments offering short-term or temporary Internet access
@@ -138,7 +138,9 @@
       reliably. Note that, for the foreseeable future, captive portals will
       still need to implement interception techniques to serve legacy
       clients, and clients will need to perform probing to detect captive
-      portals.</t>
+      portals"; nonetheless, the mechanism provided by this document provides
+      a more reliable and performant way to do so, and is therefore the preferred
+      mechanism for captive-portal detection.</t>
 
       <t>Clients that support the Captive Portal DHCP option SHOULD include the
       option in the Parameter Request List in DHCPREQUEST messages. DHCP servers

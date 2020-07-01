@@ -8,12 +8,12 @@ Network Working Group                                          W. Kumari
 Internet-Draft                                                    Google
 Obsoletes: 7710 (if approved)                                   E. Kline
 Updates: 3679 (if approved)                                         Loon
-Intended status: Standards Track                           June 24, 2020
-Expires: December 26, 2020
+Intended status: Standards Track                            July 1, 2020
+Expires: January 2, 2021
 
 
                Captive-Portal Identification in DHCP / RA
-                    draft-ietf-capport-rfc7710bis-09
+                    draft-ietf-capport-rfc7710bis-10
 
 Abstract
 
@@ -55,9 +55,9 @@ Status of This Memo
 
 
 
-Kumari & Kline          Expires December 26, 2020               [Page 1]
+Kumari & Kline           Expires January 2, 2021                [Page 1]
 
-Internet-Draft             DHCP Captive-Portal                 June 2020
+Internet-Draft             DHCP Captive-Portal                 July 2020
 
 
    working documents as Internet-Drafts.  The list of current Internet-
@@ -68,7 +68,7 @@ Internet-Draft             DHCP Captive-Portal                 June 2020
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on December 26, 2020.
+   This Internet-Draft will expire on January 2, 2021.
 
 Copyright Notice
 
@@ -90,7 +90,7 @@ Table of Contents
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   3
      1.1.  Requirements Notation . . . . . . . . . . . . . . . . . .   3
    2.  The Captive-Portal Option . . . . . . . . . . . . . . . . . .   3
-     2.1.  IPv4 DHCP Option  . . . . . . . . . . . . . . . . . . . .   4
+     2.1.  IPv4 DHCP Option  . . . . . . . . . . . . . . . . . . . .   5
      2.2.  IPv6 DHCP Option  . . . . . . . . . . . . . . . . . . . .   5
      2.3.  The Captive-Portal IPv6 RA Option . . . . . . . . . . . .   6
    3.  Precedence of API URIs  . . . . . . . . . . . . . . . . . . .   6
@@ -111,9 +111,9 @@ Table of Contents
 
 
 
-Kumari & Kline          Expires December 26, 2020               [Page 2]
+Kumari & Kline           Expires January 2, 2021                [Page 2]
 
-Internet-Draft             DHCP Captive-Portal                 June 2020
+Internet-Draft             DHCP Captive-Portal                 July 2020
 
 
 1.  Introduction
@@ -158,19 +158,24 @@ Internet-Draft             DHCP Captive-Portal                 June 2020
    information faster and more reliably.  Note that, for the foreseeable
    future, captive portals will still need to implement interception
    techniques to serve legacy clients, and clients will need to perform
-   probing to detect captive portals.
+   probing to detect captive portals"; nonetheless, the mechanism
+   provided by this document provides a more reliable and performant way
+   to do so, and is therefore the preferred mechanism for captive-portal
+   detection.
+
+
+
+
+
+Kumari & Kline           Expires January 2, 2021                [Page 3]
+
+Internet-Draft             DHCP Captive-Portal                 July 2020
+
 
    Clients that support the Captive Portal DHCP option SHOULD include
    the option in the Parameter Request List in DHCPREQUEST messages.
    DHCP servers MAY send the Captive Portal option without any explicit
    request.
-
-
-
-Kumari & Kline          Expires December 26, 2020               [Page 3]
-
-Internet-Draft             DHCP Captive-Portal                 June 2020
-
 
    In order to support multiple "classes" of clients (e.g.  IPv4 only,
    IPv6 only with DHCPv6 ([RFC8415]), and IPv6 only with RA) the captive
@@ -213,20 +218,19 @@ Internet-Draft             DHCP Captive-Portal                 June 2020
    "urn:ietf:params:capport:unrestricted" may forego time-consuming
    forms of captive portal detection.
 
+
+
+
+
+
+Kumari & Kline           Expires January 2, 2021                [Page 4]
+
+Internet-Draft             DHCP Captive-Portal                 July 2020
+
+
 2.1.  IPv4 DHCP Option
 
    The format of the IPv4 Captive-Portal DHCP option is shown below.
-
-
-
-
-
-
-
-Kumari & Kline          Expires December 26, 2020               [Page 4]
-
-Internet-Draft             DHCP Captive-Portal                 June 2020
-
 
        0                   1                   2                   3
        0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -272,17 +276,15 @@ Internet-Draft             DHCP Captive-Portal                 June 2020
    URIs.  See [RFC8415], Section 21.1 for more on the format of IPv6
    DHCP options.
 
-   Note that the URI parameter is not null terminated.
 
 
 
-
-
-
-Kumari & Kline          Expires December 26, 2020               [Page 5]
+Kumari & Kline           Expires January 2, 2021                [Page 5]
 
-Internet-Draft             DHCP Captive-Portal                 June 2020
+Internet-Draft             DHCP Captive-Portal                 July 2020
 
+
+   Note that the URI parameter is not null terminated.
 
    As the maximum length of the URI that can be carried in IPv4 DHCP is
    255 bytes, URIs longer than this SHOULD NOT be provisioned via IPv6
@@ -329,16 +331,17 @@ Internet-Draft             DHCP Captive-Portal                 June 2020
 
    If the URIs learned via more than one option described in Section 2
    are not all identical, this condition should be logged for the device
+
+
+
+
+Kumari & Kline           Expires January 2, 2021                [Page 6]
+
+Internet-Draft             DHCP Captive-Portal                 July 2020
+
+
    owner or administrator; it is a network configuration error if the
    learned URIs are not all identical.
-
-
-
-
-Kumari & Kline          Expires December 26, 2020               [Page 6]
-
-Internet-Draft             DHCP Captive-Portal                 June 2020
-
 
 4.  IANA Considerations
 
@@ -388,12 +391,9 @@ Internet-Draft             DHCP Captive-Portal                 June 2020
 
 
 
-
-
-
-Kumari & Kline          Expires December 26, 2020               [Page 7]
+Kumari & Kline           Expires January 2, 2021                [Page 7]
 
-Internet-Draft             DHCP Captive-Portal                 June 2020
+Internet-Draft             DHCP Captive-Portal                 July 2020
 
 
    Tag: 160
@@ -447,9 +447,9 @@ Internet-Draft             DHCP Captive-Portal                 June 2020
 
 
 
-Kumari & Kline          Expires December 26, 2020               [Page 8]
+Kumari & Kline           Expires January 2, 2021                [Page 8]
 
-Internet-Draft             DHCP Captive-Portal                 June 2020
+Internet-Draft             DHCP Captive-Portal                 July 2020
 
 
    device (as opposed to intercepted connections where the OS/
@@ -503,9 +503,9 @@ Internet-Draft             DHCP Captive-Portal                 June 2020
 
 
 
-Kumari & Kline          Expires December 26, 2020               [Page 9]
+Kumari & Kline           Expires January 2, 2021                [Page 9]
 
-Internet-Draft             DHCP Captive-Portal                 June 2020
+Internet-Draft             DHCP Captive-Portal                 July 2020
 
 
    [RFC2132]  Alexander, S. and R. Droms, "DHCP Options and BOOTP Vendor
@@ -559,9 +559,9 @@ Internet-Draft             DHCP Captive-Portal                 June 2020
 
 
 
-Kumari & Kline          Expires December 26, 2020              [Page 10]
+Kumari & Kline           Expires January 2, 2021               [Page 10]
 
-Internet-Draft             DHCP Captive-Portal                 June 2020
+Internet-Draft             DHCP Captive-Portal                 July 2020
 
 
 7.2.  Informative References
@@ -615,9 +615,9 @@ Appendix A.  Changes / Author Notes.
 
 
 
-Kumari & Kline          Expires December 26, 2020              [Page 11]
+Kumari & Kline           Expires January 2, 2021               [Page 11]
 
-Internet-Draft             DHCP Captive-Portal                 June 2020
+Internet-Draft             DHCP Captive-Portal                 July 2020
 
 
    From -00 to -01.
@@ -671,9 +671,9 @@ Authors' Addresses
 
 
 
-Kumari & Kline          Expires December 26, 2020              [Page 12]
+Kumari & Kline           Expires January 2, 2021               [Page 12]
 
-Internet-Draft             DHCP Captive-Portal                 June 2020
+Internet-Draft             DHCP Captive-Portal                 July 2020
 
 
    Warren Kumari
@@ -727,5 +727,5 @@ Internet-Draft             DHCP Captive-Portal                 June 2020
 
 
 
-Kumari & Kline          Expires December 26, 2020              [Page 13]
+Kumari & Kline           Expires January 2, 2021               [Page 13]
 ```
