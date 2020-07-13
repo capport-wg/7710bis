@@ -8,12 +8,12 @@ Network Working Group                                          W. Kumari
 Internet-Draft                                                    Google
 Obsoletes: 7710 (if approved)                                   E. Kline
 Updates: 3679 (if approved)                                         Loon
-Intended status: Standards Track                            July 1, 2020
-Expires: January 2, 2021
+Intended status: Standards Track                           July 13, 2020
+Expires: January 14, 2021
 
 
                Captive-Portal Identification in DHCP / RA
-                    draft-ietf-capport-rfc7710bis-10
+                    draft-ietf-capport-rfc7710bis-11
 
 Abstract
 
@@ -55,12 +55,12 @@ Status of This Memo
 
 
 
-Kumari & Kline           Expires January 2, 2021                [Page 1]
+Kumari & Kline          Expires January 14, 2021                [Page 1]
 
 Internet-Draft             DHCP Captive-Portal                 July 2020
 
 
-   This Internet-Draft will expire on January 2, 2021.
+   This Internet-Draft will expire on January 14, 2021.
 
 Copyright Notice
 
@@ -111,7 +111,7 @@ Table of Contents
 
 
 
-Kumari & Kline           Expires January 2, 2021                [Page 2]
+Kumari & Kline          Expires January 14, 2021                [Page 2]
 
 Internet-Draft             DHCP Captive-Portal                 July 2020
 
@@ -167,7 +167,7 @@ Internet-Draft             DHCP Captive-Portal                 July 2020
 
 
 
-Kumari & Kline           Expires January 2, 2021                [Page 3]
+Kumari & Kline          Expires January 14, 2021                [Page 3]
 
 Internet-Draft             DHCP Captive-Portal                 July 2020
 
@@ -223,7 +223,7 @@ Internet-Draft             DHCP Captive-Portal                 July 2020
 
 
 
-Kumari & Kline           Expires January 2, 2021                [Page 4]
+Kumari & Kline          Expires January 14, 2021                [Page 4]
 
 Internet-Draft             DHCP Captive-Portal                 July 2020
 
@@ -279,7 +279,7 @@ Internet-Draft             DHCP Captive-Portal                 July 2020
 
 
 
-Kumari & Kline           Expires January 2, 2021                [Page 5]
+Kumari & Kline          Expires January 14, 2021                [Page 5]
 
 Internet-Draft             DHCP Captive-Portal                 July 2020
 
@@ -335,7 +335,7 @@ Internet-Draft             DHCP Captive-Portal                 July 2020
 
 
 
-Kumari & Kline           Expires January 2, 2021                [Page 6]
+Kumari & Kline          Expires January 14, 2021                [Page 6]
 
 Internet-Draft             DHCP Captive-Portal                 July 2020
 
@@ -349,7 +349,7 @@ Internet-Draft             DHCP Captive-Portal                 July 2020
 
    Reference:  RFC TBD (this document)
 
-   IANA Registry Reference:  [RFC3553]
+   IANA Registry Reference:  RFC TBD (this document)
 
    Only one value is defined (see URN above).  No hierarchy is defined
    and therefore no sub-namespace registrations are possible.
@@ -391,7 +391,7 @@ Internet-Draft             DHCP Captive-Portal                 July 2020
 
 
 
-Kumari & Kline           Expires January 2, 2021                [Page 7]
+Kumari & Kline          Expires January 14, 2021                [Page 7]
 
 Internet-Draft             DHCP Captive-Portal                 July 2020
 
@@ -447,7 +447,7 @@ Internet-Draft             DHCP Captive-Portal                 July 2020
 
 
 
-Kumari & Kline           Expires January 2, 2021                [Page 8]
+Kumari & Kline          Expires January 14, 2021                [Page 8]
 
 Internet-Draft             DHCP Captive-Portal                 July 2020
 
@@ -503,7 +503,7 @@ Internet-Draft             DHCP Captive-Portal                 July 2020
 
 
 
-Kumari & Kline           Expires January 2, 2021                [Page 9]
+Kumari & Kline          Expires January 14, 2021                [Page 9]
 
 Internet-Draft             DHCP Captive-Portal                 July 2020
 
@@ -559,7 +559,7 @@ Internet-Draft             DHCP Captive-Portal                 July 2020
 
 
 
-Kumari & Kline           Expires January 2, 2021               [Page 10]
+Kumari & Kline          Expires January 14, 2021               [Page 10]
 
 Internet-Draft             DHCP Captive-Portal                 July 2020
 
@@ -615,7 +615,7 @@ Appendix A.  Changes / Author Notes.
 
 
 
-Kumari & Kline           Expires January 2, 2021               [Page 11]
+Kumari & Kline          Expires January 14, 2021               [Page 11]
 
 Internet-Draft             DHCP Captive-Portal                 July 2020
 
@@ -671,7 +671,7 @@ Authors' Addresses
 
 
 
-Kumari & Kline           Expires January 2, 2021               [Page 12]
+Kumari & Kline          Expires January 14, 2021               [Page 12]
 
 Internet-Draft             DHCP Captive-Portal                 July 2020
 
@@ -727,5 +727,5 @@ Internet-Draft             DHCP Captive-Portal                 July 2020
 
 
 
-Kumari & Kline           Expires January 2, 2021               [Page 13]
+Kumari & Kline          Expires January 14, 2021               [Page 13]
 ```
